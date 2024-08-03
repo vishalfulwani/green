@@ -1,18 +1,15 @@
-import mongoose , {Schema} from 'mongoose'
-import bcrypt from 'bcrypt'
+import mongoose , {Document,Schema} from 'mongoose'
 
 
 export interface IProduct extends Document{
+    _id:mongoose.Types.ObjectId;
     productName:string;
     productDesc:string;
     price:string;
-    productImage1:string;
-    productImage2:string;
-    productImage3:string;
-    productImage4:string;
+    images:string[]
 }
 
-const productSchema = new Schema({
+const productSchema:Schema<IProduct> = new Schema({
     productName:{
         type:String,
         required:true,
@@ -25,22 +22,10 @@ const productSchema = new Schema({
         type:String,
         required:true,
     },
-    productImage1:{
-        type:String,
+    images:{
+        type:[String],
         required:true,
     },
-    productImage2:{
-        type:String,
-        required:true,
-    },
-    productImage3:{
-        type:String,
-        required:true,
-    },
-    productImage4:{
-        type:String,
-        required:true,
-    }
 },{timestamps:true})
 
 

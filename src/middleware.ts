@@ -29,6 +29,11 @@ export async function middleware(request: NextRequest) {
       console.log("shiift22222")
         return NextResponse.redirect(new URL("/signin", origin).toString());
     }
+    if (token?.role !== "admin" &&
+      (pathname.startsWith('/admin'))
+    ){
+      return NextResponse.redirect(new URL("/dashboard", origin).toString());
+    }
     console.log("no shifttt")
 }
  
