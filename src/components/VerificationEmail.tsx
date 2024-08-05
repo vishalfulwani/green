@@ -13,6 +13,7 @@ export default function VerificationEmail({userName,otp}:verififcationEmailProps
     return(
 
         <Html lang="en">
+            
             <Head>
                 <title>Email Verification</title>
                 <Font

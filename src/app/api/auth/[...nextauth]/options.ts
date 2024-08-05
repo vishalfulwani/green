@@ -18,32 +18,39 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials:any):Promise<any>{
                 await dbConnect()
+                console.log("****")
                 try {
-                    console.log(credentials.identifier,"===")
+                    console.log("****")
+                    // console.log(credentials.identifier.email,"===")
+                    console.log(credentials.email,"===")
+                    console.log("***")
+                    // console.log(credentials.password,"===")
                     const user = await UserModel.findOne({
                         $or:[
-                            {email : credentials.identifier},
+                            {email : credentials.email},
                             // {userName : credentials.identifier.userName},
                         ]
                     })
+                    console.log("***")
                     console.log(user,"oooo")
                     if (!user){
+                        console.log("***")
                         throw new Error('No user found with this email')
                     }
                     if (!user.isVerified){
+                        console.log("***verified")
                         throw new Error('Please verify your account before login')
                     }
+                    console.log(credentials.password , "kkkk",user.password)
                     const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password)
+                    console.log("correct",isPasswordCorrect)
                     if (isPasswordCorrect){
                         return user
                     }
-                    else{
-                        throw new Error('Incorrect Password')
-                    }
-
-
-                } catch (error:any) {
-                    throw new Error("Error while logging")                    
+                    throw new Error('Incorrect Password')
+                } 
+                catch (error) {
+                    throw new Error("Email or Password is incorrect")                    
                 }
             }
         })
@@ -55,6 +62,7 @@ export const authOptions: NextAuthOptions = {
                 token.isVerified = user.isVerified
                 token.isAcceptingMessage = user.isAcceptingMessage
                 token.userName = user.userName
+                token.role = user.role
 
             }
            return token
@@ -65,6 +73,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.isVerified = token.isVerified
                 session.user.isAcceptingMessage = token.isAcceptingMessage
                 session.user.userName = token.userName
+                session.user.role = token.role
                 
             }
             

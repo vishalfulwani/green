@@ -1,13 +1,14 @@
-import VerificationEmail from "@/components/VerificationEmail";
+
 import { resend } from "@/lib/resend";
 import { ApiError } from "./ApiError";
 import { ApiResponse } from "./ApiResponse";
+import VerificationEmail from "@/components/VerificationEmail";
 
 export async function sendVerificationEmail(
     email: string,
     userName:string,
     verifyCode:string,
-): Promise<ApiResponse<JSON>>{
+): Promise<ApiResponse>{
 
     try {
         await resend.emails.send({

@@ -18,6 +18,7 @@ export async function POST(req: Request) {
 
     try {
         const { code, userName }: RequestBody = await req.json()
+        console.log(code,"***",userName)
 
         const user = await UserModel.findOne({ userName })
 

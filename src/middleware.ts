@@ -7,13 +7,9 @@ import { getToken } from "next-auth/jwt"
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
     const token = await getToken({req:request})
-    console.log("hello",token)
     const url = request.nextUrl
-    console.log(url,"urllllllllll")
-    console.log("[][]{}{}",new URL(request.url),"{}[][]")
 
     const { pathname, origin } = new URL(request.url);
-    console.log(pathname,"pathhl",origin)
   if (
       token &&
       (pathname.startsWith("/signin") ||
@@ -21,20 +17,18 @@ export async function middleware(request: NextRequest) {
         pathname === "/" ||
         pathname.startsWith("/verify"))
     ) {
-      console.log("shiift")
-      return NextResponse.redirect(new URL("/dashboard", origin).toString());
+      // return NextResponse.redirect(new URL("/home", origin).toString());
     }
     
-    if (!token && url.pathname.startsWith('/dashboard')){
-      console.log("shiift22222")
-        return NextResponse.redirect(new URL("/signin", origin).toString());
-    }
+    // if (!token && url.pathname.startsWith('/home')){
+    //     return NextResponse.redirect(new URL("/signin", origin).toString());
+    // }
+
     if (token?.role !== "admin" &&
       (pathname.startsWith('/admin'))
     ){
       return NextResponse.redirect(new URL("/dashboard", origin).toString());
     }
-    console.log("no shifttt")
 }
  
 // See "Matching Paths" below to learn more
