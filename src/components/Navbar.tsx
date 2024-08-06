@@ -12,21 +12,26 @@ const Navbar = () => {
 
     return (
         <>
-        <nav className="px-4 py-4 shadow-md">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-                <a href="#" className="text-xl font-bold mb-4 md:mb-0 w-40">Green Foundation</a>
+        <nav className="px-4 py-4 shadow-md bg-mixed-color text-white">
+            <div className="container  flex flex-row justify-between items-center">
+                <a href="#" className="text-xl font-bold  ">Green Foundation</a>
+
+                <div className="flex gap-5 items-center">
+                    <Link href="/">Home</Link>
+                    <Link href="/about">About</Link>
+                    <Link href="/project">Project</Link>
+                    <Link href="/getinvolved">Get Involved</Link>
+                </div>
                 {
-                    session ? (
-                        <>
-                        <div className="flex justify-between items-center ">
-                        <Button className="w-15" onClick={()=> signOut}>Logout</Button>
-                        </div>
-                        </>
-                    ):(
-                        <Link href='/signin'>
-                            <Button className="w-full">Login</Button>
-                        </Link>
-                    )
+                    // session ? (
+                    //     <>
+                    //     <div className="flex justify-center items-center ">
+                    //     <a className="button button-green" onClick={()=> signOut}>Logout</a>
+                    //     </div>
+                    //     </>
+                    // ):(
+                            <Link href='/signup' className="button button-green">Sign Up</Link>
+                    // )
                 }
             </div>
         </nav>

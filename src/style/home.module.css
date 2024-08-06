@@ -1,0 +1,180 @@
+/* tree plantation section */
+
+.treePlantationSection {
+    padding: 4rem 1.5rem;
+    background: rgb(216 230 216);
+    text-align: center;
+  }
+  
+  .treePlantationSectionContainer {
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  .heading {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom : 10px;
+    }
+    .descreption {
+        font-size: 20px;
+        margin-bottom : 20px;
+  }
+
+
+  .cardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    color: black;
+  }
+  
+  .card {
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    background-image: url('https://tse4.mm.bing.net/th?id=OIP.Kt59bAquvC7eEs1ZDpeylwHaHS&pid=Api&P=0&h=180');
+    background-image: url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png');
+    background-position: initial;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border-top: 4px solid green;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+  }
+  
+  .card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    border-radius: 50%;
+  }
+  
+  .card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .buttonContainer {
+    text-align: center;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .successStory {
+    margin-top: 4rem;
+  }
+  
+  .story {
+    display: flex;
+    align-items: start;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .story img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+  }
+  
+  .storyAuthor {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+  
+  .faq {
+    margin-top: 4rem;
+  }
+  
+  .faqItem {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 2px solid #48bb78;
+    margin-bottom: 1.5rem;
+  }
+  
+  .faqItem h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .faqItem p {
+    color: #4a5568;
+  }
+
+
+  /* Donation utilization  */
+
+  .donationUtilization {
+    padding: 4rem 1.5rem;
+    background: #f4f9f4;
+    color: #333;
+    background-image: url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+  
+  .donationUtilizationContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  .steps {
+    display: grid;
+    gap: 2rem;
+  }
+  
+  .step {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+
+    background: rgba(255, 255, 255, 0.25); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18); 
+  }
+  
+  .step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .step p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .callToAction {
+    margin-top: 4rem;
+    text-align: center;
+  }
+  
+  .callToAction p {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  

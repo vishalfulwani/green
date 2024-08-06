@@ -80,3 +80,42 @@
   border-left:3px solid red;
   color:black
 }
+.bg-mixed-color {
+  background: linear-gradient(90deg, #0c432b 0%, #5a7269 100%);
+}
+
+
+/* button */
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.button-green {
+  background-color: #48bb78;
+  color: white;
+}
+
+.button-green:hover {
+  background-color: #34d399;
+  transform: scale(1.05);
+}
+
+.button-outline {
+  background-color: transparent;
+  border: 2px solid #48bb78;
+  color: #48bb78;
+}
+
+.button-outline:hover {
+  background-color: #48bb78;
+  color: white;
+  transform: scale(1.05);
+}
+

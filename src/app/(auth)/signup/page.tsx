@@ -24,6 +24,8 @@ import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 import Link from "next/link"
 
+import style from '../../../style/signup.module.css'
+
 
 
 
@@ -48,23 +50,21 @@ const Page = () => {
         setIsSubmitting(true)
         try {
             const response = await axios.post<ApiResponse>('/api/signup', data)
-            console.log(response.data.message, "************")
-            console.log(response, "************")
+
             toast({
                 title: 'Success',
                 description: response.data.message,
-                className:'toast-success'
+                className: 'toast-success'
             })
             router.replace(`/verify/${userName}`)
             setIsSubmitting(false)
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
             let errorMessage = axiosError.response?.data.message
-            console.log(errorMessage, "8888888888888")
             toast({
                 title: "Signup Failed",
                 description: errorMessage || "Signup failed",
-                className:'toast-error'
+                className: 'toast-error'
             })
             setIsSubmitting(false)
         }
@@ -73,11 +73,19 @@ const Page = () => {
 
 
     return (
+        
         <>
-            <div className='flex justify-center items-center min-h-screen bg-green-900 text-white'>
-                <div className="w-full max-w-md p-8 space-y-8 glass-container rounded-lg shadow-md">
+                
+        {/* <div className="flex justify-center items-center"> */}
+
+            <div className='flex justify-evenly min-h-screen items-center gap-3 '>
+                <div className=" max-w-md p-8 space-y-8 w-[40%] glass-container rounded-lg shadow-slate-600 ">
+
+
+
+
                     <div className="text-center">
-                        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+                        <h1 className="text-3xl font-bold tracking-tight lg:text-3xl mb-6">
                             Join Green Foundation
                         </h1>
                         <p className="mb-4">
@@ -93,7 +101,7 @@ const Page = () => {
                                     <FormItem>
                                         <FormLabel>Username</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="username" className="bg-green-800"
+                                            <Input placeholder="username"
                                                 {...field}
                                                 onChange={(e) => {
                                                     field.onChange(e)
@@ -113,7 +121,7 @@ const Page = () => {
                                     <FormItem>
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
-                                            <Input type='email' placeholder="email" className="bg-green-800"
+                                            <Input type='email' placeholder="email"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -129,7 +137,7 @@ const Page = () => {
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl >
-                                            <Input type="password" placeholder="password" className="bg-green-800 "
+                                            <Input type="password" placeholder="password"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -138,7 +146,7 @@ const Page = () => {
                                 )}
                             />
 
-                            <Button type="submit" disabled={isSubmitting} className=" text-gray-900 bg-green-100 hover:bg-green-700 hover:text-white">
+                            <Button type="submit" disabled={isSubmitting} className=" text-white bg-green-700 hover:bg-green-300 hover:text-gray-800">
                                 {
                                     isSubmitting ? (
                                         <>
@@ -152,11 +160,17 @@ const Page = () => {
                     <div className="text-center mt-4">
                         <p>
                             Already a member?{' '}
-                            <Link href="/signin" className="text-green-100 hover:text-green-300">Sign In</Link>
+                            <Link href="/signin" className="text-green-400 hover:text-green-600 hover:underline">Sign In</Link>
                         </p>
                     </div>
                 </div>
+                <div className="w-[40%]">
+                    <img src="planting-tree.png" alt="" />
+                </div>
             </div>
+
+        {/* </div> */}
+
         </>
     )
 
