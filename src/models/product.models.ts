@@ -7,7 +7,10 @@ export interface IProduct extends Document{
     productDesc:string;
     price:string;
     images:string[];
-    quantity:number;
+    sellingPrice:string;
+    category:string;
+    subCategory:string;
+    rating:string;
 }
 
 const productSchema:Schema<IProduct> = new Schema({
@@ -27,8 +30,20 @@ const productSchema:Schema<IProduct> = new Schema({
         type:[String],
         required:true,
     },
-    quantity:{
-        type:Number,
+    sellingPrice:{
+        type:String,
+        required:true,
+    },
+    category:{
+        type:String,
+        required:true,
+    },
+    subCategory:{
+        type:String,
+        required:true,
+    },
+    rating:{
+        type:String,
         required:true
     }
 },{timestamps:true})

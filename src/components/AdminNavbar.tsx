@@ -6,7 +6,7 @@ import { useSession ,signOut} from "next-auth/react"
 import {User} from 'next-auth'
 import { Button } from "./ui/button"
 
-const Navbar = () => {
+const AdminNavbar = () => {
 
     const {data:session} = useSession()
 
@@ -18,17 +18,14 @@ const Navbar = () => {
       </a>
 
       <div className="flex gap-5 items-center">
-        <Link href="/" className="text-white hover:text-green-300 transition duration-300">
-          Home
+        <Link href="/admin" className="text-white hover:text-green-300 transition duration-300">
+          Users
         </Link>
-        <Link href="/about" className="text-white hover:text-green-300 transition duration-300">
-          About
+        <Link href="/admin-products" className="text-white hover:text-green-300 transition duration-300">
+          Products
         </Link>
-        <Link href="/project" className="text-white hover:text-green-300 transition duration-300">
-          Project
-        </Link>
-        <Link href="/get-involved" className="text-white hover:text-green-300 transition duration-300">
-          Get Involved
+        <Link href="/admin-sponsors" className="text-white hover:text-green-300 transition duration-300">
+          Sponsors
         </Link>
       </div>
 
@@ -40,4 +37,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default AdminNavbar

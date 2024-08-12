@@ -10,6 +10,7 @@ interface ICartItem {
   }
 
 export interface IUser extends Document {
+    _id:mongoose.Types.ObjectId;
     userName: string;
     email: string;
     password: string;

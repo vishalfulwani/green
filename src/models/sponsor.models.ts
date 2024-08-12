@@ -1,14 +1,14 @@
 import mongoose , {Document,Schema} from 'mongoose'
 
 
-export interface ISponser extends Document{
+export interface ISponsor extends Document{
     _id:mongoose.Types.ObjectId;
     name:string;
     link:string;
     image:string;
 }
 
-const sponserSchema:Schema<ISponser> = new Schema({
+const sponsorSchema:Schema<ISponsor> = new Schema({
     name:{
         type:String,
         required:true,
@@ -26,5 +26,5 @@ const sponserSchema:Schema<ISponser> = new Schema({
 
 
 
-const SponserModel = (mongoose.models.Sponser as mongoose.Model<ISponser>)   ||  mongoose.model<ISponser>("Sponser",sponserSchema)
-export default SponserModel
+const SponsorModel = (mongoose.models.Sponsor as mongoose.Model<ISponsor>)   ||  mongoose.model<ISponsor>("Sponsor",sponsorSchema)
+export default SponsorModel

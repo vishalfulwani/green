@@ -13,11 +13,13 @@ export  async function POST(req:Request){
     try {
         const { productId } = await req.json();
     
+        console.log(productId)
         const product = await ProductModel.findOne({ _id: productId });
+        console.log(product)
     
         if (!product) {
             return Response.json(
-                new ApiResponse(false,404,{},"product not found"),
+                new ApiResponse(false,404,{},"product not found or already deleted"),
                 {status: 404},
             )
         }

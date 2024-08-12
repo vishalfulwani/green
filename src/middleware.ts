@@ -25,9 +25,11 @@ export async function middleware(request: NextRequest) {
     // }
 
     if (token?.role !== "admin" &&
-      (pathname.startsWith('/admin'))
+      (pathname.startsWith('/admin')) ||
+      (pathname.startsWith('/admin-ptoducts')) || 
+      (pathname.startsWith('/admin-sponsors'))
     ){
-      return NextResponse.redirect(new URL("/dashboard", origin).toString());
+      return NextResponse.redirect(new URL("/", origin).toString());
     }
 }
  
