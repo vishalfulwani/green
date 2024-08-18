@@ -12,30 +12,34 @@ const Navbar = () => {
 
     return (
         <>
-        <div className="  flex flex-row justify-between items-center py-4 px-6 bg-green-500 fixed z-50 top-0 w-[100%] shadow-md">
-      <a href="#" className="text-2xl font-bold text-white hover:text-green-300 transition duration-300">
-        Green Foundation
-      </a>
 
-      <div className="flex gap-5 items-center">
-        <Link href="/" className="text-white hover:text-green-300 transition duration-300">
-          Home
-        </Link>
-        <Link href="/about" className="text-white hover:text-green-300 transition duration-300">
-          About
-        </Link>
-        <Link href="/project" className="text-white hover:text-green-300 transition duration-300">
-          Project
-        </Link>
-        <Link href="/get-involved" className="text-white hover:text-green-300 transition duration-300">
-          Get Involved
-        </Link>
-      </div>
 
-      <Link href='/signup' className="px-4 py-2 bg-white text-green-500 font-bold rounded hover:bg-green-300 hover:text-white transition duration-300">
-        Sign Up
-      </Link>
-    </div>
+<div className="flex flex-row justify-between items-center py-4 px-8 bg-gradient-to-r from-green-900 to-green-700 fixed z-50 top-0 w-full shadow-lg ">
+  <a href="#" className="text-3xl font-extrabold text-white hover:text-green-500 transition duration-300">
+    Green Foundation
+  </a>
+
+  <div className="flex gap-8 items-center">
+    <Link href="/" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
+      Home
+    </Link>
+    <Link href="/about" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
+      About
+    </Link>
+    <Link href="/project" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
+      Project
+    </Link>
+    <Link href="/get-involved" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
+      Get Involved
+    </Link>
+  </div>
+
+  <Link href="/signup" className="px-5 py-2 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
+    Sign Up
+  </Link>
+</div>
+
+
         </>
     )
 }

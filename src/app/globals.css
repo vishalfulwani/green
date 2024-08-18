@@ -80,42 +80,46 @@
   border-left:3px solid red;
   color:black
 }
-.bg-mixed-color {
-  background: linear-gradient(90deg, #0c432b 0%, #5a7269 100%);
-}
 
 
 /* button */
 
 .button {
   display: inline-block;
-  padding: 0.75rem 2rem;
+  padding: 6px 14px;
   border-radius: 9999px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   text-decoration: none;
+  /* color: green; */
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .button-green {
-  background-color: #48bb78;
+  background-color:#0a9a41;
   color: white;
+  border: 2px solid #0a9a41;
 }
 
 .button-green:hover {
-  background-color: #34d399;
+  background-color: transparent;
+  border: 2px solid #0a9a41;
+  color: #0a9a41;
   transform: scale(1.05);
 }
 
 .button-outline {
   background-color: transparent;
-  border: 2px solid #48bb78;
-  color: #48bb78;
+  border: 2px solid #0a9a41;
+  color: #0a9a41;
 }
 
 .button-outline:hover {
-  background-color: #48bb78;
+  border: 2px solid #0a9a41;
+  background-color: #0a9a41;
   color: white;
   transform: scale(1.05);
 }
 
+
+/* px-5 py-2 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300 */

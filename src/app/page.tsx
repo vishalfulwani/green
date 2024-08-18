@@ -1,49 +1,71 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import styles from '../style/home.module.css'; // Import if needed for other styles
+import styles from '../style/home.module.css';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import axios from 'axios';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import Image from 'next/image';
+import Head from 'next/head';
+import Footer from '@/components/FoundationFooter';
+// import MissionImage from '/public/email.email_verify-welcome.png'; 
+
+
+
 
 const Page = () => {
 
-    // console.log("=========================")
-    // const response = await axios.get<ApiResponse>('/api/get-sponsor',)
-    // const sponsors = response.data.data as [];
-    // // const allSponsers = sponsers.data 
-    // console.log("**************",sponsors)
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [sponsors, setSponsors] = useState([])
 
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [sponsors, setSponsors] = useState([])
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsSubmitting(true)
+      try {
+        const allProducts = await axios.get<ApiResponse>('/api/get-sponsor')
+        const productData = allProducts.data.data as []
+        setSponsors(productData)
+      } catch (error) {
+        console.error("Error fetching products:", error)
+      } finally {
+        setIsSubmitting(false)
+      }
+    }
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            setIsSubmitting(true)
-            try {
-                const allProducts = await axios.get<ApiResponse>('/api/get-sponsor')
-                const productData = allProducts.data.data as []
-                setSponsors(productData)
-            } catch (error) {
-                console.error("Error fetching products:", error)
-            } finally {
-                setIsSubmitting(false)
-            }
-        }
-
-        fetchProducts()
-    }, [])
+    fetchProducts()
+  }, [])
 
 
   return (
     <>
 
-    {/* tree plantation section */}
+      <Head>
+        <title>Home Page - Green Foundation</title>
+        <meta name="description" content="This is the home page of Green Foundation." />
+      </Head>
 
-      <section className="py-16 px-6 bg-[#d8e6d8] text-center mt-20">
-        <div className="mx-auto px-6 max-w-6xl">
-          <h2 className="text-3xl font-semibold mb-2">Plant a Tree from the Comfort of Your Home</h2>
-          <p className="text-lg mb-5">Make a difference without leaving your house and receive a personalized certificate.</p>
+      {/* hero section */}
+      <section className="bg-green-900 text-white py-20 mt-16">
+        <div className="container mx-auto text-center">
+          <h1 className="text-5xl font-bold mb-4">Plant a Tree, Grow a Future</h1>
+          <p className="text-xl mb-8">Join us in our mission to make the world greener, one tree at a time.</p>
+          <a href="/get-involved" className="button button-green">
+            Get Involved
+          </a>
+        </div>
+      </section>
+
+
+      {/* tree plantation section */}
+      <section className="py-16 px-6 bg-[#9cc09c] text-center">
+        <div className="mx-auto px-6 container">
+          <h2 className="text-4xl font-bold text-green-900 mb-2">Plant a Tree from the Comfort of Your Home</h2>
+          <p className="text-lg mb-8">Make a difference without leaving your house and receive a personalized certificate.</p>
 
           <div className="flex flex-wrap justify-center items-center gap-10 text-black">
             <div className="w-80 h-[400px] bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-500 transition-transform duration-300 ease-in-out hover:scale-105 relative"
@@ -80,11 +102,10 @@ const Page = () => {
       </section>
 
 
-    {/* Donation utilization section */}
-
-      <section className="py-16 px-6 bg-[#f4f9f4] text-[#333] bg-cover bg-bottom" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-semibold mb-2">How Your Donation Nurtures Growth</h2>
+      {/* Donation utilization section */}
+      <section className="py-16 px-6 bg-[#d8e6d8] text-[#333] bg-cover bg-bottom" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}>
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-green-900 mb-4">How Your Donation Nurtures Growth</h2>
           <p className="text-lg mb-6">Your generous donation plays a crucial role in ensuring the success of every plant. Here's how we use your contribution to nurture and grow your chosen tree or plant:</p>
 
           <div className="grid gap-8">
@@ -117,34 +138,156 @@ const Page = () => {
         </div>
       </section>
 
+      {/* our mission */}
+      <section className="py-20 bg-[#9cc09c]">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold text-green-900 mb-4">
+            Our Mission
+          </h2>
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto mb-12">
+            We strive to combat climate change and promote environmental sustainability by planting trees and restoring natural habitats. Our mission is to create a greener, healthier planet for future generations.
+          </p>
 
-    {/* sponsor section */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+            <div className="w-full md:w-1/2 p-4">
+              <div className="overflow-hidden rounded-lg shadow-lg">
+                <img
+                  src="https://eco-business.imgix.net/uploads/ebmedia/fileuploads/shutterstock_142348369_phil_mangroves_planting.jpg?fit=crop&h=960&ixlib=django-1.2.0&w=1440"
+                  alt="Restoring Natural Habitats"
+                  className="w-full h-64 object-cover transform transition duration-500 hover:scale-105"
+                />
+              </div>
+              <h3 className="text-2xl font-semibold text-green-800 mt-6">
+                Restoring Natural Habitats
+              </h3>
+              <p className="text-lg text-gray-600 mt-4">
+                We work on restoring natural habitats to support biodiversity and create a balance between humans and nature.
+              </p>
+            </div>
 
-    
-    <section className="py-16 px-6 bg-lime-100 text-[#333] bg-cover bg-bottom" >
-       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl font-semibold mb-2">
+            <div className="w-full md:w-1/2 p-4">
+              <div className="overflow-hidden rounded-lg shadow-lg">
+                <img
+                  src="https://torontotreeremoval.ninja/wp-content/uploads/plant-a-tree-toronto.jpg"
+                  alt="Planting Trees"
+                  className="w-full h-64 object-cover transform transition duration-500 hover:scale-105"
+                />
+              </div>
+              <h3 className="text-2xl font-semibold text-green-800 mt-6">
+                Planting Trees
+              </h3>
+              <p className="text-lg text-gray-600 mt-4">
+                Our tree planting initiatives reduce carbon emissions, protect ecosystems, and foster involvement
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* sponsor section */}
+      <section className="py-16  bg-[#bee7bb]  text-[#333] bg-cover bg-bottom" >
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-bold text-green-900 mb-8">
             Sponsors
-        </h2>
-        <p className='text-lg mb-6'>
+          </h2>
+          <p className='text-lg mb-6'>
             We are grateful for the support of our sponsors, who help us make a positive impact on the
             environment. Their contributions enable us to continue our mission of planting trees and promoting
             sustainability.
-        </p>
-       <div className='flex flex-wrap items-center gap-5'>
-        {
-            sponsors.map((sponser:any)=>(
+          </p>
+          <div className='flex flex-wrap items-center gap-5'>
+            {
+              sponsors.map((sponser: any) => (
                 <div className="h-[100px] w-[200px]" key={sponser._id}>
-                    <img src={sponser.image} alt="" />
-                    
+                  <img src={sponser.image} alt="" />
+
                 </div>
-            ))
-        }
-
+              ))
+            }
+          </div>
         </div>
-       </div>
-    </section>
+      </section>
 
+      {/* our impact */}
+      <section className="py-16 bg-gradient-to-b from-[#9cc09c] to-[#7fa87f]">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold text-green-900 mb-12">Our Impact</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              { value: '10K+', label: 'Trees Planted' },
+              { value: '500+', label: 'Volunteers' },
+              { value: '50+', label: 'Communities Reached' },
+            ].map(({ value, label }) => (
+              <div key={label} className="bg-white p-8 rounded-xl shadow-2xl transform transition duration-500 hover:scale-105">
+                <h3 className="text-5xl font-extrabold text-green-800 mb-4">{value}</h3>
+                <p className="text-xl text-gray-700">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* testimonials */}
+      <section className="py-16 bg-[#d8e6d8] ">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold text-green-900 mb-12">What People Are Saying</h2>
+          <div className="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-8">
+            {[
+              {
+                name: 'John Doe',
+                quote: 'This foundation has truly made a difference in our community. I’m proud to be a part of it!',
+                image: 'https://img.freepik.com/premium-photo/memoji-happy-man-white-background-emoji_826801-6833.jpg?size=626&ext=jpg&ga=GA1.1.716411687.1716966942&semt=ais_hybrid',
+              },
+              {
+                name: 'Jane Smith',
+                quote: 'Planting trees has never been easier. The team is amazing and very supportive.',
+                image: 'https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671134.jpg?size=626&ext=jpg&ga=GA1.1.716411687.1716966942&semt=ais_hybrid',
+              },
+            ].map(({ name, quote, image }) => (
+              <div key={name} className="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <img src={image} alt={name} className="rounded-full w-16 h-16 mb-4 mx-auto" />
+                <p className="text-gray-700 italic mb-4">"{quote}"</p>
+                <h3 className="text-xl font-semibold">{name}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* contact us */}
+      <section className="py-16 bg-[#9cc09c]">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
+          <div className="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0">
+            <h2 className="text-4xl font-bold text-green-900 mb-8">Contact Us</h2>
+            <form className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto md:mx-0">
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
+                <input type="text" id="name" className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+                <input type="email" id="email" className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="message" className="block text-gray-700 mb-2">Message</label>
+                <textarea id="message" className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none"></textarea>
+              </div>
+              <button type="submit" className="bg-green-700 text-white py-2 px-6 rounded-full hover:bg-green-600 transition duration-300">
+                Send Message
+              </button>
+            </form>
+          </div>
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+            <img src="contact-us.png" alt="Contact Us" className="w-3/4 md:w-full max-w-xs md:max-w-md" />
+          </div>
+        </div>
+      </section>
+
+      <Footer/>
 
     </>
   );

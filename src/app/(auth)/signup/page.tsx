@@ -77,7 +77,7 @@ const Page = () => {
     <>
 
       <div className='flex justify-evenly min-h-screen items-center gap-3'>
-        <div className="max-w-md p-8 space-y-8 w-[40%] glass-container overflow-hidden rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20">
+        <div className="max-w-md p-8 space-y-8 w-[40%] glass-coflex justify-evenly min-h-screen items-center gap-3ntainer overflow-hidden rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20">
           {/* leave fall animation */}
           {/* <div className={style.leaves}>
                         <i></i>
