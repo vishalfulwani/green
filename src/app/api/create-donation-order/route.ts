@@ -4,6 +4,8 @@ import Razorpay from 'razorpay';
 import mongoose from 'mongoose';
 import Donation from '@/models/donation.models';
 import { NextRequest } from 'next/server';
+import dbConnect from '@/dbconfig/dbConnect';
+import { ApiResponse } from '@/helpers/ApiResponse';
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID!,
@@ -11,10 +13,10 @@ const razorpay = new Razorpay({
 });
 
 export async function POST(req: NextRequest, res: NextApiResponse) {
-    // if (req.method === 'POST') {
-        await mongoose.connect(process.env.MONGODB_URI!, {});
 
-        const { amount, donorName, donorEmail, donorContact } = await req.json();
+    await dbConnect()
+
+        const { amount, donorName, donorEmail,donorEmailPassword, donorContact } = await req.json();
 
         console.log("uuu",amount)
 
@@ -39,15 +41,14 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
 
             await donation.save();
 
-            res.status(200).json(order);
+            Response.json(
+                new ApiResponse(true,200,order,"Donation order created"),
+                {status:200}
+            )
         } catch (error: any) {
-            res.status(400).json({ error: error.message });
+            console.log({ error: error.message });
+            Response.json(
+                new ApiResponse(false,500,{},"error while creating donation order")
+            )
         } 
-        // finally {
-            // mongoose.connection.close();
-        // }
-    // } else {
-    //     res.setHeader('Allow', ['POST']);
-    //     res.status(405).end(`Method ${req.method} Not Allowed`);
-    // }
 }
