@@ -3,14 +3,16 @@ import ProductModel from '@/models/product.models';
 import UserModel from '@/models/user.models';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import dbConnect from '@/dbconfig/dbConnect';
+import { NextRequest } from 'next/server';
 
-export async function POST(req: NextApiRequest){
+export async function POST(req: NextRequest){
 
-    await dbConnect()
+  await dbConnect()
 
   try {
-    const { userId, productId } = await req.body;
+    const { userId, productId } = await req.json();
     
+    console.log(userId,"andd ",productId)
     if (!userId || !productId) {
       return Response.json(
           new ApiResponse(false, 400, {}, "Missing cart information"),
@@ -19,6 +21,7 @@ export async function POST(req: NextApiRequest){
     }
   
     const user = await UserModel.findById(userId);
+    console.log(user)
     if (!user) {
       return Response.json(
           new ApiResponse(false, 400, {}, "User not found"),
@@ -33,14 +36,19 @@ export async function POST(req: NextApiRequest){
           { status: 400 }
       )
     }
+    console.log("----------",product)
   
-    const existingItem = user.cart.find(item => item.productId.toString() === productId);
+    const existingItem = user.cart.find(item => item._id.toString() === productId);
+    console.log("----------",existingItem)
   
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      user.cart.push({ productId, quantity: 1 });
+    if (!existingItem) {
+      return Response.json(
+        new ApiResponse(true, 201, {}, "Product already added to cart"),
+        { status: 201 }
+      )
     }
+    
+    user.cart.push(product);
   
     await user.save();
   

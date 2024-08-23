@@ -13,6 +13,8 @@ export interface IProduct extends Document{
     rating:string;
 }
 
+
+
 const productSchema:Schema<IProduct> = new Schema({
     productName:{
         type:String,

@@ -12,7 +12,6 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import Head from 'next/head';
 import Footer from '@/components/FoundationFooter';
-// import MissionImage from '/public/email.email_verify-welcome.png'; 
 
 
 

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const link = formData.get('link') as string
     const image = formData.get('image') as File;
 
-   console.log
+
     if (!(name || link || image)) {
         return Response.json(
             new ApiResponse(false, 400, {}, "all fields are required"),

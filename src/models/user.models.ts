@@ -1,13 +1,15 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema, SchemaType } from 'mongoose'
 import bcrypt from 'bcrypt';
+import { IProduct } from './product.models';
 
 
 
 
-interface ICartItem {
-    productId: Schema.Types.ObjectId;
-    quantity: number;
-  }
+// interface ICartItem {
+//     // productId: Schema.Types.ObjectId;
+//     product: IProduct;
+//     quantity: number;
+//   }
 
 export interface IUser extends Document {
     _id:mongoose.Types.ObjectId;
@@ -19,23 +21,23 @@ export interface IUser extends Document {
     isVerified: boolean;
     refreshToken?: string;
     role: string;
-    cart: ICartItem[];
+    cart:Schema.Types.ObjectId[];
     buy: Schema.Types.ObjectId[]
     isPasswordCorrect(password: string): Promise<boolean>;
 }
 
 
-const cartItemSchema: Schema<ICartItem> = new Schema({
-    productId: { 
-        type: Schema.Types.ObjectId, 
-        ref: 'ProductModel', 
-        required: true 
-    },
-    quantity: { 
-        type: Number, 
-        default: 1 
-    },
-  });
+// const cartItemSchema: Schema<ICartItem> = new Schema({
+//     product: { 
+//         type: Schema.Types.ObjectId, 
+//         ref: 'ProductModel', 
+//         required: true 
+//     },
+//     // quantity: { 
+//     //     type: Number, 
+//     //     default: 1 
+//     // },
+//   });
 
 
 const userSchema: Schema<IUser> = new Schema({
@@ -74,7 +76,13 @@ const userSchema: Schema<IUser> = new Schema({
     refreshToken: {
         type: String,
     },
-    cart: [cartItemSchema],
+    cart: [
+        // cartItemSchema
+        {
+            type: Schema.Types.ObjectId,
+            ref: "ProductModel",
+        }
+    ],
     buy: [
         {
             type: Schema.Types.ObjectId,

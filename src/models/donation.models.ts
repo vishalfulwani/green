@@ -15,6 +15,10 @@ export interface IDonation extends Document {
     donorContact: string;
     status: 'created' | 'paid' | 'failed';
     createdAt: Date;
+
+    plantationImage?: string;
+    plantationStatus?: string;
+    certificate?: string;
 }
 
 const DonationSchema: Schema = new Schema({
@@ -61,6 +65,18 @@ const DonationSchema: Schema = new Schema({
         type: Date, 
         default: Date.now 
     },
+
+    
+    plantationImage:{
+        type:String
+    },
+    plantationStatus:{
+        type:String
+    },
+
+    certificate:{
+        type:String
+    }
 },{timestamps:true});
 
 const DonationModel = mongoose.models.Donation || mongoose.model<IDonation>('Donation', DonationSchema);

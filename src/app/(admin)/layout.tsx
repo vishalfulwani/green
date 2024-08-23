@@ -120,7 +120,7 @@ export default function RootLayout({
             </div>
             <ul className={` ${subPartOpen ? "visible" : "hidden"}`}>
               <li>
-                <Link href="/tables-data/foundation-user-data">
+                <Link href="/admin-donations">
                   <div className="flex pl-10 pr-4 py-2 gap-2 items-center  hover:bg-green-900">
                     <GiFountain/>
                     <span>Foundation</span>
@@ -162,7 +162,7 @@ export default function RootLayout({
             </Link>
           </li>
           <li >
-            <Link href="/login">
+            <Link href="/admin-donations">
               <div className="flex px-4 py-2 gap-2  items-center hover:bg-green-900">
                 <FaDonate />
                 <span>Donate</span>
