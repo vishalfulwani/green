@@ -159,6 +159,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import getRandomElements from '@/helpers/getRandomElements';
+import Head from 'next/head';
 
 
 export default function Home() {
@@ -209,7 +210,7 @@ export default function Home() {
         fetchProducts()
     }, [])
 
-  
+
     // Update featured products whenever products are fetched
     useEffect(() => {
         if (products.length > 0) {
@@ -231,15 +232,26 @@ export default function Home() {
 
 
 
-    const handleClick = (href:any) => {
+    const handleClick = (href: any) => {
         router.push(href);
     };
 
 
+    // to dyanamic  routing page
+    const goToProductPage = (category: string, id: string) => {
+        router.push(`/shop/${category}/${id}`);
+    };
+
     return (
-        // <div className="bg-gray-50 text-gray-900">
+        
         <>
-           {/* hero section */}
+            <Head>
+                <title>E-commerce</title>
+                <meta name="description" content="This is the E-commerce home page." />
+            </Head>
+
+
+            {/* hero section */}
             <section className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0">
                 <div className="space-y-6 md:space-y-8">
                     <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg">
@@ -299,9 +311,17 @@ export default function Home() {
                                                             <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
                                                         </div>
                                                         {/* <p className="text-green-500 font-bold">${product.price}</p> */}
-                                                        <button className="mt-4 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300" onClick={() => handleAddToCart(product)}>
+                                                        <button
+                                                            className="mt-4 flex items-center justify-center w-full px-3 py-1.5 bg-green-600 text-white font-semibold text-sm rounded-md shadow-md hover:bg-green-700 transition duration-300"
+                                                            onClick={() => handleAddToCart(product)}
+                                                        >
                                                             Add to Cart
-                                                            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1 5h12l-1-5M7 13h10M5 21h14a2 2 0 002-2H3a2 2 0 002 2z"></path></svg>
+                                                        </button>
+                                                        <button
+                                                            className="mt-2 flex items-center justify-center w-full px-3 py-1.5 bg-green-600 text-white font-semibold text-sm rounded-md shadow-md hover:bg-green-700 transition duration-300"
+                                                            onClick={() => goToProductPage(product.category, product._id.toString())}
+                                                        >
+                                                            View Product
                                                         </button>
                                                     </div>
                                                 </div>
@@ -363,9 +383,17 @@ export default function Home() {
                                                             <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
                                                         </div>
                                                         {/* <p className="text-green-500 font-bold">${product.price}</p> */}
-                                                        <button className="mt-4 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300" onClick={() => handleAddToCart(product)}>
+                                                        <button
+                                                            className="mt-4 flex items-center justify-center w-full px-3 py-1.5 bg-green-600 text-white font-semibold text-sm rounded-md shadow-md hover:bg-green-700 transition duration-300"
+                                                            onClick={() => handleAddToCart(product)}
+                                                        >
                                                             Add to Cart
-                                                            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1 5h12l-1-5M7 13h10M5 21h14a2 2 0 002-2H3a2 2 0 002 2z"></path></svg>
+                                                        </button>
+                                                        <button
+                                                            className="mt-2 flex items-center justify-center w-full px-3 py-1.5 bg-green-600 text-white font-semibold text-sm rounded-md shadow-md hover:bg-green-700 transition duration-300"
+                                                            onClick={() => goToProductPage(product.category, product._id.toString())}
+                                                        >
+                                                            View Product
                                                         </button>
                                                     </div>
                                                 </div>
@@ -430,7 +458,7 @@ export default function Home() {
                         Browse our categories to find exactly what your garden needs!
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition"   onClick={()=>handleClick(`/shop/plants`)} >
+                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition" onClick={() => handleClick(`/shop/plants`)} >
                             <div className="h-64 overflow-hidden">
                                 <img
                                     src="https://cdn-cms.f-static.net/uploads/2039516/2000_5d03e5ca7d540.png"
@@ -441,7 +469,7 @@ export default function Home() {
                             <h3 className="text-xl md:text-2xl font-semibold mt-4">Plants</h3>
                         </div>
 
-                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition"   onClick={()=>handleClick(`/shop/tools`)}>
+                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition" onClick={() => handleClick(`/shop/tools`)}>
                             <div className="h-64 overflow-hidden">
                                 <img
                                     src="https://simplelivingcountrygal.com/wp-content/uploads/2020/03/garden-tools.jpg"
@@ -452,7 +480,7 @@ export default function Home() {
                             <h3 className="text-xl md:text-2xl font-semibold mt-4">Tools</h3>
                         </div>
 
-                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition"    onClick={()=>handleClick(`/shop/seeds`)}>
+                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition" onClick={() => handleClick(`/shop/seeds`)}>
                             <div className="h-64 overflow-hidden">
                                 <img
                                     src="https://en.bcdn.biz/images/emails_source/60754e30-7240-425b-b7a0-3df325607e1c.jpg"
@@ -535,10 +563,10 @@ export default function Home() {
 
 
 
-          
+
         </>
 
-        // </div>
+        
     );
 }
 

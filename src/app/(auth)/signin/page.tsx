@@ -8,6 +8,7 @@ import { signInSchema } from "@/schemas/signInSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { signIn } from "next-auth/react"
+import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -17,7 +18,7 @@ import { z } from "zod"
 
 const Page = () => {
 
-    const [isSubmitting,setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const { toast } = useToast()
     const router = useRouter()
 
@@ -31,8 +32,8 @@ const Page = () => {
 
     const onSubmit = async (data: z.infer<typeof signInSchema>) => {
 
-        setIsSubmitting(true) 
-        
+        setIsSubmitting(true)
+
         const result = await signIn('credentials', {
             redirect: false,
             email: data.email,
@@ -70,6 +71,11 @@ const Page = () => {
 
     return (
         <>
+            <Head>
+                <title>Login </title>
+                <meta name="description" content="This is the login page." />
+            </Head>
+
             <div className='flex justify-center items-center min-h-screen bg-green-900 text-white'>
                 <div className="w-full max-w-md p-8 space-y-8 glass-container rounded-lg shadow-md">
                     <div className="text-center">
@@ -113,9 +119,9 @@ const Page = () => {
                                 {
                                     isSubmitting ? (
                                         <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin"/>Please Wait
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please Wait
                                         </>
-                                    ):('Sign In')
+                                    ) : ('Sign In')
                                 }
                             </Button>
                         </form>
@@ -131,7 +137,7 @@ const Page = () => {
         </>
     )
 
-} 
+}
 
 
 export default Page

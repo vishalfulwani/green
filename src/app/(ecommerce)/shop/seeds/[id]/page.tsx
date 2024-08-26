@@ -91,9 +91,10 @@ const Page = () => {
 
         <>
             <Head>
-                <title>Tool product</title>
-                <meta name="description" content="This is the tool product page." />
+                <title>Seed product </title>
+                <meta name="description" content="This is the seed product page." />
             </Head>
+
             <section className='min-h-screen mt-16 pt-10 bg-[#9cc09c]'>
                 {product.length > 0 ? (
                     <div className="container mx-auto p-4 border-green-800 border-y-2 md:p-6 bg-cover bg-[#d8e6d8] rounded-lg shadow-lg " style={{ backgroundImage: "url(http://clipart-library.com/images/8izrdA9LT.png)", backgroundRepeat: "no-repeat", objectFit: 'cover', }}>
@@ -175,89 +176,92 @@ const Page = () => {
                 )}
             </section>
 
-            {/* plant care */}
+            {/* seed care */}
             <section className="bg-[#d8e6d8] py-16 px-4 md:px-8">
                 <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Tool Care Guidelines from Green E-commerce</h2>
+                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Seed Care Guidelines from Green E-commerce</h2>
                     <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
-                        Keep your gardening tools in top condition with these essential care tips, ensuring they last and perform their best.
+                        Ensure the seeds you purchase from Green E-commerce grow into healthy plants by following these expert tips.
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <img
-                                src="https://www.thespruce.com/thmb/2K-5g62NEC5E9CMEx_TU4NWvTUk=/5538x3692/filters:no_upscale():max_bytes(150000):strip_icc()/how-to-clean-garden-tools-4799140-10-014cca25a6094ee7881805c2ccddadb1.jpg"
-                                alt="Tool Cleaning"
+                                src="https://example.com/seed-selection.jpg"
+                                alt="Seed Selection"
                                 className="w-20 h-20 mx-auto mb-4"
                             />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Cleaning Tools</h3>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Seed Selection</h3>
                             <p className="text-gray-600 text-center">
-                                Regularly clean your tools after each use. Remove dirt, sap, and moisture to prevent rust and keep them in optimal condition.
+                                Choose the best seeds from our collection. We provide high-quality seeds suited to various climates and soil types.
                             </p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <img
-                                src="https://www.thespruce.com/thmb/B__W6hkEBywl0FDW_pr9dThKbhQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/sharpening-mower-blade-big-3a358c8dcf65468bbe4705f0a3221dd0.jpg"
-                                alt="Tool Sharpening"
+                                src="https://example.com/soil-preparation.jpg"
+                                alt="Soil Preparation"
                                 className="w-20 h-20 mx-auto mb-4"
                             />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Sharpening Tools</h3>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Soil Preparation</h3>
                             <p className="text-gray-600 text-center">
-                                Keep your tools sharp for better performance. Regularly sharpen blades, pruners, and shears to make your gardening tasks easier.
+                                Prepare your garden with the right soil. Our seed range is compatible with a variety of soil types to ensure successful germination.
                             </p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <img
-                                src="https://i.pinimg.com/originals/1c/3d/0a/1c3d0a39036444ebeecc3057cc6a40f5.jpg"
-                                alt="Tool Storage"
+                                src="https://example.com/planting-depth.jpg"
+                                alt="Planting Depth"
                                 className="w-20 h-20 mx-auto mb-4"
                             />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Tool Storage</h3>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Planting Depth</h3>
                             <p className="text-gray-600 text-center">
-                                Store your tools in a dry place. Hanging them on a pegboard or in a tool shed will prolong their life and prevent rusting.
+                                Follow our guidelines on planting depth to give your seeds the best start. Correct planting ensures optimal growth.
                             </p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <img
-                                src="https://cdn.notonthehighstreet.com/fs/e0/52/c926-5aef-4079-bf91-18d0cb348a51/original_personalised-father-s-day-garden-tool-set.jpg"
-                                alt="Tool Maintenance"
+                                src="https://example.com/watering.jpg"
+                                alt="Watering"
                                 className="w-20 h-20 mx-auto mb-4"
                             />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Regular Maintenance</h3>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Watering</h3>
                             <p className="text-gray-600 text-center">
-                                Perform regular maintenance checks on your tools. Tighten any loose screws and oil moving parts to ensure smooth operation.
+                                Proper watering is key. Learn how to maintain the right moisture levels for your seeds, ensuring they sprout into healthy plants.
                             </p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <img
-                                src="https://tse4.mm.bing.net/th?id=OIP.6CPOBcC1FL7P_JMGwqnelAAAAA&pid=Api&P=0&h=180"
-                                alt="Tool Replacement"
+                                src="https://example.com/light-exposure.jpg"
+                                alt="Light Exposure"
                                 className="w-20 h-20 mx-auto mb-4"
                             />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Replacing Worn Tools</h3>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Light Exposure</h3>
                             <p className="text-gray-600 text-center">
-                                Replace worn or damaged tools promptly. Investing in quality tools from our store ensures you have the best equipment for your gardening needs.
+                                Provide your seeds with the right amount of sunlight. Our experts recommend the best light exposure for different seed types.
                             </p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                             <img
-                                src="https://images-na.ssl-images-amazon.com/images/I/81vDkLJ75XL._AC_SL1500_.jpg"
-                                alt="Ergonomics"
+                                src="https://example.com/thinning-seedlings.jpg"
+                                alt="Thinning Seedlings"
                                 className="w-20 h-20 mx-auto mb-4"
                             />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Ergonomics</h3>
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Thinning Seedlings</h3>
                             <p className="text-gray-600 text-center">
-                                Choose ergonomic tools to reduce strain and fatigue. Our selection includes tools designed for comfort and efficiency in your gardening tasks.
+                                After your seeds germinate, thin out the seedlings to ensure they have room to grow. This step is crucial for healthy plants.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
+
+
+
 
             {/* recommended */}
             <section className="py-16 px-4 md:px-8 bg-[#9cc09c]">
@@ -324,7 +328,7 @@ const Page = () => {
         </>
 
 
-    )
+    );
 };
 
 export default Page;

@@ -19,6 +19,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import Head from "next/head"
 
 
 const Page = () => {
@@ -29,7 +30,7 @@ const Page = () => {
     const [subSeedProducts, setSubSeedProducts] = useState<IProduct[]>([])
     // const [bestSellerProducts, setBestSellerProducts] = useState<IProduct[]>([])
     const [hoveredProductId, setHoveredProductId] = useState<string | null>(null)
-    const [defaultProduct,setDefaultProduct] =  useState(true)
+    const [defaultProduct, setDefaultProduct] = useState(true)
 
 
     const { toast } = useToast()
@@ -75,9 +76,9 @@ const Page = () => {
     useEffect(() => {
         const seeds = products.filter((product) => product.category === "seeds")
         setSeedProducts(seeds)
-        if(defaultProduct){
+        if (defaultProduct) {
             setSubSeedProducts(seeds)
-            console.log("****",seeds)
+            console.log("****", seeds)
         }
     }, [products])
 
@@ -99,8 +100,18 @@ const Page = () => {
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
 
+    // to dyanamic  routing page
+    const goToProductPage = (id: string) => {
+        router.push(`/shop/tools/${id}`);
+    };
+
     return (
         <>
+
+            <Head>
+                <title>Seeds </title>
+                <meta name="description" content="This is the seeds page." />
+            </Head>
             {/* hero section */}
             <section className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0">
                 <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg">
@@ -118,20 +129,20 @@ const Page = () => {
                             className="w-full "
                         >
                             <CarouselContent > */}
-                                {seeds.map((product, index) => (
-                                    // <CarouselItem className="md:basis-1/3 lg:basis-1/4 xl::basis-1/5">
-                                        <div key={index} className="flex flex-col items-center justify-center rounded-lg  w-[150px] h-[150px]  bg-white  p-4" style={{backgroundImage:"url(https://static.vecteezy.com/system/resources/previews/000/390/945/original/vector-green-plant-border.jpg)",backgroundAttachment:"cover",}}>
-                                            <button
-                                                onClick={() => onSubCategoryClick(product.value)}
-                                                className="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out"
-                                            >
-                                                {product.label}
-                                            </button>
-                                        </div>
-                                    // </CarouselItem>
-                                ))}
-                                {/* </div> */}
-                            {/* </CarouselContent>
+                        {seeds.map((product, index) => (
+                            // <CarouselItem className="md:basis-1/3 lg:basis-1/4 xl::basis-1/5">
+                            <div key={index} className="flex flex-col items-center justify-center rounded-lg  w-[150px] h-[150px]  bg-white  p-4" style={{ backgroundImage: "url(https://static.vecteezy.com/system/resources/previews/000/390/945/original/vector-green-plant-border.jpg)", backgroundAttachment: "cover", }}>
+                                <button
+                                    onClick={() => onSubCategoryClick(product.value)}
+                                    className="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out"
+                                >
+                                    {product.label}
+                                </button>
+                            </div>
+                            // </CarouselItem>
+                        ))}
+                        {/* </div> */}
+                        {/* </CarouselContent>
                             <CarouselPrevious />
                             <CarouselNext />
                         </Carousel> */}
@@ -187,9 +198,17 @@ const Page = () => {
                                                 <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
                                             </div>
                                             {/* <p className="text-green-500 font-bold">${product.price}</p> */}
-                                            <button className="mt-4 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300" onClick={() => handleAddToCart(product)}>
+                                            <button
+                                                className="mt-4 flex items-center justify-center w-full px-3 py-1.5 bg-green-600 text-white font-semibold text-sm rounded-md shadow-md hover:bg-green-700 transition duration-300"
+                                                onClick={() => handleAddToCart(product)}
+                                            >
                                                 Add to Cart
-                                                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1 5h12l-1-5M7 13h10M5 21h14a2 2 0 002-2H3a2 2 0 002 2z"></path></svg>
+                                            </button>
+                                            <button
+                                                className="mt-2 flex items-center justify-center w-full px-3 py-1.5 bg-green-600 text-white font-semibold text-sm rounded-md shadow-md hover:bg-green-700 transition duration-300"
+                                                onClick={() => goToProductPage(product._id.toString())}
+                                            >
+                                                View Product
                                             </button>
                                         </div>
                                     </div>

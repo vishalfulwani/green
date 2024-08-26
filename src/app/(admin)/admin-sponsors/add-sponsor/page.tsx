@@ -70,7 +70,7 @@ function Page() {
         <>
             <Head>
                 <title>Admin Sponsors - Green Foundation</title>
-                <meta name="description" content="This is the sponsors data page of green foundation." />
+                <meta name="description" content="This is the add sponsors page of green foundation." />
             </Head>
             <div>
                 <div className="container mx-auto px-6 mt-16 py-10">

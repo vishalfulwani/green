@@ -9,6 +9,7 @@ import { verifySchema } from '@/schemas/verifySchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios, { AxiosError } from 'axios'
 import { Loader2 } from 'lucide-react'
+import Head from 'next/head'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -56,31 +57,36 @@ const Page = () => {
 
 
     return (
-        <div className='flex justify-center items-center min-h-screen bg-green-900 text-white'>
-            <div className="w-full max-w-md p-8 space-y-8 glass-container rounded-lg shadow-md">
-                <div className="text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-                        Verify Your Account
-                    </h1>
-                    <p className="mb-4">
-                        Please enter the verification code that was sent to your email.
-                    </p>
-                </div>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-                        <FormField
-                            control={form.control}
-                            name="code"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Verification Code</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder='code' className="bg-green-800" {...field} />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        />
-                        <Button type="submit" disabled={isSubmitting} className=" text-gray-900 bg-green-100 hover:bg-green-700 hover:text-white">
+        <>
+            <Head>
+                <title>Verify </title>
+                <meta name="description" content="This is the verify page." />
+            </Head>
+            <div className='flex justify-center items-center min-h-screen bg-green-900 text-white'>
+                <div className="w-full max-w-md p-8 space-y-8 glass-container rounded-lg shadow-md">
+                    <div className="text-center">
+                        <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+                            Verify Your Account
+                        </h1>
+                        <p className="mb-4">
+                            Please enter the verification code that was sent to your email.
+                        </p>
+                    </div>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+                            <FormField
+                                control={form.control}
+                                name="code"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Verification Code</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder='code' className="bg-green-800" {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit" disabled={isSubmitting} className=" text-gray-900 bg-green-100 hover:bg-green-700 hover:text-white">
                                 {
                                     isSubmitting ? (
                                         <>
@@ -89,10 +95,11 @@ const Page = () => {
                                     ) : ('Submit')
                                 }
                             </Button>
-                    </form>
-                </Form>
+                        </form>
+                    </Form>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

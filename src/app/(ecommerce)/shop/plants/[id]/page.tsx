@@ -23,6 +23,7 @@ import Head from 'next/head';
 
 
 
+
 const Page = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [products, setProducts] = useState<IProduct[]>([])
@@ -91,8 +92,8 @@ const Page = () => {
 
         <>
             <Head>
-                <title>Tool product</title>
-                <meta name="description" content="This is the tool product page." />
+                <title>Plant product</title>
+                <meta name="description" content="This is the plant product page." />
             </Head>
             <section className='min-h-screen mt-16 pt-10 bg-[#9cc09c]'>
                 {product.length > 0 ? (
@@ -119,7 +120,7 @@ const Page = () => {
                                         />
                                     ))}
                                 </div>
-                                <div className="flex gap-2 justify-center mb-6 ">
+                               <div className="flex gap-2 justify-center mb-6 ">
                                     <Carousel
                                         plugins={[autoplay.current]}
                                         className="w-[80%] "
@@ -176,88 +177,54 @@ const Page = () => {
             </section>
 
             {/* plant care */}
-            <section className="bg-[#d8e6d8] py-16 px-4 md:px-8">
+            <section className=" bg-[#d8e6d8] py-16 px-4 md:px-8">
                 <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Tool Care Guidelines from Green E-commerce</h2>
-                    <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
-                        Keep your gardening tools in top condition with these essential care tips, ensuring they last and perform their best.
+                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2 ">Plant Care Guidelines</h2>
+                    <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto ">
+                        Follow these simple guidelines to ensure your plant thrives and stays healthy.
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <img
-                                src="https://www.thespruce.com/thmb/2K-5g62NEC5E9CMEx_TU4NWvTUk=/5538x3692/filters:no_upscale():max_bytes(150000):strip_icc()/how-to-clean-garden-tools-4799140-10-014cca25a6094ee7881805c2ccddadb1.jpg"
-                                alt="Tool Cleaning"
-                                className="w-20 h-20 mx-auto mb-4"
-                            />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Cleaning Tools</h3>
-                            <p className="text-gray-600 text-center">
-                                Regularly clean your tools after each use. Remove dirt, sap, and moisture to prevent rust and keep them in optimal condition.
-                            </p>
+                            <img src="https://tse3.mm.bing.net/th?id=OIP.EC8sy5v2RgdoAJdXeIeljQHaE8&pid=Api&P=0&h=180" alt="Sunlight" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Sunlight</h3>
+                            <p className="text-gray-600 text-center">Ensure your plant receives adequate sunlight. Most plants require 6-8 hours of direct sunlight daily for optimal growth.</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <img
-                                src="https://www.thespruce.com/thmb/B__W6hkEBywl0FDW_pr9dThKbhQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/sharpening-mower-blade-big-3a358c8dcf65468bbe4705f0a3221dd0.jpg"
-                                alt="Tool Sharpening"
-                                className="w-20 h-20 mx-auto mb-4"
-                            />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Sharpening Tools</h3>
-                            <p className="text-gray-600 text-center">
-                                Keep your tools sharp for better performance. Regularly sharpen blades, pruners, and shears to make your gardening tasks easier.
-                            </p>
+                            <img src="https://tse4.mm.bing.net/th?id=OIP.6AA3Voe7l6O-NcGRa41ZfgHaE8&pid=Api&P=0&h=180" alt="Watering" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Watering</h3>
+                            <p className="text-gray-600 text-center">Water your plant regularly, but avoid overwatering. Check the soil moisture before watering again.</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <img
-                                src="https://i.pinimg.com/originals/1c/3d/0a/1c3d0a39036444ebeecc3057cc6a40f5.jpg"
-                                alt="Tool Storage"
-                                className="w-20 h-20 mx-auto mb-4"
-                            />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Tool Storage</h3>
-                            <p className="text-gray-600 text-center">
-                                Store your tools in a dry place. Hanging them on a pegboard or in a tool shed will prolong their life and prevent rusting.
-                            </p>
+                            <img src="http://gardeningsoul.com/wp-content/uploads/2017/10/1-51.jpg" alt="Soil" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Soil</h3>
+                            <p className="text-gray-600 text-center">Use well-draining soil to prevent root rot. Enrich the soil with organic matter for healthy growth.</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <img
-                                src="https://cdn.notonthehighstreet.com/fs/e0/52/c926-5aef-4079-bf91-18d0cb348a51/original_personalised-father-s-day-garden-tool-set.jpg"
-                                alt="Tool Maintenance"
-                                className="w-20 h-20 mx-auto mb-4"
-                            />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Regular Maintenance</h3>
-                            <p className="text-gray-600 text-center">
-                                Perform regular maintenance checks on your tools. Tighten any loose screws and oil moving parts to ensure smooth operation.
-                            </p>
+                            <img src="https://i2.wp.com/organiclivestockandcrops.org/wp-content/uploads/2017/10/synthetic-fertilizer-organic-livestock-and-crops-900x560.jpg" alt="Fertilization" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Fertilization</h3>
+                            <p className="text-gray-600 text-center">Feed your plant with a balanced fertilizer during the growing season to encourage strong, healthy growth.</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <img
-                                src="https://tse4.mm.bing.net/th?id=OIP.6CPOBcC1FL7P_JMGwqnelAAAAA&pid=Api&P=0&h=180"
-                                alt="Tool Replacement"
-                                className="w-20 h-20 mx-auto mb-4"
-                            />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Replacing Worn Tools</h3>
-                            <p className="text-gray-600 text-center">
-                                Replace worn or damaged tools promptly. Investing in quality tools from our store ensures you have the best equipment for your gardening needs.
-                            </p>
+                            <img src="https://www.bhg.com/thmb/Vyat6CSM248XjNZ62oV6EJgtrRw=/4000x0/filters:no_upscale():strip_icc()/BHG-Pruning-Roses-100398048-593d5673b2b14156b3eaddf1515c4beb.jpg" alt="Pruning" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Pruning</h3>
+                            <p className="text-gray-600 text-center">Regularly prune your plant to remove dead or damaged leaves and promote new growth.</p>
                         </div>
 
                         <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                            <img
-                                src="https://images-na.ssl-images-amazon.com/images/I/81vDkLJ75XL._AC_SL1500_.jpg"
-                                alt="Ergonomics"
-                                className="w-20 h-20 mx-auto mb-4"
-                            />
-                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Ergonomics</h3>
-                            <p className="text-gray-600 text-center">
-                                Choose ergonomic tools to reduce strain and fatigue. Our selection includes tools designed for comfort and efficiency in your gardening tasks.
-                            </p>
+                            <img src="https://www.snexplores.org/wp-content/uploads/2022/08/1440_SS_humidity_feat-1380x776.jpg" alt="Humidity" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Humidity</h3>
+                            <p className="text-gray-600 text-center">Maintain adequate humidity levels, especially for tropical plants. Mist your plants or use a humidifier if necessary.</p>
                         </div>
                     </div>
                 </div>
             </section>
+
+
 
             {/* recommended */}
             <section className="py-16 px-4 md:px-8 bg-[#9cc09c]">
@@ -324,7 +291,7 @@ const Page = () => {
         </>
 
 
-    )
+    );
 };
 
 export default Page;

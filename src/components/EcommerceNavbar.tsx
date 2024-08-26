@@ -43,7 +43,7 @@ const EcommerceNavbar = () => {
 
     const router = useRouter();
 
-    const handleClick = (href:any) => {
+    const handleClick = (href: any) => {
         router.push(href);
     };
 
@@ -51,16 +51,23 @@ const EcommerceNavbar = () => {
         <nav className="bg-green-800 text-white py-1 fixed w-full top-0 left-0 shadow-md z-50">
             <div className="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div className="text-2xl font-bold">Plant E-commerce</div>
-                <ul className="flex space-x-8">
+                <ul className="flex space-x-8 items-center">
+                    <li
+                        
+                        className="px-4 py-2 hover:text-green-500 transition-colors duration-200"
+                        onClick={() => handleClick(`/get-involved`)}
+                    >
+                        Home
+                    </li>
                     {categories.map((category) => (
                         <li
                             key={category.value}
                             className="relative group"
                             onMouseEnter={() => setActiveCategory(category.value)}
                             onMouseLeave={() => setActiveCategory(null)}
-                            onClick={()=>handleClick(`/shop/${category.value}`)}
+                            onClick={() => handleClick(`/shop/${category.value}`)}
                         >
-                            <div className="flex items-center cursor-pointer">
+                            <div className="flex items-center cursor-pointer  hover:text-green-500 transition-colors duration-200">
                                 {category.label}
                                 <svg
                                     className="ml-2 w-4 h-4 transition-transform duration-300"

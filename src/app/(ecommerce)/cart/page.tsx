@@ -121,6 +121,8 @@ import { addToCart, clearCart, ICartItem, removeFromCart, updateQuantity } from 
 import { RootState } from '@/cartRedux/store';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import axios, { AxiosError } from 'axios';
+import { useSession } from 'next-auth/react';
+import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -193,7 +195,27 @@ const Page = () => {
     return total.toFixed(2);
   };
 
+
+  // check user logged or not
+  const {data:session} = useSession()
+  
+
+  // const onClickBuy = () => {
+  //   if (session) {
+  //     dispatch(addOrder());
+  //     dispatch(clearCart());
+  //     navigate('/orders');
+  //     } else {
+  //       navigate('/login');
+  //     }
+  // }
+
   return (
+    <>
+       <Head>
+        <title>Cart </title>
+        <meta name="description" content="This is the cart page." />
+      </Head>
     <div className="mt-16 p-10 bg-[#9cc09c] min-h-screen">
       <div className='container'>
         <h2 className="text-3xl font-bold mb-6 text-green-800">Your Cart</h2>
@@ -237,7 +259,7 @@ const Page = () => {
                 type="text"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                placeholder="Enter discount percentage"
+                placeholder="Enter Coupon Code"
                 className="w-full p-2 border border-gray-300 rounded-md"
               />
               <p className='text-xs py-1'>{codeMsg}</p>
@@ -264,11 +286,18 @@ const Page = () => {
               >
                 Clear Cart
               </button>
+              <button
+                onClick={handleClearCart}
+                className="mt-6 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+              >
+                Buy
+              </button>
             </div>
           </div>
         )}
       </div>
     </div>
+    </>
   );
 };
 
