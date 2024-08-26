@@ -4,6 +4,7 @@ import { store } from "@/cartRedux/store"
 import { Provider } from 'react-redux';
 import EcommerceNavbar from "@/components/EcommerceNavbar"
 import { Toaster } from "@/components/ui/toaster"
+import EcommerceFooter from "@/components/EcommerceFooter";
 
 // export const metadata = {
 //     title: 'Next.js',
@@ -27,6 +28,7 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
             <EcommerceNavbar/> 
             {children}
+            <EcommerceFooter/>
         <Toaster/>
           {/* </ClientProvider> */}
         </body>

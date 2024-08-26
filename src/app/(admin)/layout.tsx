@@ -15,6 +15,10 @@ import { MdOutlineFoundation } from "react-icons/md";
 import { FaShop } from "react-icons/fa6";
 import { GiFountain } from "react-icons/gi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RiCoupon2Fill } from "react-icons/ri";
+import { GoSignOut } from "react-icons/go";
+import { TbPasswordUser } from "react-icons/tb";
+import { CgProfile } from "react-icons/cg";
 
 export default function RootLayout({
   children,
@@ -73,7 +77,7 @@ export default function RootLayout({
                 <li>
                   <Link href="/users-profile">
                     <div className="flex items-center px-4 py-2">
-                      <i className="bi bi-person mr-2"></i>
+                      <CgProfile/>
                       <span>My Profile</span>
                     </div>
                   </Link>
@@ -81,15 +85,15 @@ export default function RootLayout({
                 <li>
                   <Link href="/faq">
                     <div className="flex items-center px-4 py-2">
-                      <i className="bi bi-question-circle mr-2"></i>
-                      <span>Need Help?</span>
+                      <TbPasswordUser/>
+                      <span>Change password</span>
                     </div>
                   </Link>
                 </li>
                 <li>
                   <Link href="#">
                     <div className="flex items-center px-4 py-2">
-                      <i className="bi bi-box-arrow-right mr-2"></i>
+                      <GoSignOut/>
                       <span>Sign Out</span>
                     </div>
                   </Link>
@@ -105,7 +109,7 @@ export default function RootLayout({
       <div className={`fixed top-0 pt-20 left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
         <ul className=" py-4">
           <li>
-            <Link href="/">
+            <Link href="/admin">
               <div className="flex px-4 py-2 gap-2 items-center  hover:bg-green-900">
                 <MdDashboard />
                 <span>Dashboard</span>
@@ -166,6 +170,14 @@ export default function RootLayout({
               <div className="flex px-4 py-2 gap-2  items-center hover:bg-green-900">
                 <FaDonate />
                 <span>Donate</span>
+              </div>
+            </Link>
+          </li>
+          <li >
+            <Link href="/admin-coupon">
+              <div className="flex px-4 py-2 gap-2  items-center hover:bg-green-900">
+                <RiCoupon2Fill/>
+                <span>Coupon</span>
               </div>
             </Link>
           </li>

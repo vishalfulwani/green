@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const categories = [
@@ -37,7 +38,14 @@ const subCategories: Record<string, { value: string; label: string }[]> = {
 };
 
 const EcommerceNavbar = () => {
+
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+    const router = useRouter();
+
+    const handleClick = (href:any) => {
+        router.push(href);
+    };
 
     return (
         <nav className="bg-green-800 text-white py-1 fixed w-full top-0 left-0 shadow-md z-50">
@@ -50,6 +58,7 @@ const EcommerceNavbar = () => {
                             className="relative group"
                             onMouseEnter={() => setActiveCategory(category.value)}
                             onMouseLeave={() => setActiveCategory(null)}
+                            onClick={()=>handleClick(`/shop/${category.value}`)}
                         >
                             <div className="flex items-center cursor-pointer">
                                 {category.label}
