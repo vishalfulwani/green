@@ -40,7 +40,7 @@ const Page = () => {
     const handleAddToCart = (product: any) => {
         const cartItem: ICartItem = {
             product,
-            quantity: 1,
+            quantity: 0,
         };
         dispatch(addToCart(cartItem));
         toast({

@@ -6,22 +6,23 @@ import Donation from '@/models/donation.models';
 import { NextRequest } from 'next/server';
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
+import OrderModel from '@/models/order.models';
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID!,
     key_secret: process.env.RAZORPAY_KEY_SECRET!,
 });
 
-export async function POST(req: NextRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
 
     await dbConnect()
 
-        const { amount, donorName, donorEmail,donorEmailPassword, donorContact } = await req.json();
+        const { userId , cartItems , address , totalAmount , phone } = await req.json();
 
-        console.log("uuu",amount)
+        console.log("uuu",totalAmount)
 
         const options = {
-            amount: amount * 100, // Convert to paise
+            amount: totalAmount * 100, // Convert to paise
             currency: 'INR',
             receipt: `receipt_order_${new Date().getTime()}`,
         };
@@ -29,27 +30,27 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
         try {
             const order = await razorpay.orders.create(options);
 
-            const donation = new Donation({
-                amount,
+            const purchaseOrder = new OrderModel({
+                userId,
                 currency: options.currency,
                 razorpayOrderId: order.id,
-                donorName,
-                donorEmail,
-                donorEmailPassword,
-                donorContact,
+                cartItems,
+                address,
+                totalAmount,
+                phone,
                 status: 'created',
             });
 
-            await donation.save();
+            await purchaseOrder.save();
 
             Response.json(
-                new ApiResponse(true,200,order,"Donation order created"),
+                new ApiResponse(true,200,order,"Purchase order created"),
                 {status:200}
             )
         } catch (error: any) {
             console.log({ error: error.message });
             Response.json(
-                new ApiResponse(false,500,{},"error while creating donation order")
+                new ApiResponse(false,500,{},"error while creating purchase order")
             )
         } 
 }

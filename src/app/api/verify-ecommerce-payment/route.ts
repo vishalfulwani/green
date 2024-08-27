@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 import Donation from '@/models/donation.models';
 import dbConnect from '@/dbconfig/dbConnect';
+import OrderModel from '@/models/order.models';
 
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
     // if (req.method === 'POST') {
@@ -19,7 +20,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 
         if (digest === razorpay_signature) {
             // Update donation record
-            await Donation.findOneAndUpdate(
+            await OrderModel.findOneAndUpdate(
                 { razorpayOrderId: razorpay_order_id },
                 {
                     razorpayPaymentId: razorpay_payment_id,
@@ -31,7 +32,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
             res.status(200).json({ message: 'Payment verified successfully' });
         } else {
             // Update donation record with failure status
-            await Donation.findOneAndUpdate(
+            await OrderModel.findOneAndUpdate(
                 { razorpayOrderId: razorpay_order_id },
                 { status: 'failed' }
             );

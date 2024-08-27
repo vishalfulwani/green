@@ -12,13 +12,6 @@ import { useDispatch } from "react-redux"
 import Autoplay from "embla-carousel-autoplay"
 // import { Card, CardContent } from "@/components/ui/card"
 import * as React from "react"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel"
 import Head from "next/head"
 
 
@@ -40,7 +33,7 @@ const Page = () => {
     const handleAddToCart = (product: any) => {
         const cartItem: ICartItem = {
             product,
-            quantity: 1,
+            quantity: 0,
         };
         dispatch(addToCart(cartItem));
         toast({
