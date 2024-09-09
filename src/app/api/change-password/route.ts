@@ -3,63 +3,65 @@ import { ApiError } from '@/helpers/ApiError';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import UserModel, { IUser } from '@/models/user.models';
 import mongoose from 'mongoose';
-import type { NextApiRequest } from 'next';
-import { authOptions } from '../auth/[...nextauth]/options';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { ecommerceAuthOptions } from '../auth/ecommerce/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
+import { NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
 
 
-interface changePasswordRequest extends NextApiRequest {
+interface ChangePasswordRequest extends NextApiRequest {
     user?: IUser & { _id: mongoose.Types.ObjectId };
 }
-export async function POST(req: changePasswordRequest) {
 
-    await dbConnect()
+export async function POST(req: Request, res: NextApiResponse) {
+    await dbConnect();
 
-    const session = await getServerSession(authOptions)
-    const user = session?.user
+    const session = await getServerSession(ecommerceAuthOptions);
 
-    if (!session || !session.user){
-        return Response.json({
-            success:false,
-            message:"Not Authenticated"
-        },{status:401})
+    if (!session || !session.user) {
+        return Response.json(
+            new ApiResponse(false, 401, {}, "Not authenticated"),
+            { status: 401 }
+        )
     }
 
     try {
-        const { oldPassword, newPassword } = await req.body as { oldPassword: string; newPassword: string };
+        const { oldPassword, newPassword } = await req.json() as { oldPassword: string; newPassword: string };
 
-        console.log(oldPassword, "====", newPassword)
-        const selectedUser = await UserModel.findById(user?._id);
+        const selectedUser = await UserModel.findById(session.user._id);
         if (!selectedUser) {
             return Response.json(
                 new ApiResponse(false, 500, {}, "User not found"),
                 { status: 500 }
-            );
+            )
         }
-        const isPasswordCorrect = await selectedUser?.isPasswordCorrect(oldPassword);
+
+
+
+        const isPasswordCorrect = await bcrypt.compare(oldPassword, selectedUser.password);
 
         if (!isPasswordCorrect) {
             return Response.json(
                 new ApiResponse(false, 401, {}, "Invalid old password"),
                 { status: 401 }
-            );
+            )
         }
 
-        selectedUser.password = newPassword;
+
+        selectedUser.password = await bcrypt.hash(newPassword, 10);
         await selectedUser.save({ validateBeforeSave: false });
 
         return Response.json(
-            new ApiResponse(false, 200, {}, "Password changed successfully"),
+            new ApiResponse(true, 200, {}, "Password changed successfully"),
             { status: 200 }
-        );
+        )
 
     } catch (error) {
+        console.error(error);
         return Response.json(
-            new ApiResponse(false, 500, {}, "Error while registering user"),
+            new ApiResponse(false, 500, {}, "Password change failed"),
             { status: 500 }
-        );
+        )
     }
-};
-
-
-
+}

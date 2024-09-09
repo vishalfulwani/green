@@ -5,15 +5,17 @@ declare module 'next-auth'{
     interface User{
         _id?: string;
         isVerified?: boolean;
-        isAcceptingMessage?: boolean;
+        // isAcceptingMessage?: boolean;
         userName?: string;
         role?:string;
+        platform?:string;
     }
     interface Session{
+        platform?:string;
         user:{
             _id?: string;
             isVerified?: boolean;
-            isAcceptingMessage?: boolean;
+            // isAcceptingMessage?: boolean;
             userName?: string;
             role?:string;
         } & DefaultSession['user']
@@ -24,8 +26,9 @@ declare module 'next-auth/jwt'{
     interface JWT{
         _id?: string;
         isVerified?: boolean;
-        isAcceptingMessage?: boolean;
+        // isAcceptingMessage?: boolean;
         userName?: string;
         role?:string
+        platform?:string;
     }
 }

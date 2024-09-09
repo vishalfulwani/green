@@ -37,8 +37,8 @@ const Page = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // Load cart from localStorage when component mounts
   useEffect(() => {
-    // Load cart from localStorage when component mounts
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
       const parsedCart: ICartItem[] = JSON.parse(storedCart);
@@ -46,8 +46,8 @@ const Page = () => {
     }
   }, [dispatch]);
 
+  // Save cart to localStorage whenever it changes
   useEffect(() => {
-    // Save cart to localStorage whenever it changes
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
@@ -119,16 +119,28 @@ const Page = () => {
 
 
   const handleBuyClick = () => {
+    setIsLoading(true)
     if (!session) {
-      // Redirect to login page if user is not logged in
-      router.push('/login');
+      router.push('/ecommerce-signin');
     } else {
-      // Show Popover if user is logged in
       const id = session.user?._id as string
       setUserId(id)
       setIsPopoverOpen(true);
+      setIsLoading(false)
     }
   };
+
+  // Dynamically load Razorpay script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const handleNextClick = async () => {
 
@@ -154,11 +166,21 @@ const Page = () => {
 
       toast({
         title: "Success",
-        description: "Order Created",
+        description: "Order Created Successfully",
         className: 'toast-success'
       })
 
       const order = response.data
+
+      if (!order.id) {
+        toast({
+          title: 'Failed',
+          description: 'Order creation failed',
+          className: "toast-error"
+        })
+      }
+
+      // Razorpay options
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
         amount: order.amount,
@@ -167,25 +189,44 @@ const Page = () => {
         description: 'Shopping',
         order_id: order.id,
         handler: async (response: any) => {
-          // Send payment details to backend for verification
-          const verificationRes = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            }),
-          });
+          try {
+            // Send payment details to backend for verification
+            const verificationRes = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
 
-          const verificationData = await verificationRes.json();
+            const verificationData = await verificationRes.json();
 
-          if (verificationRes.ok) {
-            alert('Payment successful!');
-          } else {
-            alert(`Payment failed: ${verificationData.error}`);
+            if (verificationRes.ok) {
+              // alert('Payment successful!');
+              toast({
+                title: 'Success',
+                description: 'Payment initialization successful',
+                className: "toast-success"
+              })
+            } else {
+              // alert(`Payment failed: ${verificationData.error}`);
+              toast({
+                title: 'Failed',
+                description: `Payment initialization failed: ${verificationData.error}`,
+                className: "toast-error"
+              })
+            }
+          } catch (error: any) {
+            toast({
+              title: 'Failed',
+              description: `Verification failed: ${error.message}`,
+              className: "toast-error"
+            })
+
           }
         },
         prefill: {
@@ -211,7 +252,7 @@ const Page = () => {
 
       toast({
         title: "Success",
-        description:  "Order Placed",
+        description: "Order Placed",
         className: 'toast-success'
       })
 
@@ -228,7 +269,7 @@ const Page = () => {
   };
 
 
-  
+
 
   return (
     <>
@@ -309,7 +350,16 @@ const Page = () => {
 
                 <AlertDialog open={isPopoverOpen} >
                   <AlertDialogTrigger asChild>
-                    <Button variant="outline" onClick={handleBuyClick} className="mt-6 mr-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">Buy</Button>
+                    <Button variant="outline" onClick={handleBuyClick} className="mt-6 mr-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+                    
+                      {
+                              isLoading ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please Wait
+                                </>
+                              ) : ('Buy')
+                            }
+                    </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
@@ -392,12 +442,12 @@ const Page = () => {
                             className=" mr-4 bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
                           >
                             {
-                                    isLoading ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please Wait
-                                        </>
-                                    ) : ('Next')
-                                }
+                              isLoading ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please Wait
+                                </>
+                              ) : ('Next')
+                            }
                           </button>
                           <button
                             type="button"

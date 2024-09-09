@@ -1,23 +1,19 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import styles from '../style/home.module.css';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import axios from 'axios';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import Image from 'next/image';
 import Head from 'next/head';
 import Footer from '@/components/FoundationFooter';
+import FoundationNavbar from '@/components/FoundationNavbar';
 
 
 
 
 const Page = () => {
-
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [sponsors, setSponsors] = useState([])
@@ -47,7 +43,7 @@ const Page = () => {
         <title>Home Page - Green Foundation</title>
         <meta name="description" content="This is the home page of Green Foundation." />
       </Head>
-
+      <FoundationNavbar />
       {/* hero section */}
       <section className="bg-green-900 text-white py-20 mt-16">
         <div className="container mx-auto text-center">
@@ -286,7 +282,7 @@ const Page = () => {
         </div>
       </section>
 
-      <Footer/>
+      <Footer />
 
     </>
   );

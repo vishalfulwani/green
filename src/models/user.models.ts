@@ -21,6 +21,7 @@ export interface IUser extends Document {
     isVerified: boolean;
     refreshToken?: string;
     role: string;
+    userType:string;
     cart:Schema.Types.ObjectId[];
     buy: Schema.Types.ObjectId[]
     isPasswordCorrect(password: string): Promise<boolean>;
@@ -89,6 +90,9 @@ const userSchema: Schema<IUser> = new Schema({
             ref: "ProductModel"
         }
     ],
+    userType:{
+        type:String,
+    }
 
 }, { timestamps: true })
 
@@ -97,6 +101,7 @@ userSchema.methods.isPasswordCorrect = async function (password: string): Promis
     try {
         return await bcrypt.compare(password, this.password);
     } catch (error) {
+        console.error('Error while ========== comparing passwords:', error);
         throw new Error('Error while comparing passwords')
     }
 }

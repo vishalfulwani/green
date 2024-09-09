@@ -28,6 +28,7 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
 
         try {
             const order = await razorpay.orders.create(options);
+            console.log(order)
 
             const donation = new Donation({
                 amount,
@@ -42,13 +43,13 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
 
             await donation.save();
 
-            Response.json(
+            return Response.json(
                 new ApiResponse(true,200,order,"Donation order created"),
                 {status:200}
             )
         } catch (error: any) {
             console.log({ error: error.message });
-            Response.json(
+            return Response.json(
                 new ApiResponse(false,500,{},"error while creating donation order")
             )
         } 

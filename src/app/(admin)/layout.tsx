@@ -1,4 +1,4 @@
-'use client';
+
 
 import AdminNavbar from "@/components/AdminNavbar";
 import { Toaster } from "@/components/ui/toaster";
@@ -20,36 +20,49 @@ import { GoSignOut } from "react-icons/go";
 import { TbPasswordUser } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 
+import type { Metadata } from 'next'
+import AuthProvider from "@/context/AuthProvider";
+import { Inter } from "next/font/google";
+
+export const metadata: Metadata = {
+  title: 'Admin',
+  description: 'Welcome to Admin panel',
+}
+
+const inter = Inter({ subsets: ["latin"] });
+
+
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [sideMargin, setSideMargin] = useState('ml-0')
-  const [rightbarOpen, setRightbarOpen] = useState(false)
-  const [subPartOpen, setSubPartOpen] = useState(false)
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sideMargin, setSideMargin] = useState('ml-0')
+  // const [rightbarOpen, setRightbarOpen] = useState(false)
+  // const [subPartOpen, setSubPartOpen] = useState(false)
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-    if (sidebarOpen) {
-      setSideMargin('ml-0')
-    } else {
-      setSideMargin('ml-60')
-    }
-  };
-  const toggleRightSidebar = () => {
-    setRightbarOpen(!rightbarOpen)
-  }
+  // const toggleSidebar = () => {
+  //   setSidebarOpen(!sidebarOpen);
+  //   if (sidebarOpen) {
+  //     setSideMargin('ml-0')
+  //   } else {
+  //     setSideMargin('ml-60')
+  //   }
+  // };
+  // const toggleRightSidebar = () => {
+  //   setRightbarOpen(!rightbarOpen)
+  // }
 
-  // Used in left menu
-  const toggleSubPart = () => {
-    setSubPartOpen(!subPartOpen)
-  }
+  // // Used in left menu
+  // const toggleSubPart = () => {
+  //   setSubPartOpen(!subPartOpen)
+  // }
 
   return (
     <>
-      <header id="header" className="fixed top-0 w-full flex px-6 py-2 items-center bg-green-800 text-white shadow-md z-50">
+      {/* <header id="header" className="fixed top-0 w-full flex px-6 py-2 items-center bg-green-800 text-white shadow-md z-50">
         <div className="flex items-center w-full pr-4">
           <Link href="/">
             <div className="flex items-center">
@@ -106,7 +119,7 @@ export default function RootLayout({
 
 
 {/* side bar */}
-      <div className={`fixed top-0 pt-20 left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
+      {/* <div className={`fixed top-0 pt-20 left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
         <ul className=" py-4">
           <li>
             <Link href="/admin">
@@ -186,7 +199,23 @@ export default function RootLayout({
 
       <main  className={`min-h-screen p-4 bg-[#accbb7] ${sideMargin}`}>
         {children}
-      </main>
+      </main> */} 
+
+
+<html lang="en">
+      <AuthProvider>
+      <body className={inter.className}>
+      <AdminNavbar>
+          {children}
+      </AdminNavbar>
+        
+        <Toaster/>
+      </body>
+      </AuthProvider>
+    </html>
+
+
+
     </>
   );
 }

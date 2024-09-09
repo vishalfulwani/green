@@ -1,90 +1,117 @@
+
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import dbConnect from "@/dbconfig/dbConnect";
-import UserModel, { IUser } from "@/models/user.models";
+import UserModel from "@/models/user.models";
+import DonationModel from "@/models/donation.models";
+import { ApiResponse } from "@/helpers/ApiResponse";
 
-
-
+// Unified Authentication Options
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
-            id:'credentials',
-            name:'Credentials',
+            id: 'credentials',
+            name: 'Credentials',
             credentials: {
                 email: { label: "Email", type: "text" },
-                // userName: { label: "Username", type: "text" },
-                password: { label: "Password", type: "password" }
+                password: { label: "Password", type: "password" },
+                platform: { label: "Platform", type: "text" } // Add platform to differentiate between E-commerce and Foundation
             },
-            async authorize(credentials:any):Promise<any>{
-                await dbConnect()
-                console.log("****")
+            async authorize(credentials: any): Promise<any> {
+                await dbConnect();
+                console.log(credentials.platform,"======")
+
                 try {
-                    console.log("****")
-                    // console.log(credentials.identifier.email,"===")
-                    console.log(credentials.email,"===")
-                    console.log("***")
-                    // console.log(credentials.password,"===")
-                    const user = await UserModel.findOne({
-                        $or:[
-                            {email : credentials.email},
-                            // {userName : credentials.identifier.userName},
-                        ]
-                    })
-                    console.log("***")
-                    console.log(user,"oooo")
-                    if (!user){
-                        console.log("***")
+                    let user;
+
+                    // Check the platform to decide where to find the user
+                    if (credentials.platform === "ecommerce") {
+                        user = await UserModel.findOne({ email: credentials.email });
+                        if (!user) {
+                            // return Response.json(
+                            //     new ApiResponse(false, 400, {}, "User not found"),
+                            //     { status: 400 }
+                            // )
+                            // console.log("User not found");
+                            // return null;
                         throw new Error('No user found with this email')
+                        
                     }
-                    if (!user.isVerified){
-                        console.log("***verified")
-                        throw new Error('Please verify your account before login')
+                    if (!user.isVerified) {
+                        // return  Response.json(
+                            //     new ApiResponse(false, 400, {}, "User not verified"),
+                            //     { status: 400 }
+                            // );
+                            throw new Error('Please verify your account before login')
+                            
+                        }
+                    } else if (credentials.platform === "foundation") {
+                        console.log("ppppppp")
+                        user = await DonationModel.findOne({ email: credentials.email });
+                        
+                        console.log("**********",user)
+                        if (!user) {
+                            throw new Error('No user found with this email')
+                            // return Response.json(
+                            //     new ApiResponse(false,500,{},'No user found with this email'),
+                            //     {status:500}
+                            // )
+                        }
                     }
-                    console.log(credentials.password , "kkkk",user.password)
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password)
-                    console.log("correct",isPasswordCorrect)
-                    if (isPasswordCorrect){
-                        return user
+
+                    console.log("**********",user)
+                    // Verify password
+                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+                    if (isPasswordCorrect) {
+                        return user;
                     }
+                       
+                    // console.log(isPasswordCorrect)
+                    // return Response.json(
+                    //     new ApiResponse(false, 400, {}, "Incorrect password"),
+                    //     { status: 400 }
+                    // );
                     throw new Error('Incorrect Password')
-                } 
-                catch (error) {
+                } catch (error) {
+                    // return Response.json(
+                    //     new ApiResponse(false, 500, {}, "Error during login"),
+                    //     { status: 500 }
+                    // );
                     throw new Error("Email or Password is incorrect")                    
+
                 }
             }
         })
     ],
     callbacks: {
-        async jwt({ token, user}) {
-            if (user){
-                token._id = user._id?.toString()
-                token.isVerified = user.isVerified
-                token.isAcceptingMessage = user.isAcceptingMessage
-                token.userName = user.userName
-                token.role = user.role
+        async jwt({ token, user, account }) {
+            if (user) {
+                token._id = user._id?.toString();
+                // token.userName = user.userName || user.donorName;
+                token.userName = (user as any).userName || (user as any).donorName;
+                token.role = user.role;
 
+                // Add platform information to token
+                token.platform = account?.provider === 'credentials' && account?.providerAccountId?.includes('ecommerce')
+                    ? "ecommerce"
+                    : "foundation";
             }
-           return token
+            return token;
         },
         async session({ session, token }) {
-            if (token){
-                session.user._id = token._id
-                session.user.isVerified = token.isVerified
-                session.user.isAcceptingMessage = token.isAcceptingMessage
-                session.user.userName = token.userName
-                session.user.role = token.role
-                
-            }
-            
-            return session
-          },
+            session.user._id = token._id;
+            session.user.userName = token.userName;
+            session.user.role = token.role;
+            session.platform = token.platform;
+            return session;
+        },
     },
     pages: {
-        signIn: '/signin',
+        signIn: '/signin', // Unified sign-in page (you can check the platform on this page)
     },
-    session:{
-        strategy:"jwt"
+    session: {
+        strategy: "jwt",
     },
-    secret : process.env.NEXTAUTH_SECRET
-}
+    secret: process.env.NEXTAUTH_SECRET,
+};
