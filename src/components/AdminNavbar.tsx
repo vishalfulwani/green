@@ -1,6 +1,6 @@
 'use client'
 
-import React from "react"
+import React, { useEffect } from "react"
 import Link from "next/link"
 import { useSession, signOut } from "next-auth/react"
 import { User } from 'next-auth'
@@ -62,13 +62,20 @@ const AdminNavbar = ({
   children,
 }: { children: React.ReactNode }) => {
 
-  const { data: session } = useSession()
-
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sideMargin, setSideMargin] = useState('ml-0')
   const [rightbarOpen, setRightbarOpen] = useState(false)
   const [subPartOpen, setSubPartOpen] = useState(false)
+
+  const [userSession, setUserSession] = useState(false)
+  const { data: session, status } = useSession();
+  console.log(session?.platform)
+  useEffect(() => {
+    if (session?.platform === 'ecommerce') {
+        setUserSession(true);
+    }
+}, [session]);
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
@@ -170,6 +177,7 @@ const AdminNavbar = ({
           </button>
         </div>
 
+        {/* {userSession && ( */}
         <nav className="ml-auto py-4">
           <ul className="flex items-center space-x-4">
             <li className="relative">
@@ -184,10 +192,12 @@ const AdminNavbar = ({
                   <h6 className="text-lg text-center font-medium">Admin</h6>
                 </li>
                 <li>
-                  <Link href="/users-profile">
+                  <Link href="/ecommerce-profile">
                     <div className="flex items-center gap-3 px-4  py-2">
                       <CgProfile />
-                      <span>My Profile</span>
+                      {/* <span>My Profile</span> */}
+                      <Button variant="outline"> My Profile</Button>
+
                     </div>
                   </Link>
                 </li>
@@ -293,6 +303,7 @@ const AdminNavbar = ({
             </li>
           </ul>
         </nav>
+            {/* //  )} */}
       </header>
 
 

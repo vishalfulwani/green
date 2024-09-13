@@ -3,7 +3,7 @@ import { ApiResponse } from "@/helpers/ApiResponse";
 import uploadOnCloudinary from "@/lib/cloudinary";
 import DonationModel, { IDonation } from "@/models/donation.models";
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
     await dbConnect();
 
     const formData = await req.formData();
@@ -12,7 +12,7 @@ export async function GET(req: Request) {
     // const certificate = formData.get('certificate') as string
     const plantationStatus = formData.get('plantationStatus') as string
 
-    console.log('***')
+    console.log('***',id,plantationStatus,image)
     if (!(id || image || plantationStatus)) {
         return Response.json(
             new ApiResponse(false, 400, {}, 'Please fill in all fields'),
@@ -33,6 +33,7 @@ export async function GET(req: Request) {
         }
 
         const user = await DonationModel.findById(id) as IDonation;
+        console.log("opopop",user)
 
         if (!user) {
             return Response.json(
@@ -43,7 +44,7 @@ export async function GET(req: Request) {
 
         user.plantationImage = uploadResult.secure_url
         user.plantationStatus = plantationStatus
-
+console.log("opopop",user)
         await user.save()
 
         return Response.json(

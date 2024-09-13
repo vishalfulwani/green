@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
 
         const { userId , cartItems , address , totalAmount , phone } = await req.json();
 
-        console.log("uuu",totalAmount)
+        console.log("uuu",totalAmount,address)
 
         const options = {
             amount: totalAmount * 100, // Convert to paise
@@ -34,23 +34,25 @@ export async function POST(req: NextRequest) {
                 userId,
                 currency: options.currency,
                 razorpayOrderId: order.id,
-                cartItems,
+                items:cartItems,
                 address,
                 totalAmount,
                 phone,
                 status: 'created',
             });
 
+            console.log("ppppppp",purchaseOrder)
             await purchaseOrder.save();
 
-            Response.json(
+            return Response.json(
                 new ApiResponse(true,200,order,"Purchase order created"),
                 {status:200}
             )
         } catch (error: any) {
             console.log({ error: error.message });
-            Response.json(
-                new ApiResponse(false,500,{},"error while creating purchase order")
+            return Response.json(
+                new ApiResponse(false,500,{},"error while creating purchase order"),
+                {status:500}
             )
         } 
 }

@@ -62,13 +62,13 @@ const DonationForm = () => {
             const order = res.data;
             console.log("---", order)
 
-            if (!order.id) {
-                toast({
-                    title: 'Failed',
-                    description: 'Donation Order creation failed',
-                    className: "toast-error"
-                })
-            }
+            // if (!order.id) {
+            //     toast({
+            //         title: 'Failed',
+            //         description: 'Donation Order creation failed',
+            //         className: "toast-error"
+            //     })
+            // }
 
             // Razorpay options
             const options = {

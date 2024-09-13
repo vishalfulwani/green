@@ -27,6 +27,7 @@ function Page() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [donations, setDonations] = useState<IDonation[]>([])
     const [isCreated, setIsCreated] = useState(false)
+    const [donationId, setDonationId] = useState("")
 
     const { toast } = useToast()
 
@@ -38,6 +39,8 @@ function Page() {
                 const allDonations = await axios.get<ApiResponse>('/api/get-donation')
                 const donationData = allDonations.data.data as IDonation[]
                 setDonations(donationData)
+                console.log("----", donationData)
+
             } catch (error) {
                 console.error("Error fetching donations:", error)
             } finally {
@@ -77,7 +80,7 @@ function Page() {
     const onDonationPlantationDataSubmit = async (data: any) => {
         setIsCreated(true)
         const formData = new FormData()
-        formData.append('id', data.id || '')
+        formData.append('id', donationId || '')
         formData.append('plantationImage', data.plantationImage || '')
         formData.append('plantationStatus', data.plantationStatus || '')
 
@@ -102,6 +105,36 @@ function Page() {
         }
     }
 
+    //     const onDonationPlantationDataSubmit = async (data: PlantationFormValues) => {
+    //     setIsCreated(true);
+    //     const formData = new FormData();
+    //     formData.append('id', data.id);
+    //     if (data.plantationImage[0]) {
+    //         formData.append('plantationImage', data.plantationImage[0]); // Assuming single file upload
+    //     }
+    //     formData.append('plantationStatus', data.plantationStatus);
+
+    //     try {
+    //         const response = await axios.post('/api/admin/add-plantation-data', formData);
+    //         toast({
+    //             title: 'Success',
+    //             description: response.data.message,
+    //             className: "toast-success",
+    //         });
+    //         setIsCreated(false);
+    //         form.reset();
+    //     } catch (error) {
+    //         const axiosError = error as AxiosError<ApiResponse>;
+    //         let errorMessage = axiosError.response?.data.message;
+    //         toast({
+    //             title: "Error",
+    //             description: errorMessage || "Plantation data add failed",
+    //             className: 'toast-error',
+    //         });
+    //         setIsCreated(false);
+    //     }
+    // };
+
     // -----------------------
     // Certificate
     // -----------------------
@@ -121,9 +154,9 @@ function Page() {
     const onCertificateSubmit = async (data: any) => {
         setIsCreated(true)
         const formData = new FormData()
-        formData.append('id', data.id || '')
+        formData.append('id', donationId || '')
         formData.append('certificate', data.certificate || '')
-
+        console.log(data.id, "===", formData.get('id'))
         try {
             const response = await axios.post('/api/admin/add-certificate', formData)
             toast({
@@ -145,6 +178,37 @@ function Page() {
         }
     }
 
+
+
+    // const onCertificateSubmit = async (data: CertificateFormValues) => {
+    //     setIsCreated(true);
+    //     const formData = new FormData();
+    //     formData.append('id', data.id);
+    //     if (data.certificate[0]) {
+    //         formData.append('certificate', data.certificate[0]); // Assuming single file upload
+    //     }
+
+    //     try {
+    //         const response = await axios.post('/api/admin/add-certificate', formData);
+    //         toast({
+    //             title: 'Success',
+    //             description: response.data.message,
+    //             className: "toast-success",
+    //         });
+    //         setIsCreated(false);
+    //         certificateForm.reset();
+    //     } catch (error) {
+    //         const axiosError = error as AxiosError<ApiResponse>;
+    //         let errorMessage = axiosError.response?.data.message;
+    //         toast({
+    //             title: "Error",
+    //             description: errorMessage || "Certificate add failed",
+    //             className: 'toast-error',
+    //         });
+    //         setIsCreated(false);
+    //     }
+    // };
+
     return (
         <>
             <Head>
@@ -159,7 +223,7 @@ function Page() {
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
                         </>
                     ) : (
-                        <div className="overflow-x-auto">
+                        <div className="overflow-x-auto scrollbar-hide">
 
                             <table className="min-w-full bg-white">
                                 <thead>
@@ -187,31 +251,40 @@ function Page() {
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.donorContact}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.amount}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.status}</td>
-                                            <td className="py-2 px-4 border-b border-gray-200">{donation.createdAt.toLocaleDateString()}</td>
+                                            {/* <td className="py-2 px-4 border-b border-gray-200">{donation.createdAt.toLocaleDateString()}</td> */}
 
-                                            <td className="py-2 px-4 border-b border-gray-200">{donation.plantationImage ? donation.plantationImage : "add"}</td>
+                                            <td className="py-2 px-4 border-b border-gray-200">{new Date(donation.createdAt).toLocaleDateString()}</td>
+
+                                            <td className="py-2 px-4 border-b border-gray-200">{donation.plantationImage ? <img src={donation.plantationImage}></img> : "add"}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.plantationStatus ? donation.plantationStatus : "add"}</td>
-                                            <td className="py-2 px-4 border-b border-gray-200">{donation.certificate ? donation.certificate : "add"}</td>
+                                            <td className="py-2 px-4 border-b border-gray-200">{donation.certificate ? <img src={donation.certificate}></img> : "add"}</td>
 
                                             <td className="py-2 px-4 border-b border-gray-200">
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <Button variant="outline">Add Planation</Button>
+                                                        <Button variant="outline" className='bg-[#7acbac]'>Add Planation</Button>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-80">
+                                                    <PopoverContent className="w-80 bg-[#acd8b3]">
                                                         <Form {...form}>
                                                             <form onSubmit={form.handleSubmit(onDonationPlantationDataSubmit)} className="space-y-6">
                                                                 <FormField
                                                                     control={form.control}
                                                                     name="id"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel>Donator Id</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input placeholder="" value={donation._id.toString()} readOnly />
-                                                                            </FormControl>
-                                                                        </FormItem>
-                                                                    )}
+                                                                    render={({ field }) => {
+                                                                        // Call setDonorId when the component renders
+                                                                        useEffect(() => {
+                                                                            setDonationId(donation._id.toString());
+                                                                        }, [donation._id]); // Run the effect whenever donation._id changes
+
+                                                                        return (
+                                                                            <FormItem>
+                                                                                <FormLabel>Donator Id</FormLabel>
+                                                                                <FormControl>
+                                                                                    <Input placeholder="" value={donation._id.toString()} readOnly />
+                                                                                </FormControl>
+                                                                            </FormItem>
+                                                                        );
+                                                                    }}
                                                                 />
 
                                                                 <FormField
@@ -221,8 +294,8 @@ function Page() {
                                                                             <FormLabel>Plantation Status</FormLabel>
                                                                             <FormControl>
                                                                                 <Select
-                                                                                      value={field.value} 
-                                                                                      onValueChange={field.onChange}
+                                                                                    value={field.value}
+                                                                                    onValueChange={field.onChange}
                                                                                 >
                                                                                     <SelectTrigger>
                                                                                         <SelectValue placeholder="Select a status" />
@@ -268,33 +341,37 @@ function Page() {
                                                                 </Button>
                                                             </form>
                                                         </Form>
-                                                        <div>Provide plantation data to <span className='txt-1xl text-green-800'>{donation.donorName}</span></div>
+                                                        <div className='text-sm pt-4'>Provide plantation data to <span className='txt-1xl text-green-800'>{donation.donorName}</span></div>
                                                     </PopoverContent>
                                                 </Popover>
                                             </td>
                                             <td className="py-2 px-4 border-b border-gray-200">
                                                 <Popover>
                                                     <PopoverTrigger asChild>
-                                                        <Button variant="outline">Add Certificate</Button>
+                                                        <Button variant="outline" className='bg-[#7acbac]'>Add Certificate</Button>
                                                     </PopoverTrigger>
-                                                    <PopoverContent className="w-80">
+                                                    <PopoverContent className="w-80 bg-[#acd8b3]">
                                                         <Form {...certificateForm}>
                                                             <form onSubmit={certificateForm.handleSubmit(onCertificateSubmit)} className="space-y-6">
                                                                 <FormField
                                                                     control={certificateForm.control}
                                                                     name="id"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel>Donator Id</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input placeholder="" value={donation._id.toString()} readOnly />
-                                                                            </FormControl>
-                                                                        </FormItem>
-                                                                    )}
+                                                                    render={({ field }) => {
+                                                                        // Call setDonorId when the component renders
+                                                                        useEffect(() => {
+                                                                            setDonationId(donation._id.toString());
+                                                                        }, [donation._id]); // Run the effect whenever donation._id changes
+
+                                                                        return (
+                                                                            <FormItem>
+                                                                                <FormLabel>Donator Id</FormLabel>
+                                                                                <FormControl>
+                                                                                    <Input placeholder="" value={donation._id.toString()} readOnly />
+                                                                                </FormControl>
+                                                                            </FormItem>
+                                                                        );
+                                                                    }}
                                                                 />
-
-                                                            
-
                                                                 <FormField
                                                                     control={certificateForm.control}
                                                                     name="certificate"
@@ -313,7 +390,7 @@ function Page() {
                                                                         </FormItem>
                                                                     )}
                                                                 />
-                                                                <Button type="submit" disabled={isCreated} className="button button-green hover:bg-transparent">
+                                                                <Button type="submit" disabled={isCreated} className="button button-green hover:bg-transparent ">
                                                                     {isCreated ? (
                                                                         <>
                                                                             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
@@ -322,7 +399,7 @@ function Page() {
                                                                 </Button>
                                                             </form>
                                                         </Form>
-                                                        <div>Provide Certificate to <span className='txt-1xl text-green-800'>{donation.donorName}</span></div>
+                                                        <div className='text-sm pt-5'>Provide Certificate to <span className='txt-1xl text-green-800'>{donation.donorName}</span></div>
                                                     </PopoverContent>
                                                 </Popover>
                                             </td>

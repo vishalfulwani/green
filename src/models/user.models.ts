@@ -22,6 +22,7 @@ export interface IUser extends Document {
     refreshToken?: string;
     role: string;
     userType:string;
+    platform:string;
     cart:Schema.Types.ObjectId[];
     buy: Schema.Types.ObjectId[]
     isPasswordCorrect(password: string): Promise<boolean>;
@@ -92,6 +93,10 @@ const userSchema: Schema<IUser> = new Schema({
     ],
     userType:{
         type:String,
+    },
+    platform:{
+        type:String,
+        default:"ecommerce"
     }
 
 }, { timestamps: true })

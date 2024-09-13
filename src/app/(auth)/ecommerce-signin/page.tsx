@@ -76,7 +76,7 @@ const Page = () => {
                 description: "Login Successfully",
                 className: 'toast-success'
             })
-            router.replace('/')
+            router.replace('/get-involved')
             setIsSubmitting(false)
         }
     }

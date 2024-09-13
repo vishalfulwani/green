@@ -4,10 +4,11 @@ import { ApiResponse } from '@/helpers/ApiResponse';
 import UserModel, { IUser } from '@/models/user.models';
 import mongoose from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ecommerceAuthOptions } from '../auth/ecommerce/[...nextauth]/options';
+// import { ecommerceAuthOptions } from '../auth/ecommerce/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
+import { authOptions } from '../auth/[...nextauth]/options';
 
 
 interface ChangePasswordRequest extends NextApiRequest {
@@ -17,7 +18,7 @@ interface ChangePasswordRequest extends NextApiRequest {
 export async function POST(req: Request, res: NextApiResponse) {
     await dbConnect();
 
-    const session = await getServerSession(ecommerceAuthOptions);
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user) {
         return Response.json(

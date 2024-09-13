@@ -3,14 +3,14 @@ import { ApiResponse } from "@/helpers/ApiResponse";
 import uploadOnCloudinary from "@/lib/cloudinary";
 import DonationModel, { IDonation } from "@/models/donation.models";
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
     await dbConnect();
 
     const formData = await req.formData();
     const id = formData.get('id') as string;
     const certificate = formData.get('certificate') as File
 
-    console.log('***')
+    console.log('***',id,certificate)
     if (!(id || certificate )) {
         return Response.json(
             new ApiResponse(false, 400, {}, 'Please fill in all fields'),

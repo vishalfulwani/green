@@ -125,6 +125,7 @@ const Page = () => {
     } else {
       const id = session.user?._id as string
       setUserId(id)
+      console.log("****",id)
       setIsPopoverOpen(true);
       setIsLoading(false)
     }
@@ -154,8 +155,12 @@ const Page = () => {
       postalCode: postalCode,
     };
     const totalAmount = cartItems.reduce((acc: any, item: any) => acc + item.price * item.quantity, 0);
+    console.log("00000",totalAmount)
 
     try {
+
+       const totalAmount = calculateTotal()
+
       const response = await axios.post('/api/create-buy-order', {
         userId,
         cartItems,
@@ -163,6 +168,7 @@ const Page = () => {
         totalAmount,
         phone
       });
+      console.log(totalAmount)
 
       toast({
         title: "Success",
@@ -172,13 +178,13 @@ const Page = () => {
 
       const order = response.data
 
-      if (!order.id) {
-        toast({
-          title: 'Failed',
-          description: 'Order creation failed',
-          className: "toast-error"
-        })
-      }
+      // if (!order.id) {
+      //   toast({
+      //     title: 'Failed',
+      //     description: 'Order creation failed',
+      //     className: "toast-error"
+      //   })
+      // }
 
       // Razorpay options
       const options = {
@@ -191,7 +197,7 @@ const Page = () => {
         handler: async (response: any) => {
           try {
             // Send payment details to backend for verification
-            const verificationRes = await fetch('/api/verify-payment', {
+            const verificationRes = await fetch('/api/verify-ecommerce-payment', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -206,14 +212,14 @@ const Page = () => {
             const verificationData = await verificationRes.json();
 
             if (verificationRes.ok) {
-              // alert('Payment successful!');
+              alert('Payment successful!');
               toast({
                 title: 'Success',
                 description: 'Payment initialization successful',
                 className: "toast-success"
               })
             } else {
-              // alert(`Payment failed: ${verificationData.error}`);
+              alert(`Payment failed: ${verificationData.error}`);
               toast({
                 title: 'Failed',
                 description: `Payment initialization failed: ${verificationData.error}`,

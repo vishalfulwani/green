@@ -1,12 +1,12 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface IOrderItem {
-  productId: mongoose.Schema.Types.ObjectId;
+export interface IOrderItem {
+  product: mongoose.Schema.Types.ObjectId;
   quantity: number;
   price: number;
 }
 
-interface IOrder extends Document {
+export interface IOrder extends Document {
   userId: mongoose.Schema.Types.ObjectId;
   items: IOrderItem[];
   totalAmount: number;
@@ -21,7 +21,7 @@ interface IOrder extends Document {
 }
 
 const OrderItemSchema: Schema = new Schema({
-  productId: { 
+  product: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Product', 
     required: true 
@@ -34,7 +34,7 @@ const OrderItemSchema: Schema = new Schema({
     type: Number, 
     required: true 
   },
-});
+},{id:false});
 
 const OrderSchema: Schema = new Schema({
   userId: { 
@@ -64,6 +64,6 @@ const OrderSchema: Schema = new Schema({
   },
 });
 
-const OrderModel = mongoose.models.Donation || mongoose.model<IOrder>('Order', OrderSchema);
+const OrderModel = mongoose.models.Order || mongoose.model<IOrder>('Order', OrderSchema);
 
 export default OrderModel;

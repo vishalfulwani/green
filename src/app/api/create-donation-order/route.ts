@@ -6,6 +6,8 @@ import Donation from '@/models/donation.models';
 import { NextRequest } from 'next/server';
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
+import bcrypt from 'bcrypt';
+
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID!,
@@ -28,15 +30,16 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
 
         try {
             const order = await razorpay.orders.create(options);
-            console.log(order)
+            console.log(order,"=-=-=-=")
 
+            const hashedPassword = await bcrypt.hash(donorEmailPassword, 10)
             const donation = new Donation({
                 amount,
                 currency: options.currency,
                 razorpayOrderId: order.id,
                 donorName,
                 donorEmail,
-                donorEmailPassword,
+                donorEmailPassword:hashedPassword,
                 donorContact,
                 status: 'created',
             });

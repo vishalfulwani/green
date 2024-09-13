@@ -20,14 +20,14 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any): Promise<any> {
                 await dbConnect();
-                console.log(credentials.platform,"======")
+                console.log(credentials.platform, "======")
 
                 try {
-                    let user;
+                    // let user;
 
                     // Check the platform to decide where to find the user
                     if (credentials.platform === "ecommerce") {
-                        user = await UserModel.findOne({ email: credentials.email });
+                        const user = await UserModel.findOne({ email: credentials.email });
                         if (!user) {
                             // return Response.json(
                             //     new ApiResponse(false, 400, {}, "User not found"),
@@ -35,22 +35,30 @@ export const authOptions: NextAuthOptions = {
                             // )
                             // console.log("User not found");
                             // return null;
-                        throw new Error('No user found with this email')
-                        
-                    }
-                    if (!user.isVerified) {
-                        // return  Response.json(
+                            throw new Error('No user found with this email')
+
+                        }
+                        if (!user.isVerified) {
+                            // return  Response.json(
                             //     new ApiResponse(false, 400, {}, "User not verified"),
                             //     { status: 400 }
                             // );
                             throw new Error('Please verify your account before login')
-                            
+
                         }
+                        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+                        if (isPasswordCorrect) {
+                            return user;
+                        }
+                        throw new Error('Incorrect Password')
+
                     } else if (credentials.platform === "foundation") {
-                        console.log("ppppppp")
-                        user = await DonationModel.findOne({ email: credentials.email });
-                        
-                        console.log("**********",user)
+                        console.log("ppppppp", credentials.email)
+                        console.log("ppppppp", credentials.password)
+                        console.log("ppppppp", credentials.platform)
+                        const user = await DonationModel.findOne({ donorEmail: credentials.email });
+
+                        console.log("**********", user)
                         if (!user) {
                             throw new Error('No user found with this email')
                             // return Response.json(
@@ -58,27 +66,17 @@ export const authOptions: NextAuthOptions = {
                             //     {status:500}
                             // )
                         }
-                    }
+                        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.donorEmailPassword);
+                        console.log(isPasswordCorrect)
+                        if (isPasswordCorrect) {
+                            return user;
+                            // return { ...user.toObject(), platform: credentials.platform };
+                        }
+                        throw new Error('Incorrect Password')
 
-                    console.log("**********",user)
-                    // Verify password
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
-                    if (isPasswordCorrect) {
-                        return user;
                     }
-                       
-                    // console.log(isPasswordCorrect)
-                    // return Response.json(
-                    //     new ApiResponse(false, 400, {}, "Incorrect password"),
-                    //     { status: 400 }
-                    // );
-                    throw new Error('Incorrect Password')
                 } catch (error) {
-                    // return Response.json(
-                    //     new ApiResponse(false, 500, {}, "Error during login"),
-                    //     { status: 500 }
-                    // );
-                    throw new Error("Email or Password is incorrect")                    
+                    throw new Error("Email or Password is incorrect")
 
                 }
             }
@@ -91,11 +89,13 @@ export const authOptions: NextAuthOptions = {
                 // token.userName = user.userName || user.donorName;
                 token.userName = (user as any).userName || (user as any).donorName;
                 token.role = user.role;
-
+                token.email = (user as any).email || (user as any).donorEmail
                 // Add platform information to token
-                token.platform = account?.provider === 'credentials' && account?.providerAccountId?.includes('ecommerce')
-                    ? "ecommerce"
-                    : "foundation";
+
+                // token.platform = account?.provider === 'credentials' && account?.providerAccountId?.includes('ecommerce')
+                //     ? "ecommerce"
+                //     : "foundation";
+                token.platform = user.platform;
             }
             return token;
         },

@@ -80,7 +80,7 @@ const Page = () => {
                     description: "Login Successfully",
                     className: 'toast-success'
                 })
-                // router.replace('/get-involved')
+                router.replace('/')
                 setIsSubmitting(false)
             }
         } catch (error) {
