@@ -55,6 +55,8 @@ function Page() {
                                 <tr>
                                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Code</th>
                                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Discount Percentage</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Limit</th>
+                                    <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Applyed By</th>
                                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Created At</th>
                                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Expiry Date</th>
                                     <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Active</th>
@@ -65,8 +67,18 @@ function Page() {
                                     <tr key={coupon._id.toString()}>
                                         <td className="py-2 px-4 border-b border-gray-200">{coupon.code}</td>
                                         <td className="py-2 px-4 border-b border-gray-200">{coupon.discountPercentage}</td>
-                                        <td className="py-2 px-4 border-b border-gray-200">{new Date(coupon.createdAt).toLocaleDateString()}</td>
-                                        <td className="py-2 px-4 border-b border-gray-200">{new Date(coupon.expirationDate).toLocaleDateString()}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{coupon.limit}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{coupon.appliedBy.length}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{new Date(coupon.createdAt).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric',
+                                        })}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{new Date(coupon.expirationDate).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric',
+                                        })}</td>
                                         <td className="py-2 px-4 border-b border-gray-200"> {coupon.isActive ? 'Active' : 'Inactive'}</td>
                                     </tr>
                                 ))}

@@ -9,12 +9,12 @@ export async function POST(req: Request) {
   await dbConnect();
 
   try {
-    // const { code, discountPercentage, expirationDate } = await request.json();
 
     const formData = await req.formData();
     const code = formData.get('code') as string
     const discountPercentage = formData.get('discountPercentage') as string
     const expirationDate = formData.get('expirationDate') ;
+    const limit = formData.get('limit') ;
 
     console.log(code,"***",discountPercentage,"===",expirationDate)
 
@@ -30,19 +30,18 @@ export async function POST(req: Request) {
     const coupon = new CouponModel({
       code,
       discountPercentage,
+      limit,
       expirationDate: new Date(expirationDate as string)
     });
     
 
     await coupon.save();
 
-    // return NextResponse.json({ message: 'Coupon created successfully' }, { status: 201 });
     return Response.json(
         new ApiResponse(true,200,{}, 'Coupon created successfully'),
         {status:200}
     )
   } catch (error) {
-    // return NextResponse.json({ error: 'Failed to create coupon' }, { status: 500 });
     return Response.json(
         new ApiResponse(false,500,{}, 'Failed to create coupen'),
         {status:500}

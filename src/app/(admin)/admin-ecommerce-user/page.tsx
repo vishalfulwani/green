@@ -63,7 +63,7 @@ function page() {
                                     <tr key={user._id.toString()}>
                                         <td className="py-2 px-4 border-b border-gray-200">{user.userName}</td>
                                         <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
-                                        <td className="py-2 px-4 border-b border-gray-200">{user.isVerified}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{user.isVerified ? "True":"False"}</td>
                                         <td className="py-2 px-4 border-b border-gray-200">{user.role}</td>
                                         <td className="py-2 px-4 border-b border-gray-200">{user.cart.length}</td>
                                         <td className="py-2 px-4 border-b border-gray-200">{user.buy.length}</td>

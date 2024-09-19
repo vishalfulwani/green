@@ -169,6 +169,11 @@ const UserProfile = () => {
       <span className="font-semibold text-gray-900">Quantity:</span> {item.quantity}
     </p>
     <p className="text-gray-700 mb-3">
+      {/* <span className="font-semibold text-gray-900">Total Cost:</span> {parseInt(item.quantity)*parseInt(item.product.sellingPrice)} */}
+      <span className="font-semibold text-gray-900">Total Cost:</span> {Number(item.quantity) * Number(item.product.sellingPrice)}
+
+    </p>
+    <p className="text-gray-700 mb-3">
       <span className="font-semibold text-gray-900">Category:</span> {item.product.category} /{" "}
       {item.product.subCategory}
     </p>

@@ -41,7 +41,7 @@ const Page = () => {
     const handleAddToCart = (product: any) => {
         const cartItem: ICartItem = {
             product,
-            quantity: 0,
+            quantity: 1,
         };
         dispatch(addToCart(cartItem));
         toast({

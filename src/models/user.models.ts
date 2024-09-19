@@ -1,18 +1,9 @@
-import mongoose, { Schema, SchemaType } from 'mongoose'
+
+import mongoose, { Schema, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { IProduct } from './product.models';
-
-
-
-
-// interface ICartItem {
-//     // productId: Schema.Types.ObjectId;
-//     product: IProduct;
-//     quantity: number;
-//   }
 
 export interface IUser extends Document {
-    _id:mongoose.Types.ObjectId;
+    _id: mongoose.Types.ObjectId;
     userName: string;
     email: string;
     password: string;
@@ -21,26 +12,17 @@ export interface IUser extends Document {
     isVerified: boolean;
     refreshToken?: string;
     role: string;
-    userType:string;
-    platform:string;
-    cart:Schema.Types.ObjectId[];
-    buy: Schema.Types.ObjectId[]
+    platform: string;
+    address: {
+        street: string;
+        city: string;
+        state: string;
+        postalCode: string;
+    };
+    cart: mongoose.Types.ObjectId[];
+    buy: mongoose.Types.ObjectId[];
     isPasswordCorrect(password: string): Promise<boolean>;
 }
-
-
-// const cartItemSchema: Schema<ICartItem> = new Schema({
-//     product: { 
-//         type: Schema.Types.ObjectId, 
-//         ref: 'ProductModel', 
-//         required: true 
-//     },
-//     // quantity: { 
-//     //     type: Number, 
-//     //     default: 1 
-//     // },
-//   });
-
 
 const userSchema: Schema<IUser> = new Schema({
     userName: {
@@ -79,7 +61,6 @@ const userSchema: Schema<IUser> = new Schema({
         type: String,
     },
     cart: [
-        // cartItemSchema
         {
             type: Schema.Types.ObjectId,
             ref: "ProductModel",
@@ -91,31 +72,26 @@ const userSchema: Schema<IUser> = new Schema({
             ref: "ProductModel"
         }
     ],
-    userType:{
-        type:String,
+    platform: {
+        type: String,
+        default: "ecommerce"
     },
-    platform:{
-        type:String,
-        default:"ecommerce"
-    }
-
-}, { timestamps: true })
-
+    address: {
+        street: { type: String, default: '' },
+        city: { type: String, default: '' },
+        state: { type: String, default: '' },
+        postalCode: { type: String, default: '' },
+    },
+}, { timestamps: true });
 
 userSchema.methods.isPasswordCorrect = async function (password: string): Promise<boolean> {
     try {
         return await bcrypt.compare(password, this.password);
     } catch (error) {
-        console.error('Error while ========== comparing passwords:', error);
-        throw new Error('Error while comparing passwords')
+        console.error('Error while comparing passwords:', error);
+        throw new Error('Error while comparing passwords');
     }
-}
+};
 
-
-
-
-
-
-
-const UserModel = (mongoose.models.User as mongoose.Model<IUser>) || mongoose.model<IUser>("User", userSchema)
-export default UserModel
+const UserModel = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
+export default UserModel;

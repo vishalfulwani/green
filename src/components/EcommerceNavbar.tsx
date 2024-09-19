@@ -82,6 +82,13 @@ const EcommerceNavbar = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+
+    // const [userId, setUserId] = useState('')
+    // const [street, setStreet] = useState('');
+    // const [city, setCity] = useState('');
+    // const [state, setState] = useState('');
+    // const [postalCode, setPostalCode] = useState('');
+
     const [userSession, setUserSession] = useState(false)
     const { data: session, status } = useSession();
     console.log(session?.platform)
@@ -141,6 +148,68 @@ const EcommerceNavbar = () => {
             toast({
                 title: "Failed",
                 description: errorMessage || "Password change failed",
+                className: 'toast-error'
+            })
+            setIsSubmitting(false)
+        }
+    }
+
+
+
+    interface ChangeAddressFormValues {
+        // oldPassword: string;
+        // newPassword: string;
+        street: string;
+        city: string;
+        state: string;
+        postalCode: string;
+    }
+
+    const addressForm = useForm<ChangeAddressFormValues>({
+        defaultValues: {
+            street: "",
+            city: "",
+            state: "",
+            postalCode: "",
+        }
+    })
+
+    // address change
+    const onAddressSubmit = async (data: ChangeAddressFormValues) => {
+        setIsSubmitting(true)
+        try {
+            console.log(data.street, "=jhkuyftrtgyhuhgffygfyguhugguihuguiu=", data.city,data)
+            const response = await axios.post<ApiResponse>('/api/change-address', 
+                {
+                // oldPassword: data.oldPassword,
+                // newPassword: data.newPassword
+            
+                    street: data.street,
+                    city: data.city,
+                    state: data.state,
+                    postalCode: data.postalCode
+        }, 
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+
+    console.log("fatsf",data.street)
+
+            toast({
+                title: 'Success',
+                description: response.data.message,
+                className: 'toast-success'
+            })
+            setIsSubmitting(false)
+        } catch (error) {
+            const axiosError = error as AxiosError<ApiResponse>
+            let errorMessage = axiosError.response?.data.message
+            toast({
+                title: "Failed",
+                description: errorMessage || "Address change failed",
                 className: 'toast-error'
             })
             setIsSubmitting(false)
@@ -217,13 +286,13 @@ const EcommerceNavbar = () => {
                             </div>
                             <ul className={`absolute right-0 mt-2 w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
                                 <li className="px-4 py-2 border-b">
-                                    <h6 className="text-lg text-center font-medium">User</h6>
+                                    <h6 className="text-lg text-center font-medium">User ( {session?.user.userName} )</h6>
                                 </li>
                                 <li>
                                     <Link href="/ecommerce-profile" className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100">
                                         <CgProfile />
                                         {/* <span>My Profile</span> */}
-                                    <Button variant="outline">My Profile</Button>
+                                        <Button variant="outline">My Profile</Button>
 
                                     </Link>
                                 </li>
@@ -298,6 +367,122 @@ const EcommerceNavbar = () => {
                                     </span>
                                 </li>
                                 <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
+    <TbPasswordUser />
+    <span>
+        <AlertDialog>
+            <AlertDialogTrigger asChild>
+                <Button variant="outline">Add Address</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+                <AlertDialogTitle className="text-center">
+                    <Form {...addressForm}>
+                        <form onSubmit={addressForm.handleSubmit(onAddressSubmit)} className="space-y-6">
+                            {/* Street Field */}
+                            <FormField
+                                control={addressForm.control}
+                                name="street"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="flex justify-start text-1xl">Street</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="text"
+                                                required
+                                                placeholder="Street"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* City Field */}
+                            <FormField
+                                control={addressForm.control}
+                                name="city"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="flex justify-start text-1xl">City</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="text"
+                                                required
+                                                placeholder="City"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* State Field */}
+                            <FormField
+                                control={addressForm.control}
+                                name="state"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="flex justify-start text-1xl">State</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="text"
+                                                required
+                                                placeholder="State"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* Postal Code Field */}
+                            <FormField
+                                control={addressForm.control}
+                                name="postalCode"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel className="flex justify-start text-1xl">Postal Code</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                type="text"
+                                                required
+                                                placeholder="Postal Code"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* Submit Button */}
+                            <div className="flex gap-2 justify-end">
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <Button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
+                                        </>
+                                    ) : (
+                                        'Done'
+                                    )}
+                                </Button>
+                            </div>
+                        </form>
+                    </Form>
+                </AlertDialogTitle>
+            </AlertDialogContent>
+        </AlertDialog>
+    </span>
+</li>
+
+                                <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
                                     <GoSignOut />
                                     <span>
                                         <AlertDialog>
@@ -323,7 +508,7 @@ const EcommerceNavbar = () => {
                             </ul>
                         </li>
                     </ul>
-                )} 
+                )}
 
 
 

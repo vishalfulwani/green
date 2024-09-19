@@ -84,7 +84,7 @@ function Page() {
                                     <FormItem>
                                         <FormLabel>Sponser Name</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Product Name" {...field} />
+                                            <Input placeholder="Sponsor Name" {...field} />
                                         </FormControl>
                                     </FormItem>
                                 )}
@@ -97,7 +97,7 @@ function Page() {
                                     <FormItem>
                                         <FormLabel>Link</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Product Description" {...field} />
+                                            <Input placeholder="Sponsor Description" {...field} />
                                         </FormControl>
                                     </FormItem>
                                 )}

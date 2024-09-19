@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { IUser } from '@/models/user.models';
 
 
 
@@ -33,7 +34,11 @@ const Page = () => {
   const dispatch = useDispatch();
   const [discount, setDiscount] = useState<number>(0);
   const [code, setCode] = useState('');
+  const [couponCode, setCouponCode] = useState('');
   const [codeMsg, setCodeMsg] = useState('');
+
+  const [userId, setUserId] = useState<string>('');
+
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -63,32 +68,54 @@ const Page = () => {
     dispatch(clearCart());
   };
 
-
+// session
+  // const [userSession, setUserSession] = useState(false)
+  const { data: session, status } = useSession();
+  console.log(session?.platform)
+  useEffect(() => {
+      console.log(session)
+  }, [session]);
 
   // apply coupon
-  useEffect(() => {
     const applyCoupon = async () => {
       try {
         const response = await axios.post('/api/admin/apply-coupon', {
-          code
+          code,
+          userId
         })
         const disc = response.data.data?.discount
         setDiscount(disc)
         console.log("-----", disc)
         calculateTotal()
-        setCodeMsg("Coupon applyed")
+        const msg = response.data.message
+        setCodeMsg(`${code} ia applyed`)
+        setCouponCode(code)
+
       } catch (error) {
         console.error("Error applying coupon", error)
         const axiosError = error as AxiosError<ApiResponse>
         let errorMessage = axiosError.response?.data.message
-        console.log(errorMessage)
+        console.log(`${code} ${errorMessage}`)
         setDiscount(0)
-        setCodeMsg("Invalid or expired coupon code")
+        setCodeMsg(`${code} is Invalid or expired `)
+        // setCodeMsg(`${code} ${errorMessage}` || "Invalid or expired coupon code")
       }
     }
-    applyCoupon()
 
-  }, [code])
+
+  // update coupon
+    const updateCoupon = async () => {
+      try {
+        const response = await axios.post('/api/admin/update-coupon', {
+          code,
+          userId
+        })
+        const msg = response.data.message
+      } catch (error) {
+        console.error("Error applying coupon", error)
+      }
+    }
+
 
   // calculate total amount to pay
   const calculateTotal = () => {
@@ -102,30 +129,63 @@ const Page = () => {
   // buy ===================================================================
 
   // check user logged or not
-  const { data: session } = useSession()
+  // const { data: session } = useSession()
   const router = useRouter()
   const { toast } = useToast()
 
-  const [userId, setUserId] = useState('')
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [phone, setPhone] = useState('');
-
+  const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
+  // const [userId, setUserId] = useState<string>('');
+  const [street, setStreet] = useState<string>(address?.street || '');
+  const [city, setCity] = useState<string>(address?.city || '');
+  const [state, setState] = useState<string>(address?.state || '');
+  const [postalCode, setPostalCode] = useState<string>(address?.postalCode || '');
+  const [phone, setPhone] = useState<string>('');
+  
+  
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
 
+  // get user
+  const [users, setUsers] = useState<IUser[]>([])
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const allUsers = await axios.get<ApiResponse>('/api/get-all-users')
+        const userData = allUsers.data.data as []
+        setUsers(userData)
+
+        console.log("youuuu",userData)
+        // userData.filter((data)=> data?._id.toString() === session?.user._id )
+        const you = userData.filter((data : any) => {
+          console.log(data._id,"ppp",userId)
+           return data?._id.toString() === userId})
+        console.log("youuuu",you , "oo",(you as any)[0].address)
+        setAddress((you as any)[0]?.address)
+        setStreet((you as any)[0].address.street)
+        setCity((you as any)[0].address.city)
+        setState((you as any)[0].address.state)
+        setPostalCode((you as any)[0].address.postalCode)
+      } catch (error) {
+        console.error("Error fetching users:", error)
+      }
+    }
+    fetchUsers()
+    console.log(address,"00000")
+  }, [userId])
 
 
   const handleBuyClick = () => {
     setIsLoading(true)
     if (!session) {
       router.push('/ecommerce-signin');
+    }
+    else if (session.platform != 'ecommerce'){
+      router.push('/ecommerce-signin');
     } else {
       const id = session.user?._id as string
       setUserId(id)
-      console.log("****",id)
+      console.log("****", id)
       setIsPopoverOpen(true);
       setIsLoading(false)
     }
@@ -143,6 +203,7 @@ const Page = () => {
     };
   }, []);
 
+
   const handleNextClick = async () => {
 
     setIsLoading(true)
@@ -155,18 +216,19 @@ const Page = () => {
       postalCode: postalCode,
     };
     const totalAmount = cartItems.reduce((acc: any, item: any) => acc + item.price * item.quantity, 0);
-    console.log("00000",totalAmount)
+    console.log("00000", totalAmount)
 
     try {
 
-       const totalAmount = calculateTotal()
+      const totalAmount = calculateTotal()
 
       const response = await axios.post('/api/create-buy-order', {
         userId,
         cartItems,
         address,
         totalAmount,
-        phone
+        phone,
+        couponCode,
       });
       console.log(totalAmount)
 
@@ -261,6 +323,7 @@ const Page = () => {
         description: "Order Placed",
         className: 'toast-success'
       })
+      updateCoupon()
 
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
@@ -322,13 +385,22 @@ const Page = () => {
               {/* Discount Section */}
               <div className="bg-white p-6 rounded-lg shadow-md mb-6">
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">Apply Coupon</h3>
+                <div className='flex gap-2'>
+
                 <input
                   type="text"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Enter Coupon Code"
                   className="w-full p-2 border border-gray-300 rounded-md"
-                />
+                  />
+                    <Button variant="outline" onClick={()=>applyCoupon()} className=" px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+                      Apply
+                    </Button>
+
+
+                {/* <Button onClick={()=>applyCoupon()} >Apply</Button> */}
+                </div>
                 <p className='text-xs py-1'>{codeMsg}</p>
               </div>
 
@@ -357,14 +429,14 @@ const Page = () => {
                 <AlertDialog open={isPopoverOpen} >
                   <AlertDialogTrigger asChild>
                     <Button variant="outline" onClick={handleBuyClick} className="mt-6 mr-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                    
+
                       {
-                              isLoading ? (
-                                <>
-                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please Wait
-                                </>
-                              ) : ('Buy')
-                            }
+                        isLoading ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />Please Wait
+                          </>
+                        ) : ('Buy')
+                      }
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>

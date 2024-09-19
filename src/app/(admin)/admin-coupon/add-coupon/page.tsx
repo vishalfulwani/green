@@ -34,6 +34,7 @@ function Page() {
     code: string;
     discountPercentage: string;
     isActive: boolean;
+    limit: string;
     expirationDate: Date;
   }
 
@@ -42,6 +43,7 @@ function Page() {
       code: '',
       discountPercentage: '',
       isActive: true,
+      limit: '0',
       expirationDate: new Date()
     }
   })
@@ -55,6 +57,7 @@ function Page() {
     formData.append('discountPercentage', data.discountPercentage || '')
     formData.append('isActive', data.isActive || '')
     formData.append('expirationDate', data.expirationDate || '')
+    formData.append('limit', data.limit || '0')
 
     console.log("-----66666-----", data.expirationDate)
     try {
@@ -110,6 +113,19 @@ function Page() {
                     <FormLabel>Discount Percentage</FormLabel>
                     <FormControl>
                       <Input placeholder="Discount" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="limit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Coupon Limit</FormLabel>
+                    <FormControl>
+                      <Input placeholder="limit" {...field} />
                     </FormControl>
                   </FormItem>
                 )}

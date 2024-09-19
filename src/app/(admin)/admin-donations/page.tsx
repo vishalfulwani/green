@@ -228,6 +228,7 @@ function Page() {
                             <table className="min-w-full bg-white">
                                 <thead>
                                     <tr>
+                                        <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Donor Id</th>
                                         <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Donor Name</th>
                                         <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Donor Email</th>
                                         <th className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-sm leading-4 text-gray-600 uppercase tracking-wider">Contact</th>
@@ -246,6 +247,7 @@ function Page() {
                                 <tbody>
                                     {donations.map((donation) => (
                                         <tr key={donation._id.toString()}>
+                                            <td className="py-2 px-4 border-b border-gray-200">{donation.razorpayOrderId}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.donorName}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.donorEmail}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.donorContact}</td>
@@ -253,8 +255,14 @@ function Page() {
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.status}</td>
                                             {/* <td className="py-2 px-4 border-b border-gray-200">{donation.createdAt.toLocaleDateString()}</td> */}
 
-                                            <td className="py-2 px-4 border-b border-gray-200">{new Date(donation.createdAt).toLocaleDateString()}</td>
-
+                                            {/* <td className="py-2 px-4 border-b border-gray-200">{new Date(donation.createdAt).toLocaleDateString()}</td> */}
+                                            <td className="py-2 px-4 border-b border-gray-200">
+                                                {new Date(donation.createdAt).toLocaleDateString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                })}
+                                            </td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.plantationImage ? <img src={donation.plantationImage}></img> : "add"}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.plantationStatus ? donation.plantationStatus : "add"}</td>
                                             <td className="py-2 px-4 border-b border-gray-200">{donation.certificate ? <img src={donation.certificate}></img> : "add"}</td>

@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     await dbConnect()
 
-        const { userId , cartItems , address , totalAmount , phone } = await req.json();
+        const { userId , cartItems , address , totalAmount , phone ,couponCode} = await req.json();
 
         console.log("uuu",totalAmount,address)
 
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
                 address,
                 totalAmount,
                 phone,
+                couponCode,
                 status: 'created',
             });
 
