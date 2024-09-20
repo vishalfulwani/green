@@ -36,7 +36,9 @@ export async function POST(req: Request, res: NextApiResponse) {
 
     try {
 
-        const { street, city, state, postalCode } = await req.json() as { street: string; city: string; state: string; postalCode: string };
+        const { street, city, state, postalCode ,phone} = await req.json() as { street: string; city: string; state: string; postalCode: string;phone:string };
+
+        console.log("====", phone)
 
         const selectedUser = await UserModel.findById(session.user._id);
         if (!selectedUser) {
@@ -58,6 +60,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         selectedUser.address.city = city || selectedUser.address.city;
         selectedUser.address.state = state || selectedUser.address.state;
         selectedUser.address.postalCode = postalCode || selectedUser.address.postalCode;
+        selectedUser.phone = phone
 
         // Save user with updated address
         await selectedUser.save({ validateBeforeSave: false });

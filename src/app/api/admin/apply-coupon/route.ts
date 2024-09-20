@@ -11,7 +11,6 @@ export async function POST(request: Request) {
     const { code , userId } = await request.json();
 
     if (!code) {
-      // return NextResponse.json({ error: 'Coupon code is required' }, { status: 400 });
       return Response.json(
         new ApiResponse(true,400,{},"Coupon Code is  Required"),
         { status: 400 }
@@ -20,37 +19,43 @@ export async function POST(request: Request) {
 
     const coupon = await CouponModel.findOne({ code });
     if (!coupon || !coupon.isActive || coupon.expirationDate < new Date()) {
-      // return NextResponse.json({ error: 'Invalid or expired coupon code' }, { status: 400 });
       return Response.json(
-        new ApiResponse(true,400,{},"Invalid or expired coupon"),
+        new ApiResponse(false, 400, {}, `${code} is invalid or expired `),
         { status: 400 }
     )
     }
 
-    // if (Number(coupon.limit) > 0 && Number(coupon.limit) > coupon.appliedBy.length){
-    //   coupon.appliedBy.push(userId);
-    //   await coupon.save();
-    // }
-    
-    if (Number(coupon.limit) > 0 && Number(coupon.limit) <= coupon.appliedBy.length -1){
-      return Response.json(
-        new ApiResponse(true,400,{},"Coupon Limit Reached"),
-        { status: 400 }
-    )
-    }
-    
+      // Check coupon limit
+    const appliedCount = coupon.appliedBy.length;
+    const limit = Number(coupon.limit);
 
-    // return NextResponse.json({ discount: coupon.discountPercentage }, { status: 200 });
+    if (limit > 0 && appliedCount >= limit) {
+      return NextResponse.json(
+        new ApiResponse(false, 400, {}, `${code} limit reached`),
+        { status: 400 }
+      );
+    }
+
+    // Ensure the user hasn't already applied the coupon
+    if (coupon.appliedBy.includes(userId)) {
+      return NextResponse.json(
+        new ApiResponse(false, 400, {}, `${code} is already applied by this user`),
+        { status: 400 }
+      );
+    }
+
   
     return Response.json(
         new ApiResponse(true,200,{ discount: coupon.discountPercentage },"Coupon is ready to apply"),
         { status: 200 }
     )
   } catch (error) {
-    // return NextResponse.json({ error: 'Failed to apply coupon' }, { status: 500 });
     return Response.json(
         new ApiResponse(true,500,{},"Failed to apply coupon"),
         { status: 500 }
     )
   }
 }
+
+
+

@@ -1,47 +1,48 @@
+
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import CouponModel from '@/models/coupon.models';
 import { NextResponse } from 'next/server';
 
-
 export async function POST(request: Request) {
   await dbConnect();
 
   try {
-    const { code , userId } = await request.json();
+    const { couponCode, userId } = await request.json();
 
-    if (!code) {
-      return NextResponse.json({ error: 'Coupon code is required' }, { status: 400 });
-    }
-
-    const coupon = await CouponModel.findOne({ code });
+    const coupon = await CouponModel.findOne({ code:couponCode });
+    console.log("8888888888",coupon)
     if (!coupon || !coupon.isActive || coupon.expirationDate < new Date()) {
-      return NextResponse.json({ error: 'Invalid or expired coupon code' }, { status: 400 });
+      return NextResponse.json(
+        new ApiResponse(false, 400, {}, `${couponCode} is invalid or expired`),
+        { status: 400 }
+      );
     }
-
-    if (Number(coupon.limit) > 0 && Number(coupon.limit) > coupon.appliedBy.length - 1){
+  
+    // Add the user to the appliedBy array if not already added
+    if (!coupon.appliedBy) {
+      coupon.appliedBy = []; 
+    }
+    if (!coupon.appliedBy.includes(userId)) {  
+      console.log("*****",)    
       coupon.appliedBy.push(userId);
       await coupon.save();
-    }
-    
-    if (Number(coupon.limit) > 0 && Number(coupon.limit) < coupon.appliedBy.length - 1){
+    } else {
       return Response.json(
-        new ApiResponse(true,400,{},"Coupon Limit Reached"),
+        new ApiResponse(false, 400, {}, `${couponCode} is already applied by this user`),
         { status: 400 }
-    )
+      );
     }
-    
 
-    // return NextResponse.json({ discount: coupon.discountPercentage }, { status: 200 });
     return Response.json(
-        new ApiResponse(true,200,{},"Coupon data is updated"),
-        { status: 200 }
-    )
+      new ApiResponse(true, 200, {}, 'Coupon updated successfully'),
+      { status: 200 }
+    );
   } catch (error) {
-    // return NextResponse.json({ error: 'Failed to apply coupon' }, { status: 500 });
+    console.error('Error updating coupon:', error);
     return Response.json(
-        new ApiResponse(true,500,{},"Failed to update coupon"),
-        { status: 500 }
-    )
+      new ApiResponse(false, 500, {}, 'Failed to update coupon'),
+      { status: 500 }
+    );
   }
 }

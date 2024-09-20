@@ -192,8 +192,8 @@ const Page = () => {
                                             <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
                                             <Rating rating={parseFloat(product.rating)} />
                                             <div className="flex justify-between items-center">
-                                                <span className="text-3xl font-bold text-green-900">${product.price}</span>
-                                                <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
+                                                <span className="text-3xl font-bold text-green-900">${product.sellingPrice}</span>
+                                                <span className="text-sm line-through text-gray-500">${product.price}</span>
                                             </div>
                                             {/* <p className="text-green-500 font-bold">${product.price}</p> */}
                                             <button

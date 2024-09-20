@@ -38,6 +38,8 @@ const Page = () => {
   const [codeMsg, setCodeMsg] = useState('');
 
   const [userId, setUserId] = useState<string>('');
+  const [updateDetail, setUpdateDetail] = useState(0);
+
 
 
   const [isLoading, setIsLoading] = useState(false);
@@ -79,6 +81,7 @@ const Page = () => {
   // apply coupon
     const applyCoupon = async () => {
       try {
+        console.log("userrrrr",userId)
         const response = await axios.post('/api/admin/apply-coupon', {
           code,
           userId
@@ -88,16 +91,17 @@ const Page = () => {
         console.log("-----", disc)
         calculateTotal()
         const msg = response.data.message
-        setCodeMsg(`${code} ia applyed`)
+        setCodeMsg(msg)
         setCouponCode(code)
-
+        
       } catch (error) {
         console.error("Error applying coupon", error)
         const axiosError = error as AxiosError<ApiResponse>
         let errorMessage = axiosError.response?.data.message
         console.log(`${code} ${errorMessage}`)
         setDiscount(0)
-        setCodeMsg(`${code} is Invalid or expired `)
+        setCouponCode("")
+        setCodeMsg(errorMessage || "Invalid or expired coupon code")
         // setCodeMsg(`${code} ${errorMessage}` || "Invalid or expired coupon code")
       }
     }
@@ -106,8 +110,9 @@ const Page = () => {
   // update coupon
     const updateCoupon = async () => {
       try {
+        console.log("userrrrr",userId)
         const response = await axios.post('/api/admin/update-coupon', {
-          code,
+          couponCode,
           userId
         })
         const msg = response.data.message
@@ -135,10 +140,10 @@ const Page = () => {
 
   const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
   // const [userId, setUserId] = useState<string>('');
-  const [street, setStreet] = useState<string>(address?.street || '');
-  const [city, setCity] = useState<string>(address?.city || '');
-  const [state, setState] = useState<string>(address?.state || '');
-  const [postalCode, setPostalCode] = useState<string>(address?.postalCode || '');
+  const [street, setStreet] = useState<string>('');
+  const [city, setCity] = useState<string>( '');
+  const [state, setState] = useState<string>( '');
+  const [postalCode, setPostalCode] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   
   
@@ -155,24 +160,23 @@ const Page = () => {
         const userData = allUsers.data.data as []
         setUsers(userData)
 
-        console.log("youuuu",userData)
-        // userData.filter((data)=> data?._id.toString() === session?.user._id )
         const you = userData.filter((data : any) => {
-          console.log(data._id,"ppp",userId)
-           return data?._id.toString() === userId})
-        console.log("youuuu",you , "oo",(you as any)[0].address)
+           return data?._id.toString() === userId
+        })
         setAddress((you as any)[0]?.address)
         setStreet((you as any)[0].address.street)
         setCity((you as any)[0].address.city)
         setState((you as any)[0].address.state)
         setPostalCode((you as any)[0].address.postalCode)
+        setPhone((you as any)[0].phone || '888')
+
       } catch (error) {
         console.error("Error fetching users:", error)
       }
     }
     fetchUsers()
     console.log(address,"00000")
-  }, [userId])
+  }, [userId,updateDetail])
 
 
   const handleBuyClick = () => {
@@ -183,13 +187,17 @@ const Page = () => {
     else if (session.platform != 'ecommerce'){
       router.push('/ecommerce-signin');
     } else {
-      const id = session.user?._id as string
-      setUserId(id)
-      console.log("****", id)
       setIsPopoverOpen(true);
       setIsLoading(false)
+      setUpdateDetail(updateDetail+1)
     }
   };
+
+  useEffect(()=>{
+    const id = session?.user?._id as string
+    setUserId(id)
+  },[])
+
 
   // Dynamically load Razorpay script
   useEffect(() => {
@@ -323,7 +331,9 @@ const Page = () => {
         description: "Order Placed",
         className: 'toast-success'
       })
-      updateCoupon()
+      if (discount){
+        updateCoupon()
+      }
 
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>

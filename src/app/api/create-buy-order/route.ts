@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
 
         const { userId , cartItems , address , totalAmount , phone ,couponCode} = await req.json();
 
-        console.log("uuu",totalAmount,address)
+        console.log("uuu",totalAmount,address,couponCode,userId, phone,cartItems)
+
 
         const options = {
             amount: totalAmount * 100, // Convert to paise
@@ -28,7 +29,9 @@ export async function POST(req: NextRequest) {
         };
 
         try {
+            console.log("order")
             const order = await razorpay.orders.create(options);
+            console.log("order",order)
 
             const purchaseOrder = new OrderModel({
                 userId,

@@ -163,6 +163,7 @@ const EcommerceNavbar = () => {
         city: string;
         state: string;
         postalCode: string;
+        phone: string
     }
 
     const addressForm = useForm<ChangeAddressFormValues>({
@@ -171,6 +172,7 @@ const EcommerceNavbar = () => {
             city: "",
             state: "",
             postalCode: "",
+            phone: "",
         }
     })
 
@@ -178,25 +180,24 @@ const EcommerceNavbar = () => {
     const onAddressSubmit = async (data: ChangeAddressFormValues) => {
         setIsSubmitting(true)
         try {
-            console.log(data.street, "=jhkuyftrtgyhuhgffygfyguhugguihuguiu=", data.city,data)
-            const response = await axios.post<ApiResponse>('/api/change-address', 
+            console.log(data.street, "=jhkuyftrtgyhuhgffygfyguhugguihuguiu=", data.city, data)
+            const response = await axios.post<ApiResponse>('/api/change-address',
                 {
-                // oldPassword: data.oldPassword,
-                // newPassword: data.newPassword
-            
+
                     street: data.street,
                     city: data.city,
                     state: data.state,
-                    postalCode: data.postalCode
-        }, 
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    )
+                    postalCode: data.postalCode,
+                    phone: data.phone
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
 
-    console.log("fatsf",data.street)
+            console.log("fatsf", data.street)
 
             toast({
                 title: 'Success',
@@ -204,6 +205,7 @@ const EcommerceNavbar = () => {
                 className: 'toast-success'
             })
             setIsSubmitting(false)
+            addressForm.reset()
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>
             let errorMessage = axiosError.response?.data.message
@@ -367,120 +369,140 @@ const EcommerceNavbar = () => {
                                     </span>
                                 </li>
                                 <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
-    <TbPasswordUser />
-    <span>
-        <AlertDialog>
-            <AlertDialogTrigger asChild>
-                <Button variant="outline">Add Address</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogTitle className="text-center">
-                    <Form {...addressForm}>
-                        <form onSubmit={addressForm.handleSubmit(onAddressSubmit)} className="space-y-6">
-                            {/* Street Field */}
-                            <FormField
-                                control={addressForm.control}
-                                name="street"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="flex justify-start text-1xl">Street</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                required
-                                                placeholder="Street"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                    <TbPasswordUser />
+                                    <span>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                                <Button variant="outline">Add Address</Button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogTitle className="text-center">
+                                                    <Form {...addressForm}>
+                                                        <form onSubmit={addressForm.handleSubmit(onAddressSubmit)} className="space-y-6">
+                                                            {/* Street Field */}
+                                                            <FormField
+                                                                control={addressForm.control}
+                                                                name="street"
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel className="flex justify-start text-1xl">Street</FormLabel>
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                type="text"
+                                                                                required
+                                                                                placeholder="Street"
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
 
-                            {/* City Field */}
-                            <FormField
-                                control={addressForm.control}
-                                name="city"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="flex justify-start text-1xl">City</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                required
-                                                placeholder="City"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                                            {/* City Field */}
+                                                            <FormField
+                                                                control={addressForm.control}
+                                                                name="city"
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel className="flex justify-start text-1xl">City</FormLabel>
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                type="text"
+                                                                                required
+                                                                                placeholder="City"
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
 
-                            {/* State Field */}
-                            <FormField
-                                control={addressForm.control}
-                                name="state"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="flex justify-start text-1xl">State</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                required
-                                                placeholder="State"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                                            {/* State Field */}
+                                                            <FormField
+                                                                control={addressForm.control}
+                                                                name="state"
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel className="flex justify-start text-1xl">State</FormLabel>
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                type="text"
+                                                                                required
+                                                                                placeholder="State"
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
 
-                            {/* Postal Code Field */}
-                            <FormField
-                                control={addressForm.control}
-                                name="postalCode"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="flex justify-start text-1xl">Postal Code</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                required
-                                                placeholder="Postal Code"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                                            {/* Postal Code Field */}
+                                                            <FormField
+                                                                control={addressForm.control}
+                                                                name="postalCode"
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel className="flex justify-start text-1xl">Postal Code</FormLabel>
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                type="text"
+                                                                                required
+                                                                                placeholder="Postal Code"
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
 
-                            {/* Submit Button */}
-                            <div className="flex gap-2 justify-end">
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <Button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
-                                        </>
-                                    ) : (
-                                        'Done'
-                                    )}
-                                </Button>
-                            </div>
-                        </form>
-                    </Form>
-                </AlertDialogTitle>
-            </AlertDialogContent>
-        </AlertDialog>
-    </span>
-</li>
+                                                            {/* phone */}
+                                                            <FormField
+                                                                control={addressForm.control}
+                                                                name="phone"
+                                                                render={({ field }) => (
+                                                                    <FormItem>
+                                                                        <FormLabel className="flex justify-start text-1xl">Phone No.</FormLabel>
+                                                                        <FormControl>
+                                                                            <Input
+                                                                                type="text"
+                                                                                required
+                                                                                placeholder="Phone no."
+                                                                                {...field}
+                                                                            />
+                                                                        </FormControl>
+                                                                        <FormMessage />
+                                                                    </FormItem>
+                                                                )}
+                                                            />
+
+                                                            {/* Submit Button */}
+                                                            <div className="flex gap-2 justify-end">
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <Button
+                                                                    type="submit"
+                                                                    disabled={isSubmitting}
+                                                                    className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
+                                                                >
+                                                                    {isSubmitting ? (
+                                                                        <>
+                                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
+                                                                        </>
+                                                                    ) : (
+                                                                        'Done'
+                                                                    )}
+                                                                </Button>
+                                                            </div>
+                                                        </form>
+                                                    </Form>
+                                                </AlertDialogTitle>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+                                    </span>
+                                </li>
 
                                 <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
                                     <GoSignOut />

@@ -154,8 +154,8 @@ const Page = () => {
                                 <Rating rating={parseFloat(product[0].rating)} />
 
                                 <div className="flex flex-col md:flex-row items-start md:items-center mb-6 space-y-2 md:space-x-4 md:space-y-0">
-                                    <span className="text-2xl md:text-3xl font-bold text-green-600">${product[0].price}</span>
-                                    <span className="text-base md:text-lg text-gray-500 line-through">${product[0].sellingPrice}</span>
+                                    <span className="text-2xl md:text-3xl font-bold text-green-600">${product[0].sellingPrice}</span>
+                                    <span className="text-base md:text-lg text-gray-500 line-through">${product[0].price}</span>
                                 </div>
 
                                 <div className="space-y-4 flex-col md:w-1/2">

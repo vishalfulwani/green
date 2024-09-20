@@ -19,6 +19,7 @@ export interface IUser extends Document {
         state: string;
         postalCode: string;
     };
+    phone:string;
     cart: mongoose.Types.ObjectId[];
     buy: mongoose.Types.ObjectId[];
     isPasswordCorrect(password: string): Promise<boolean>;
@@ -82,6 +83,8 @@ const userSchema: Schema<IUser> = new Schema({
         state: { type: String, default: '' },
         postalCode: { type: String, default: '' },
     },
+    phone:{type:String,default:''},
+
 }, { timestamps: true });
 
 userSchema.methods.isPasswordCorrect = async function (password: string): Promise<boolean> {
