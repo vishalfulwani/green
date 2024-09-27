@@ -27,7 +27,10 @@ import {
 } from "@/components/ui/carousel"
 import getRandomElements from '@/helpers/getRandomElements';
 import Head from 'next/head';
+import WishlistButton from '@/components/wishlistButton';
 
+
+import Image from 'next/image';
 
 export default function Home() {
 
@@ -88,13 +91,16 @@ export default function Home() {
 
     // crousal autoplays
     const featureAutoplay = React.useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true })
+        Autoplay({ delay: 4000, stopOnInteraction: true })
+    )
+    const bannerAutoplay = React.useRef(
+        Autoplay({ delay: 4000, stopOnInteraction: true })
     )
     const bestSellerAutoplay = React.useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true })
+        Autoplay({ delay: 4000, stopOnInteraction: true })
     )
     const customerAutoplay = React.useRef(
-        Autoplay({ delay: 2000, stopOnInteraction: true })
+        Autoplay({ delay: 4000, stopOnInteraction: true })
     )
 
 
@@ -110,7 +116,7 @@ export default function Home() {
     };
 
     return (
-        
+
         <>
             <Head>
                 <title>E-commerce</title>
@@ -118,8 +124,136 @@ export default function Home() {
             </Head>
 
 
+
+
+
+
+            <div className="relative pt-28">
+
+            <Carousel plugins={[bannerAutoplay.current]} className="w-full">
+  <CarouselContent>
+    {/* Slide 1 */}
+    <CarouselItem className="">
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+        <img
+          src="https://t3.ftcdn.net/jpg/06/30/64/08/240_F_630640851_7U4Pi3LtcFTiNejvmjWnNsWu6QTkbAJG.jpg"
+          alt="Plant Banner"
+          className="shadow-md w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" />
+        <div className="absolute top-1/2 left-5 md:left-10 transform -translate-y-1/2 text-white">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl bg-[#59c7815d] rounded-lg p-2 font-bold">
+            Welcome to Green E-commerce
+          </h1>
+          <p className="text-sm md:text-lg lg:text-xl mt-2 md:mt-4 bg-[#59c7815d] rounded-lg p-2">
+            Discover beautiful plants, seeds, and tools for your home garden
+          </p>
+          <button className="mt-4 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-green-600 hover:bg-green-700 rounded-md text-white">
+            Shop Now
+          </button>
+        </div>
+      </div>
+    </CarouselItem>
+
+    {/* Slide 2 */}
+    <CarouselItem className="">
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+        <img
+          src="https://t3.ftcdn.net/jpg/05/13/73/60/240_F_513736070_UsY44AxaS5gCQBsnYu6gyidPmCuavTcY.jpg"
+          alt="Seeds Banner"
+          className="shadow-md w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" />
+        <div className="absolute top-1/2 left-5 md:left-10 transform -translate-y-1/2 text-white">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl bg-[#59c7815d] rounded-lg p-2 font-bold">
+            High-Quality Seeds for Your Garden
+          </h1>
+          <p className="text-sm md:text-lg lg:text-xl mt-2 md:mt-4 bg-[#59c7815d] rounded-lg p-2">
+            Get the best seeds for a thriving garden
+          </p>
+          <button className="mt-4 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-green-600 hover:bg-green-700 rounded-md text-white">
+            Explore Seeds
+          </button>
+        </div>
+      </div>
+    </CarouselItem>
+
+    {/* Slide 3 */}
+    <CarouselItem className="">
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+        <img
+          src="https://t3.ftcdn.net/jpg/07/55/02/92/240_F_755029250_DqIzF1nFgH9IWc4H13FCjoxqnSzeEK4R.jpg"
+          alt="Gardening Tools"
+          className="shadow-md w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" />
+        <div className="absolute top-1/2 left-5 md:left-10 transform -translate-y-1/2 text-white">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl bg-[#59c7815d] rounded-lg p-2 font-bold">
+            Premium Gardening Tools
+          </h1>
+          <p className="text-sm md:text-lg lg:text-xl mt-2 md:mt-4 bg-[#59c7815d] rounded-lg p-2">
+            Equip your garden with the right tools
+          </p>
+          <button className="mt-4 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-green-600 hover:bg-green-700 rounded-md text-white">
+            Shop Tools
+          </button>
+        </div>
+      </div>
+    </CarouselItem>
+
+    {/* Slide 4 */}
+    <CarouselItem className="">
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] ">
+        <img
+          src="https://t3.ftcdn.net/jpg/04/90/64/62/240_F_490646267_SVW4BXbbGW8WjxUwYc5m6TRcNV6wABuV.jpg"
+          alt="Indoor Plants"
+          className="shadow-md w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black opacity-60" />
+        <div className="absolute top-1/2 left-5 md:left-10 transform -translate-y-1/2 text-white">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl bg-[#59c7815d] rounded-lg p-2 font-bold">
+            Beautiful Indoor Plants
+          </h1>
+          <p className="text-sm md:text-lg lg:text-xl mt-2 md:mt-4 bg-[#59c7815d] rounded-lg p-2">
+            Bring nature inside with our collection of indoor plants
+          </p>
+          <button className="mt-4 md:mt-6 px-4 md:px-6 py-2 md:py-3 bg-green-600 hover:bg-green-700 rounded-md text-white">
+            Shop Indoor Plants
+          </button>
+        </div>
+      </div>
+    </CarouselItem>
+  </CarouselContent>
+</Carousel>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {/* hero section */}
-            <section className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0">
+            {/* <section className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0">
                 <div className="space-y-6 md:space-y-8">
                     <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg">
                         Welcome to Green E-commerce
@@ -131,7 +265,7 @@ export default function Home() {
                         Explore Now
                     </button>
                 </div>
-            </section>
+            </section> */}
 
 
             {/* Featured Products Section */}
@@ -172,7 +306,12 @@ export default function Home() {
                                                     />
                                                     <div className="p-4">
                                                         <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
-                                                        <Rating rating={parseFloat(product.rating)} />
+                                                        {/* <Rating rating={parseFloat(product.rating)} /> */}
+                                                        <div className="flex justify-around my-2 items-center">
+                                                            <Rating rating={parseFloat(product.rating)} />
+                                                            <WishlistButton productId={product._id.toString()} />
+
+                                                        </div>
                                                         <div className="flex justify-between items-center">
                                                             <span className="text-3xl font-bold text-green-900">${product.sellingPrice}</span>
                                                             <span className="text-sm line-through text-gray-500">${product.price}</span>
@@ -197,8 +336,8 @@ export default function Home() {
                                     ))}
                                     {/* </div> */}
                                 </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
+                                {/* <CarouselPrevious /> */}
+                                {/* <CarouselNext /> */}
                             </Carousel>
                         )}
 
@@ -244,7 +383,12 @@ export default function Home() {
                                                     />
                                                     <div className="p-4">
                                                         <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
-                                                        <Rating rating={parseFloat(product.rating)} />
+                                                        {/* <Rating rating={parseFloat(product.rating)} /> */}
+                                                        <div className="flex justify-around my-2 items-center">
+                                                            <Rating rating={parseFloat(product.rating)} />
+                                                            <WishlistButton productId={product._id.toString()} />
+
+                                                        </div>
                                                         <div className="flex justify-between items-center">
                                                             <span className="text-3xl font-bold text-green-900">${product.price}</span>
                                                             <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
@@ -269,8 +413,8 @@ export default function Home() {
                                     ))}
                                     {/* </div> */}
                                 </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
+                                {/* <CarouselPrevious /> */}
+                                {/* <CarouselNext /> */}
                             </Carousel>
                         )}
 
@@ -420,8 +564,8 @@ export default function Home() {
                                     </div>
                                 </CarouselItem>
                             </CarouselContent>
-                            <CarouselPrevious />
-                            <CarouselNext />
+                            {/* <CarouselPrevious /> */}
+                            {/* <CarouselNext /> */}
                         </Carousel>
                     </div>
                 </div>
@@ -433,7 +577,7 @@ export default function Home() {
 
         </>
 
-        
+
     );
 }
 

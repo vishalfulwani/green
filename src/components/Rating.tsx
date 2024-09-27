@@ -14,7 +14,7 @@ const Rating = ({ rating }:RatingProps) => {
   const emptyStars = Math.max(5 - fullStars - halfStars);
 
   return (
-    <div className="flex items-center mt-2.5 mb-5">
+    <div className="flex items-center ">
       {/* Full Stars */}
       {[...Array(fullStars)].map((_, index) => (
         <svg

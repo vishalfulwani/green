@@ -145,3 +145,30 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari, etc.) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* animate scroll for ecommerce navbar */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}

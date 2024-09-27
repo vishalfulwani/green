@@ -27,6 +27,9 @@ import { TbPasswordUser } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { FaUserAlt } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { FiSearch } from "react-icons/fi";
+import { FaSearch } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button"
 import {
@@ -40,6 +43,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "./ui/input"
 import { Loader2 } from "lucide-react"
+import { IProduct } from '@/models/product.models';
+import { AnyARecord } from 'dns';
+
 
 const categories = [
     { value: 'plants', label: 'Plants' },
@@ -47,32 +53,7 @@ const categories = [
     { value: 'seeds', label: 'Seeds' },
 ];
 
-// const subCategories: Record<string, { value: string; label: string }[]> = {
-//     plants: [
-//         { value: 'indoor-plants', label: 'Indoor Plants' },
-//         { value: 'outdoor-plants', label: 'Outdoor Plants' },
-//         { value: 'herbs', label: 'Herbs' },
-//         { value: 'vegetables', label: 'Vegetables' },
-//         { value: 'succulents', label: 'Succulents' },
-//         { value: 'aquatic-plants', label: 'Aquatic Plants' },
-//         { value: 'medicinal-plants', label: 'Medicinal Plants' },
-//         { value: 'tropical-plants', label: 'Tropical Plants' },
-//     ],
-//     tools: [
-//         { value: 'hand-tools', label: 'Hand Tools' },
-//         { value: 'power-tools', label: 'Power Tools' },
-//         { value: 'watering-tools', label: 'Watering Tools' },
-//         { value: 'planting-tools', label: 'Planting Tools' },
-//         { value: 'garden-maintenance', label: 'Garden Maintenance' },
-//     ],
-//     seeds: [
-//         { value: 'vegetable-seeds', label: 'Vegetable Seeds' },
-//         { value: 'flower-seeds', label: 'Flower Seeds' },
-//         { value: 'herb-seeds', label: 'Herb Seeds' },
-//         { value: 'fruit-seeds', label: 'Fruit Seeds' },
-//         { value: 'grass-seeds', label: 'Grass Seeds' },
-//     ],
-// };
+
 
 const EcommerceNavbar = () => {
 
@@ -82,12 +63,6 @@ const EcommerceNavbar = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-
-    // const [userId, setUserId] = useState('')
-    // const [street, setStreet] = useState('');
-    // const [city, setCity] = useState('');
-    // const [state, setState] = useState('');
-    // const [postalCode, setPostalCode] = useState('');
 
     const [userSession, setUserSession] = useState(false)
     const { data: session, status } = useSession();
@@ -157,8 +132,6 @@ const EcommerceNavbar = () => {
 
 
     interface ChangeAddressFormValues {
-        // oldPassword: string;
-        // newPassword: string;
         street: string;
         city: string;
         state: string;
@@ -226,12 +199,107 @@ const EcommerceNavbar = () => {
         });
     };
 
+
+
+    // search bar 
+
+    const [query, setQuery] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
+    const [products, setProducts] = useState<IProduct[]>([])
+    const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
+
+    // const router = useRouter();
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            setIsSubmitting(true)
+            try {
+                const allProducts = await axios.get<ApiResponse>('/api/get-products')
+                const productData = allProducts.data.data as IProduct[]
+                setProducts(productData)
+            } catch (error) {
+                console.error("Error fetching products:", error)
+            } finally {
+                setIsSubmitting(false)
+            }
+        }
+
+        fetchProducts()
+    }, [])
+
+    useEffect(() => {
+        if (query === "") {
+            setFilteredProducts([])     // corrected
+        }
+        else if (query.trim()) {
+            const results = products.filter((product) =>
+                (product.productName?.toLowerCase().includes(query.toLowerCase()) || '') ||
+                (product.category?.toLowerCase().includes(query.toLowerCase()) || '')
+            );
+            setFilteredProducts(results);
+        } else {
+            setFilteredProducts(products);
+        }
+    }, [query, products]);
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (query.trim().toLowerCase() === 'tools' || query.trim().toLowerCase() === 'tool') {
+            setIsOpen(false)
+            router.push(`/shop/tools`);
+
+        }
+        else if (query.trim().toLowerCase() === 'seeds' || query.trim().toLowerCase() === 'seed') {
+            router.push(`/shop/seeds`);
+            setIsOpen(false)
+        }
+        else if (query.trim().toLowerCase() === 'plants' || query.trim().toLowerCase() === 'plant') {
+            setIsOpen(false)
+            router.push(`/shop/seeds`);
+        }
+
+        else {
+            const product = filteredProducts[0]
+            if (product) {
+                setIsOpen(false)
+                router.push(`/shop/${product.category}/${product.id}`)
+            }
+            else {
+                return
+            }
+        }
+    }
+
+    // Navigate to the product details page
+    const handleProductClick = (productCategory: any, productId: any) => {
+        router.push(`/shop/${productCategory}/${productId}`);
+    };
+    const handleSearchIconClick = () => {
+        setIsOpen(true);
+        setQuery('')
+        setFilteredProducts([])
+    }
+
+
     return (
 
 
 
-        <nav className="bg-green-800 text-white py-4 fixed w-full top-0 left-0 shadow-md z-50">
-            <div className="container mx-auto px-1 flex justify-between items-center">
+<>
+
+{/*  animate scroll in global.css */}
+<div className="fixed top-0 w-full h-10 bg-green-700 text-white overflow-hidden z-50">
+  <div className=" whitespace-nowrap animate-scroll py-2">
+    Free delivery on order above 500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!
+  </div>
+</div>
+
+
+
+
+        <nav className="bg-green-800 text-white py-4 fixed w-full top-10 left-0 shadow-md z-50">
+            {/* <div className="container mx-auto px-1 flex justify-between items-center"> */}
+            <div className={`container mx-auto px-1 flex justify-between  md:flex items-center  space-x-4 ${isOpen ? 'hidden' : 'block'}`}>
                 <div className="text-2xl font-bold">Plant E-commerce</div>
 
                 {/* Hamburger Icon */}
@@ -280,6 +348,29 @@ const EcommerceNavbar = () => {
                     </ul>
                 </div>
 
+
+
+                {/* Search*/}
+                <div className="relative flex items-center pr-3">
+                    <FaSearch
+                        className="text-2xl cursor-pointer text-white hover:text-green-600 transition-all"
+                        // onClick={() => setIsOpen(true)}
+                        onClick={() => handleSearchIconClick()}
+                    />
+                </div>
+
+                {/* wishlist */}
+                <div className="relative flex items-center pr-3">
+                    <Link href="/wishlist" >
+                        <FaHeart
+                        className="text-2xl cursor-pointer text-white hover:text-green-600 transition-all"
+                        />
+                    </Link>
+                </div>
+
+
+
+                {/* profile  */}
                 {userSession && (
                     <ul className="hidden md:flex items-center mr-3 space-x-4">
                         <li className="relative">
@@ -533,16 +624,102 @@ const EcommerceNavbar = () => {
                 )}
 
 
-
+                {/* signup  */}
                 <div className="hidden md:flex md:items-center ">
                     <Link href="/signup" className="px-5 py-2 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
                         Sign Up
                     </Link>
                 </div>
 
+                {/* signin  */}
+                <div className="hidden md:flex md:items-center ">
+                    <Link href="/ecommerce-signin" className="  text-white font-bold  hover:text-green-600 transition duration-300">
+                        Sign In
+                    </Link>
+                </div>
+
 
 
             </div>
+
+
+
+
+
+
+            {/* Conditional Search Bar */}
+            {isOpen && (
+                <div>
+                    {/* Search Form */}
+                    {isOpen && (
+                        <>
+                            <form
+                                onSubmit={handleSearch}
+                                className="absolute top-0  left-0 flex items-center justify-between w-[100%] bg-green-800 shadow-lg rounded-lg py-3 px-4 border border-gray-300 z-50 transition-all duration-300"
+                            >
+                                <input
+                                    type="text"
+                                    className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 shadow-inner text-gray-700"
+                                    placeholder="Search for plants, seeds, tools..."
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                />
+                                <button
+                                    type="submit"
+                                    className="ml-4 bg-white text-green-800 px-6 py-2 rounded-lg shadow-md font-bold hover:bg-green-600 hover:text-white transition duration-300"
+                                >
+                                    Search
+                                </button>
+                                {/* Close button */}
+                                <button
+                                    type="button"
+                                    onClick={() => setIsOpen(false)}
+                                    className="ml-2 text-gray-600 hover:text-red-600 transition-all duration-300"
+                                >
+                                    ✖
+                                </button>
+                            </form>
+                            <div className="p-4">
+                                <h1 className="text-2xl font-bold mb-4">
+                                    {query ? `Search Results for "${query}"` : 'All Products'}
+                                </h1>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 overflow-auto max-h-[80vh] p-2 scrollbar-hide">
+                                    {filteredProducts.length > 0 ? (
+                                        filteredProducts.map((product) => (
+                                            <div
+                                                key={product.id}
+                                                className="border cursor-pointer p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                                                onClick={() => handleProductClick(product.category, product._id)}
+
+                                            >
+                                                <img
+                                                    src={product.images[0]}
+                                                    alt={product.productName}
+                                                    className="w-full h-40 object-cover mb-2 rounded-lg"
+                                                />
+                                                <h2 className="text-lg font-semibold">{product.productName}</h2>
+                                                <p className="text-green-600 font-bold">${product.sellingPrice}</p>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="col-span-full text-center">No results found for "{query}"</p>
+                                    )}
+                                </div>
+                            </div>
+
+                        </>
+
+                    )}
+
+
+                </div>
+
+
+
+            )}
+
+
+
 
             {/* Mobile Menu */}
             <div className={`md:hidden ${mobileMenuOpen ? "block" : "hidden"} transition-transform duration-300`}>
@@ -679,6 +856,7 @@ const EcommerceNavbar = () => {
         </nav>
 
 
+        </>
 
     );
 }

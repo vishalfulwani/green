@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import Head from 'next/head';
+import WishlistButton from '@/components/wishlistButton';
 
 
 
@@ -150,8 +151,12 @@ const Page = () => {
                                 <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].category}</p>
                                 <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].subCategory}</p>
 
+                                {/* <Rating rating={parseFloat(product[0].rating)} /> */}
+                                <div className="flex justify-around my-2 items-center">
                                 <Rating rating={parseFloat(product[0].rating)} />
-
+                                            <WishlistButton productId={product[0]._id.toString()} />
+                                            
+                                          </div>
                                 <div className="flex flex-col md:flex-row items-start md:items-center mb-6 space-y-2 md:space-x-4 md:space-y-0">
                                     <span className="text-2xl md:text-3xl font-bold text-green-600">${product[0].sellingPrice}</span>
                                     <span className="text-base md:text-lg text-gray-500 line-through">${product[0].price}</span>
@@ -175,7 +180,7 @@ const Page = () => {
                 )}
             </section>
 
-            {/* plant care */}
+            {/* tool care */}
             <section className="bg-[#d8e6d8] py-16 px-4 md:px-8">
                 <div className="container mx-auto">
                     <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Tool Care Guidelines from Green E-commerce</h2>

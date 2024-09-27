@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import Head from 'next/head';
+import WishlistButton from '@/components/wishlistButton';
 
 
 
@@ -151,7 +152,12 @@ const Page = () => {
                                 <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].category}</p>
                                 <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].subCategory}</p>
 
+                                {/* <Rating rating={parseFloat(product[0].rating)} /> */}
+                                <div className="flex justify-around my-2 items-center">
                                 <Rating rating={parseFloat(product[0].rating)} />
+                                            <WishlistButton productId={product[0]._id.toString()} />
+                                            
+                                          </div>
 
                                 <div className="flex flex-col md:flex-row items-start md:items-center mb-6 space-y-2 md:space-x-4 md:space-y-0">
                                     <span className="text-2xl md:text-3xl font-bold text-green-600">${product[0].sellingPrice}</span>

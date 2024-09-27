@@ -20,6 +20,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 import Head from "next/head"
+import WishlistButton from "@/components/wishlistButton"
 
 
 const Page = () => {
@@ -115,11 +116,17 @@ const Page = () => {
                 <meta name="description" content="This is the plant page." />
             </Head>
             {/* hero section */}
-            <section className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0 bg-no-repeat bg-cover ">
-                <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg">
-                    Plants
-                </h1>
-            </section >
+            <section
+  className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0 bg-no-repeat bg-cover"
+  style={{
+    backgroundImage: 'url(https://img.freepik.com/free-photo/home-garden-arrangement-with-copy-space_23-2148851374.jpg?ga=GA1.2.716411687.1716966942&semt=ais_hybrid)',
+  }}
+>
+  <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg">
+    Plants
+  </h1>
+</section>
+
 
             {/* sub categories */}
             <section className="py-12 md:py-16  bg-[#9cc09c]">
@@ -133,14 +140,22 @@ const Page = () => {
                             <CarouselContent > */}
                         {plants.map((product, index) => (
                             // <CarouselItem className="md:basis-1/3 lg:basis-1/4 xl::basis-1/5">
-                            <div key={index} className="flex flex-col items-center justify-center rounded-lg  w-[150px] h-[150px]  bg-white  p-4" style={{ backgroundImage: "url(https://static.vecteezy.com/system/resources/previews/000/390/945/original/vector-green-plant-border.jpg)", backgroundAttachment: "cover", }}>
-                                <button
-                                    onClick={() => onSubCategoryClick(product.value)}
-                                    className="bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-2 px-6 rounded-full shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out"
-                                >
-                                    {product.label}
-                                </button>
-                            </div>
+                            <div
+                            key={index}
+                            className="flex flex-col items-center justify-center rounded-full w-[150px] h-[150px] bg-white p-4 border-[6px] border-[#9cc09c] hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out"
+                            style={{
+                              backgroundImage: "url(https://static.vecteezy.com/system/resources/previews/000/390/945/original/vector-green-plant-border.jpg)",
+                              backgroundAttachment: "cover",
+                              boxShadow: "0 0 0 4px white", // Creates the white inner ring
+                            }}
+                            onClick={() => onSubCategoryClick(product.value)}
+                          >
+                            <button className="text-white font-bold">
+                              {product.label}
+                            </button>
+                          </div>
+                          
+                          
                             // </CarouselItem>
                         ))}
                         {/* </div> */}
@@ -194,7 +209,12 @@ const Page = () => {
                                         />
                                         <div className="p-4">
                                             <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
-                                            <Rating rating={parseFloat(product.rating)} />
+                                            {/* <Rating rating={parseFloat(product.rating)} /> */}
+                                            <div className="flex justify-around my-2 items-center">
+                                          <Rating rating={parseFloat(product.rating)}  />
+                                            <WishlistButton productId={product._id.toString()} />
+                                            
+                                          </div>
                                             <div className="flex justify-between items-center">
                                                 <span className="text-3xl font-bold text-green-900">${product.sellingPrice}</span>
                                                 <span className="text-sm line-through text-gray-500">${product.price}</span>
@@ -218,6 +238,55 @@ const Page = () => {
                             ))
                         )}
 
+                    </div>
+                </div>
+            </section>
+
+
+        {/* plant care */}
+        <section className=" bg-[#b5ceb5] py-16 px-4 md:px-8">
+                <div className="container mx-auto">
+                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2 ">Plant Care Guidelines</h2>
+                    <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto ">
+                        Follow these simple guidelines to ensure your plant thrives and stays healthy.
+                    </p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://tse3.mm.bing.net/th?id=OIP.EC8sy5v2RgdoAJdXeIeljQHaE8&pid=Api&P=0&h=180" alt="Sunlight" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Sunlight</h3>
+                            <p className="text-gray-600 text-center">Ensure your plant receives adequate sunlight. Most plants require 6-8 hours of direct sunlight daily for optimal growth.</p>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://tse4.mm.bing.net/th?id=OIP.6AA3Voe7l6O-NcGRa41ZfgHaE8&pid=Api&P=0&h=180" alt="Watering" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Watering</h3>
+                            <p className="text-gray-600 text-center">Water your plant regularly, but avoid overwatering. Check the soil moisture before watering again.</p>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                            <img src="http://gardeningsoul.com/wp-content/uploads/2017/10/1-51.jpg" alt="Soil" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Soil</h3>
+                            <p className="text-gray-600 text-center">Use well-draining soil to prevent root rot. Enrich the soil with organic matter for healthy growth.</p>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://i2.wp.com/organiclivestockandcrops.org/wp-content/uploads/2017/10/synthetic-fertilizer-organic-livestock-and-crops-900x560.jpg" alt="Fertilization" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Fertilization</h3>
+                            <p className="text-gray-600 text-center">Feed your plant with a balanced fertilizer during the growing season to encourage strong, healthy growth.</p>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://www.bhg.com/thmb/Vyat6CSM248XjNZ62oV6EJgtrRw=/4000x0/filters:no_upscale():strip_icc()/BHG-Pruning-Roses-100398048-593d5673b2b14156b3eaddf1515c4beb.jpg" alt="Pruning" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Pruning</h3>
+                            <p className="text-gray-600 text-center">Regularly prune your plant to remove dead or damaged leaves and promote new growth.</p>
+                        </div>
+
+                        <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://www.snexplores.org/wp-content/uploads/2022/08/1440_SS_humidity_feat-1380x776.jpg" alt="Humidity" className="w-20 h-20 mx-auto mb-4" />
+                            <h3 className="text-2xl font-bold text-green-600 mb-2 text-center">Humidity</h3>
+                            <p className="text-gray-600 text-center">Maintain adequate humidity levels, especially for tropical plants. Mist your plants or use a humidifier if necessary.</p>
+                        </div>
                     </div>
                 </div>
             </section>
