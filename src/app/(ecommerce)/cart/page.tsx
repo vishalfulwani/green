@@ -26,6 +26,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { IUser } from '@/models/user.models';
+import AdditionalProducts from '@/components/AdditionalProducts';
 
 
 
@@ -70,56 +71,56 @@ const Page = () => {
     dispatch(clearCart());
   };
 
-// session
+  // session
   // const [userSession, setUserSession] = useState(false)
   const { data: session, status } = useSession();
   console.log(session?.platform)
   useEffect(() => {
-      console.log(session)
+    console.log(session)
   }, [session]);
 
   // apply coupon
-    const applyCoupon = async () => {
-      try {
-        console.log("userrrrr",userId)
-        const response = await axios.post('/api/admin/apply-coupon', {
-          code,
-          userId
-        })
-        const disc = response.data.data?.discount
-        setDiscount(disc)
-        console.log("-----", disc)
-        calculateTotal()
-        const msg = response.data.message
-        setCodeMsg(msg)
-        setCouponCode(code)
-        
-      } catch (error) {
-        console.error("Error applying coupon", error)
-        const axiosError = error as AxiosError<ApiResponse>
-        let errorMessage = axiosError.response?.data.message
-        console.log(`${code} ${errorMessage}`)
-        setDiscount(0)
-        setCouponCode("")
-        setCodeMsg(errorMessage || "Invalid or expired coupon code")
-        // setCodeMsg(`${code} ${errorMessage}` || "Invalid or expired coupon code")
-      }
+  const applyCoupon = async () => {
+    try {
+      console.log("userrrrr", userId)
+      const response = await axios.post('/api/admin/apply-coupon', {
+        code,
+        userId
+      })
+      const disc = response.data.data?.discount
+      setDiscount(disc)
+      console.log("-----", disc)
+      calculateTotal()
+      const msg = response.data.message
+      setCodeMsg(msg)
+      setCouponCode(code)
+
+    } catch (error) {
+      console.error("Error applying coupon", error)
+      const axiosError = error as AxiosError<ApiResponse>
+      let errorMessage = axiosError.response?.data.message
+      console.log(`${code} ${errorMessage}`)
+      setDiscount(0)
+      setCouponCode("")
+      setCodeMsg(errorMessage || "Invalid or expired coupon code")
+      // setCodeMsg(`${code} ${errorMessage}` || "Invalid or expired coupon code")
     }
+  }
 
 
   // update coupon
-    const updateCoupon = async () => {
-      try {
-        console.log("userrrrr",userId)
-        const response = await axios.post('/api/admin/update-coupon', {
-          couponCode,
-          userId
-        })
-        const msg = response.data.message
-      } catch (error) {
-        console.error("Error applying coupon", error)
-      }
+  const updateCoupon = async () => {
+    try {
+      console.log("userrrrr", userId)
+      const response = await axios.post('/api/admin/update-coupon', {
+        couponCode,
+        userId
+      })
+      const msg = response.data.message
+    } catch (error) {
+      console.error("Error applying coupon", error)
     }
+  }
 
 
   // calculate total amount to pay
@@ -141,12 +142,12 @@ const Page = () => {
   const [address, setAddress] = useState<{ street?: string; city?: string; state?: string; postalCode?: string }>({});
   // const [userId, setUserId] = useState<string>('');
   const [street, setStreet] = useState<string>('');
-  const [city, setCity] = useState<string>( '');
-  const [state, setState] = useState<string>( '');
+  const [city, setCity] = useState<string>('');
+  const [state, setState] = useState<string>('');
   const [postalCode, setPostalCode] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
-  
-  
+
+
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
 
@@ -160,8 +161,8 @@ const Page = () => {
         const userData = allUsers.data.data as []
         setUsers(userData)
 
-        const you = userData.filter((data : any) => {
-           return data?._id.toString() === userId
+        const you = userData.filter((data: any) => {
+          return data?._id.toString() === userId
         })
         setAddress((you as any)[0]?.address)
         setStreet((you as any)[0].address.street)
@@ -175,8 +176,8 @@ const Page = () => {
       }
     }
     fetchUsers()
-    console.log(address,"00000")
-  }, [userId,updateDetail])
+    console.log(address, "00000")
+  }, [userId, updateDetail])
 
 
   const handleBuyClick = () => {
@@ -184,19 +185,19 @@ const Page = () => {
     if (!session) {
       router.push('/ecommerce-signin');
     }
-    else if (session.platform != 'ecommerce'){
+    else if (session.platform != 'ecommerce') {
       router.push('/ecommerce-signin');
     } else {
       setIsPopoverOpen(true);
       setIsLoading(false)
-      setUpdateDetail(updateDetail+1)
+      setUpdateDetail(updateDetail + 1)
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const id = session?.user?._id as string
     setUserId(id)
-  },[])
+  }, [])
 
 
   // Dynamically load Razorpay script
@@ -331,7 +332,7 @@ const Page = () => {
         description: "Order Placed",
         className: 'toast-success'
       })
-      if (discount){
+      if (discount) {
         updateCoupon()
       }
 
@@ -356,32 +357,51 @@ const Page = () => {
         <title>Cart </title>
         <meta name="description" content="This is the cart page." />
       </Head>
-      <div className="mt-16 p-10 bg-[#9cc09c] min-h-screen">
+
+
+      <div className="mt-16 py-8 bg-gray-200 min-h-screen">
         <div className='container'>
-          <h2 className="text-3xl font-bold mb-6 text-green-800">Your Cart</h2>
+          <h2 className="text-3xl font-bold mb-4 text-green-800">Your Cart</h2>
           {cart.length === 0 ? (
-            <p className="text-lg text-gray-600">Your cart is empty.</p>
+            <>
+              <p className="text-lg text-gray-600 pb-4">Your cart is empty !.</p>
+              <AdditionalProducts />
+            </>
           ) : (
             <div className="space-y-4">
               {cart.map((item: ICartItem) => (
-                <div key={item.product._id} className="cart-item flex items-center p-4 bg-white rounded-lg shadow-md">
+                <div key={item.product._id} className="cart-item flex items-center p-4 bg-white border-t-4 border-green-700 rounded-lg shadow-md">
                   <img
                     src={item.product.images[0]}
                     alt={item.product.productName}
-                    className="w-24 h-24 object-cover rounded-lg mr-4"
+                    className=" h-48 object-cover rounded-lg mr-4"
                   />
-                  <div className="flex-1">
-                    <h4 className="text-xl font-semibold text-gray-800">{item.product.productName}</h4>
-                    <p className="text-lg text-gray-600">${(parseFloat(item.product.sellingPrice) * item.quantity).toFixed(2)}</p>
+                  <div className="flex-1 space-y-2">
+                    <h4 className="text-2xl font-bold text-green-900 mb-1">{item.product.productName}</h4>
+                    <p className="text-base text-gray-700 mb-2 italic">{item.product.productDesc}</p>
+                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <span className="bg-green-100 text-green-900 px-2 py-1 rounded-full">{item.product.category}</span>
+                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full">{item.product.subCategory}</span>
+                    </div>
+                    <p className="text-3xl font-semibold text-green-800 mt-3">
+                      ${(parseFloat(item.product.sellingPrice) * item.quantity).toFixed(2)}
+                    </p>
                   </div>
+
                   <div className="flex items-center space-x-2">
-                    <input
-                      type="number"
-                      value={item.quantity}
-                      onChange={(event) => handleQuantityChange(item.product._id, parseInt(event.target.value, 10))}
-                      min="1"
-                      className="w-16 text-center border border-gray-300 rounded-md p-1"
-                    />
+                  <input
+  type="number"
+  value={item.quantity}
+  onChange={(event) => {
+    const value = parseInt(event.target.value, 10);
+    handleQuantityChange(item.product._id, value > 0 ? value : 1); // Ensure value is at least 1
+  }}
+  min="1"
+  placeholder="1"
+  className="w-24 text-center text-lg font-semibold border border-gray-300 rounded-full px-2 py-2 bg-gray-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 hover:border-green-500 transition duration-300 ease-in-out"
+/>
+
+
                     <button
                       onClick={() => handleRemoveFromCart(item.product._id)}
                       className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
@@ -393,29 +413,29 @@ const Page = () => {
               ))}
 
               {/* Discount Section */}
-              <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+              <div className="bg-white border-t-4 border-green-700 p-6 rounded-lg shadow-md mb-6">
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">Apply Coupon</h3>
                 <div className='flex gap-2'>
 
-                <input
-                  type="text"
-                  value={code}
-                  onChange={(e) => setCode(e.target.value)}
-                  placeholder="Enter Coupon Code"
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  <input
+                    type="text"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    placeholder="Enter Coupon Code"
+                    className="w-full p-2 border border-gray-300 bg-gray-200 placeholder-black text-black rounded-md"
                   />
-                    <Button variant="outline" onClick={()=>applyCoupon()} className=" px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                      Apply
-                    </Button>
+                  <Button variant="outline" onClick={() => applyCoupon()} className=" px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+                    Apply
+                  </Button>
 
 
-                {/* <Button onClick={()=>applyCoupon()} >Apply</Button> */}
+                  {/* <Button onClick={()=>applyCoupon()} >Apply</Button> */}
                 </div>
                 <p className='text-xs py-1'>{codeMsg}</p>
               </div>
 
               {/* Cart Summary */}
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white border-t-4 border-green-700 p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold mb-4 text-gray-800">Cart Summary</h3>
                 <div className="flex justify-between mb-4">
                   <span className="text-lg text-gray-700">Subtotal:</span>
@@ -429,16 +449,19 @@ const Page = () => {
                   <span className="text-lg text-gray-700">Total:</span>
                   <span className="text-2xl font-bold text-green-800">${calculateTotal()}</span>
                 </div>
-                <button
+                <Button
                   onClick={handleClearCart}
-                  className="mt-6 mr-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                  variant="outline"
+                  className="mt-6 mr-4 px-4 py-2 bg-green-500 border-2 border-white text-white rounded-lg hover:bg-green-600  hover:text-white transition-colors"
                 >
                   Clear Cart
-                </button>
+                </Button>
+
+
 
                 <AlertDialog open={isPopoverOpen} >
                   <AlertDialogTrigger asChild>
-                    <Button variant="outline" onClick={handleBuyClick} className="mt-6 mr-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+                    <Button variant="outline" onClick={handleBuyClick} className="mt-6 mr-4 px-4 py-2 bg-green-500 border-2 border-white text-white rounded-lg hover:bg-green-600 hover:text-white transition-colors">
 
                       {
                         isLoading ? (

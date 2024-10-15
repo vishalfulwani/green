@@ -9,7 +9,7 @@ import { signInSchema } from "@/schemas/signInSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AxiosError } from "axios"
 import { Loader2 } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
 import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -34,10 +34,16 @@ const Page = () => {
         }
     })
 
+    // const handleSignOut = (platform: any) => {
+    //     signOut({
+    //       callbackUrl: platform === "ecommerce" ? "/ecommerce-signin" : "/foundation-signin",
+    //     });
+    //   };
     
     const onSubmit = async (data: z.infer<typeof signInSchema>) => {
         
         setIsSubmitting(true)
+        // handleSignOut('ecommerce')
         
         try {
             const email = data.email as string
@@ -54,12 +60,12 @@ const Page = () => {
         //    callbackUrl: '/', // Redirect after sign-in
                 // baseUrl: '/api/auth/foundation'
             })
-            console.log(result,"****")
+            console.log("=-=-=-",result,"****")
             if (result?.error) {
                 if (result?.error == 'CredentialsSignin') {
                     toast({
                         title: 'Login Failed',
-                        description: 'Incorrect username or password',
+                        description: 'Incorrect email or password',
                         className: 'toast-error'
                     })
                     setIsSubmitting(false)
@@ -74,7 +80,7 @@ const Page = () => {
                 }
             }
             if (result?.url) {
-                console.log(result.url,"****")
+                console.log("=-=-=-",result.url,"****")
                 toast({
                     title: 'Success',
                     description: "Login Successfully",

@@ -73,7 +73,13 @@ const Page = () => {
           },
         });
         const allOrders = response.data.data; // Set orders after fetching
-        setOrders(allOrders);
+        if  (allOrders.length > 10) {
+          setOrders(allOrders.slice(-10)); // Limit to 10 orders
+        }
+        else{
+          setOrders(allOrders);
+        }
+
 
 
       } catch (error) {
@@ -165,14 +171,14 @@ const Page = () => {
 
           <div className="flex-1 p-6 space-y-6">
             <header className="mb-8">
-              <h1 className="text-3xl font-semibold text-gray-800">Dashboard Overview</h1>
+              <h1 className="text-3xl font-semibold text-gray-600">Dashboard Overview</h1>
             </header>
             <div className="lg:col-span-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                 {/* Sales Card */}
                 <div className="col-span-2 md:col-span-1">
-                  <div className="card info-card sales-card p-4 bg-white shadow rounded-lg">
+                  <div className="card info-card sales-card p-4  shadow-lg rounded-lg bg-white border-t-4 border-green-700">
 
                     <div className="card-body w-auto">
                       <h5 className="card-title text-xl font-semibold">Welcome To the Dashboard</h5>
@@ -185,8 +191,8 @@ const Page = () => {
                           height={50}
                         />
                         <div className="ml-4">
-                          <h4 className="font-bold text-blue-800">{userName}</h4>
-                          <h5 className="text-sm text-gray-500">Web Designer</h5>
+                          <h4 className="font-bold text-green-900">{userName}</h4>
+                          <h5 className="text-sm text-gray-500">Admin</h5>
                         </div>
                       </div>
                     </div>
@@ -199,21 +205,21 @@ const Page = () => {
 
             {/* Dashboard Cards */}
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-lg flex items-center">
+              <div className=" bg-white border-t-4 border-green-700  p-6 rounded-lg shadow-lg flex items-center">
                 <FaLeaf className="text-green-700 text-4xl mr-4" />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Total Products</h2>
                   <p className="text-2xl font-bold text-gray-800">{products.length}</p>
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg flex items-center">
+              <div className=" bg-white border-t-4 border-green-700  p-6 rounded-lg shadow-lg flex items-center">
                 <FaShoppingCart className="text-green-700 text-4xl mr-4" />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Total Sales</h2>
                   <p className="text-2xl font-bold text-gray-800">$45,000</p>
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg flex items-center">
+              <div className=" bg-white border-t-4 border-green-700  p-6 rounded-lg shadow-lg flex items-center">
                 <FaUsers className="text-green-700 text-4xl mr-4" />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Foundation Users</h2>
@@ -222,7 +228,7 @@ const Page = () => {
                   <p className="text-2xl font-bold text-gray-800">{orders.length}</p> */}
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg flex items-center">
+              <div className=" bg-white border-t-4 border-green-700 p-6 rounded-lg shadow-lg flex items-center">
                 {/* <FaDollarSign className="text-green-700 text-4xl mr-4" /> */}
                 <FaUsers className="text-green-700 text-4xl mr-4" />
 
@@ -242,22 +248,25 @@ const Page = () => {
             {/* Recent Orders Section */}
             <section>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Orders</h2>
-              <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
-                <table className="min-w-full">
-                  <thead className="bg-gray-100 text-left">
-                    <tr>
-                      <th className="px-6 py-3 text-gray-600">Order ID</th>
-                      <th className="px-6 py-3 text-gray-600">Razorpay Order Id</th>
-                      <th className="px-6 py-3 text-gray-600">Customer</th>
-                      <th className="px-6 py-3 text-gray-600">Date</th>
-                      <th className="px-6 py-3 text-gray-600">Status</th>
-                      <th className="px-6 py-3 text-gray-600">Total</th>
+              <div className="overflow-x-auto scrollbar-hide  rounded-lg shadow-lg">
+                <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
+                  <thead className="">
+                    <tr className=' bg-white border-t-4 border-green-700 '>
+                      <th className="py-3 px-5 border-b text-left text-sm font-semibold uppercase tracking-wide">Order ID</th>
+                      <th className="py-3 px-5 border-b text-left text-sm font-semibold uppercase tracking-wide">Razorpay Order Id</th>
+                      <th className="py-3 px-5 border-b text-left text-sm font-semibold uppercase tracking-wide">Customer</th>
+                      <th className="py-3 px-5 border-b text-left text-sm font-semibold uppercase tracking-wide">Date</th>
+                      <th className="py-3 px-5 border-b text-left text-sm font-semibold uppercase tracking-wide">Status</th>
+                      <th className="py-3 px-5 border-b text-left text-sm font-semibold uppercase tracking-wide">Total</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order) => (
+                    {orders.map((order,index) => (
 
-                      <tr className="border-b">
+                      <tr 
+                        key={order._id?.toString()}
+                        className={`${index % 2 === 0 ? 'bg-green-50' : 'bg-white'} hover:bg-green-100 transition duration-200`}
+                      >
                         <td className="px-6 py-4">{order._id?.toString()}</td>
                         <td className="px-6 py-4">{order.razorpayOrderId}</td>
                         <td className="px-6 py-4">{fetchUsername(order.userId)}</td>
@@ -268,7 +277,17 @@ const Page = () => {
                             day: 'numeric',
                           })}
                         </td>
-                        <td className="px-6 py-4 text-green-500">{order.paymentStatus}</td>
+                        {/* <td className="px-6 py-4 text-green-500">{order.paymentStatus}</td> */}
+                        <td className="px-6 py-4 ">
+                                                <span
+                                                    className={`px-3 py-1 rounded-full text-xs font-semibold ${order.paymentStatus === 'completed'
+                                                            ? 'bg-green-200 text-green-800'
+                                                            : 'bg-red-200 text-red-800'
+                                                        }`}
+                                                >
+                                                {order.paymentStatus}
+                                                </span>
+                                                </td>
                         <td className="px-6 py-4">{order.totalAmount}</td>
                       </tr>
                     ))}
@@ -279,7 +298,7 @@ const Page = () => {
             </section>
 
             {/* User Activity Section */}
-            <section className="bg-white p-6 rounded-lg shadow-lg">
+            <section className=" bg-white border-t-4 border-green-700 p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-semibold text-gray-700 mb-4">User Activity</h2>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">

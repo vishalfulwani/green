@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { IDonation } from '@/models/donation.models';
+import Footer from '@/components/FoundationFooter';
 
 interface PlantationUpdate {
   treeName: string;
@@ -61,9 +62,9 @@ const ProfilePage = () => {
 
 
   return (
+<>
 
-
-    <div className=" pt-32 min-h-screen p-6 bg-[#accbb7]">
+    <div className=" pt-32 min-h-screen p-6 bg-gray-200">
 
       <div className="container ">
 
@@ -71,13 +72,14 @@ const ProfilePage = () => {
         {status === "unauthenticated" && <div className="text-center text-red-600 text-lg font-semibold">Not signed in</div>}
         {status === "authenticated" && (
           <>
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div className="bg-white rounded-lg shadow-md border-t-4 border-green-700 p-6 mb-6">
               <h1 className="text-2xl font-bold mb-4 text-gray-800">Welcome, {session?.user?.userName}</h1>
               <p className="text-gray-600 mb-2"><span className="font-semibold">Platform: {session?.platform?"Foundation":""}</span></p>
+              <p className="text-gray-600 mb-2"><span className="font-semibold">Email: {session?.user.email}</span></p>
               <p className="text-gray-600"><span className="font-semibold">Role: Donor</span> {session?.user?.role}</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8 mt-8">
+            <div className="bg-white rounded-lg shadow-lg p-8 border-t-4 border-green-700 mt-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b pb-3">Your Donations</h2>
 
               {isLoading ? (
@@ -87,7 +89,7 @@ const ProfilePage = () => {
                   {donations.map((donation, index) => (
                     <li
                       key={index}
-                      className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out border border-gray-200"
+                      className="bg-gray-100 p-6 rounded-lg  border-t-4  border-green-700  shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out border "
                     >
                       <h3 className="text-2xl font-semibold text-green-700 mb-4 text-center sm:text-left">
                         Donation #{index + 1}
@@ -146,7 +148,7 @@ const ProfilePage = () => {
                                   href={donation.certificate}
                                   download
                                   // className="bg-green-600 text-white font-semibold w-auto py-2 px-4 rounded-lg shadow hover:bg-green-500 transition-colors duration-300 ease-in-out flex items-center justify-center sm:justify-start"
-                                  className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-green-500 transition-colors duration-300 ease-in-out flex items-center justify-center w-auto"
+                                  className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-green-700 transition-colors duration-300 ease-in-out flex items-center justify-center w-auto"
 
                                 >
                                   <svg
@@ -191,103 +193,9 @@ const ProfilePage = () => {
       </div>
     </div >
 
+    <Footer />
+    </>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // <div className="min-h-screen bg-gray-100 p-6">
-    //   {/* Profile Header */}
-    //   <div className="bg-white shadow rounded-lg p-6 max-w-4xl mx-auto">
-    //     <div className="flex items-center space-x-4">
-    //       <Image
-    //         className="rounded-full"
-    //         src="/user-avatar.jpg" // Replace with actual avatar
-    //         alt="User Avatar"
-    //         width={80}
-    //         height={80}
-    //       />
-    //       <div>
-    //         <h2 className="text-2xl font-semibold">John Doe</h2>
-    //         <p className="text-gray-600">Plantation Donor</p>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   {/* Plantation Updates Section */}
-    //   <div className="mt-10 max-w-4xl mx-auto">
-    //     <h3 className="text-xl font-semibold mb-4">Your Plantation Updates</h3>
-
-    //     {/* Show loader while fetching data */}
-    //     {isLoading ? (
-    //       <div className="text-center">
-    //         <p className="text-gray-500">Loading plantation updates...</p>
-    //       </div>
-    //     ) : updates.length === 0 ? (
-    //       <div className="text-center">
-    //         <p className="text-gray-500">No plantation updates available.</p>
-    //       </div>
-    //     ) : (
-    //       <div className="space-y-6">
-    //         {updates.map((update, index) => (
-    //           <div key={index} className="bg-white p-4 shadow rounded-lg">
-    //             <div className="flex justify-between items-center">
-    //               <h4 className="text-lg font-semibold">Tree Planted: {update.treeName}</h4>
-    //               <p className={`font-semibold ${update.status === 'Completed' ? 'text-green-600' : 'text-yellow-500'}`}>
-    //                 Status: {update.status}
-    //               </p>
-    //             </div>
-    //             <p className="text-gray-500 mt-2">Location: {update.location}</p>
-    //             <p className="text-gray-500">Planted On: {update.plantedOn}</p>
-    //           </div>
-    //         ))}
-    //       </div>
-    //     )}
-    //   </div>
-
-    //   {/* Certificate Download Section */}
-    //   <div className="mt-10 max-w-4xl mx-auto">
-    //     <h3 className="text-xl font-semibold mb-4">Download Your Certificates</h3>
-    //     <div className="bg-white p-6 shadow rounded-lg text-center">
-    //       <p className="text-gray-500 mb-4">Download your tree plantation certificate for completed donations.</p>
-    //       <a
-    //         href="/certificate.pdf" // Replace with actual certificate URL
-    //         download
-    //         className="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
-    //       >
-    //         Download Certificate
-    //       </a>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

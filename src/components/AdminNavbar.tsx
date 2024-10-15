@@ -63,7 +63,7 @@ const AdminNavbar = ({
 }: { children: React.ReactNode }) => {
 
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sideMargin, setSideMargin] = useState('ml-0')
   const [rightbarOpen, setRightbarOpen] = useState(false)
   const [subPartOpen, setSubPartOpen] = useState(false)
@@ -172,8 +172,8 @@ const AdminNavbar = ({
               <h1 className="text-2xl font-bold ">Green Foundation</h1>
             </div>
           </Link>
-          <button onClick={toggleSidebar} className="2xl ml-2 focus:outline-none">
-            <GiHamburgerMenu size={24} />
+          <button onClick={toggleSidebar} className=" ml-2 block sm:hidden focus:outline-none">
+            <GiHamburgerMenu size={24}   />
           </button>
         </div>
 
@@ -308,11 +308,11 @@ const AdminNavbar = ({
 
 
       {/* side bar */}
-      <div className={`fixed top-0 pt-20 left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
-        <ul className=" py-4">
+      <div className={`fixed top-0 pt-20  left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
+        <ul className=" py-4 ">
           <li>
             <Link href="/admin">
-              <div className="flex px-4 py-2 gap-2 items-center  hover:bg-green-900">
+              <div className="flex px-6 py-2 gap-2 items-center  hover:bg-green-900">
                 <MdDashboard />
                 <span>Dashboard</span>
               </div>
@@ -320,13 +320,13 @@ const AdminNavbar = ({
           </li>
 
           <li>
-            <div className="flex px-4 py-2 gap-2 items-center  hover:bg-green-900" onClick={toggleSubPart}>
+            <div className="flex px-6 py-2 gap-2 items-center  hover:bg-green-900" onClick={toggleSubPart}>
               <FaTable />
-              <span>User Data</span>
+              <span>Users Data</span>
             </div>
             <ul className={` ${subPartOpen ? "visible" : "hidden"}`}>
               <li>
-                <Link href="/admin-donations">
+                <Link href="/admin-foundation-user">
                   <div className="flex pl-10 pr-4 py-2 gap-2 items-center  hover:bg-green-900">
                     <GiFountain />
                     <span>Foundation</span>
@@ -345,23 +345,23 @@ const AdminNavbar = ({
           </li>
           <li>
             <Link href="/admin-products">
-              <div className="flex px-4 py-2 gap-2 items-center  hover:bg-green-900">
+              <div className="flex px-6 py-2 gap-2 items-center  hover:bg-green-900">
                 <FaBoxOpen />
-                <span>Product</span>
+                <span>Products</span>
               </div>
             </Link>
           </li>
           <li>
             <Link href="/admin-sponsors">
-              <div className="flex px-4 py-2 gap-2 items-center  hover:bg-green-900">
+              <div className="flex px-6 py-2 gap-2 items-center  hover:bg-green-900">
                 <SiGithubsponsors />
-                <span>Sponsor</span>
+                <span>Sponsors</span>
               </div>
             </Link>
           </li>
           <li >
-            <Link href="/register">
-              <div className="flex px-4 py-2 gap-2 items-center hover:bg-green-900">
+            <Link href="/admin-order">
+              <div className="flex px-6 py-2 gap-2 items-center hover:bg-green-900">
                 <MdShoppingCart />
                 <span>Buyed Data</span>
               </div>
@@ -369,24 +369,26 @@ const AdminNavbar = ({
           </li>
           <li >
             <Link href="/admin-donations">
-              <div className="flex px-4 py-2 gap-2  items-center hover:bg-green-900">
+              <div className="flex px-6 py-2 gap-2  items-center hover:bg-green-900">
                 <FaDonate />
-                <span>Donate</span>
+                <span>Donations</span>
               </div>
             </Link>
           </li>
           <li >
             <Link href="/admin-coupon">
-              <div className="flex px-4 py-2 gap-2  items-center hover:bg-green-900">
+              <div className="flex px-6 py-2 gap-2  items-center hover:bg-green-900">
                 <RiCoupon2Fill />
-                <span>Coupon</span>
+                <span>Coupons</span>
               </div>
             </Link>
           </li>
         </ul>
       </div>
 
-      <main className={`min-h-screen p-4 bg-[#accbb7] ${sideMargin}`}>
+      {/* <main className={`min-h-screen p-4 bg-[#accbb7] m-0 lg:${sideMargin}`}> */}
+      <main className={`min-h-screen p-4  bg-gray-200 m-0 sm:ml-60`}>
+
         {children}
       </main>
     </>

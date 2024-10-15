@@ -273,6 +273,7 @@ const EcommerceNavbar = () => {
     // Navigate to the product details page
     const handleProductClick = (productCategory: any, productId: any) => {
         router.push(`/shop/${productCategory}/${productId}`);
+        setIsOpen(false)
     };
     const handleSearchIconClick = () => {
         setIsOpen(true);
@@ -281,6 +282,14 @@ const EcommerceNavbar = () => {
     }
 
 
+    // const { toast } = useToast()
+    // useEffect(()=>{
+    //        toast({
+    //       title: " Free delivery on order above 500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!",
+    //       description: "Friday, February 10, 2023 at 5:57 PM",
+    //     })
+    // })
+
     return (
 
 
@@ -288,16 +297,34 @@ const EcommerceNavbar = () => {
 <>
 
 {/*  animate scroll in global.css */}
-<div className="fixed top-0 w-full h-10 bg-green-700 text-white overflow-hidden z-50">
+{/* <div className="fixed top-0 w-full h-10 bg-green-700 text-white overflow-hidden z-50">
   <div className=" whitespace-nowrap animate-scroll py-2">
     Free delivery on order above 500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!
   </div>
-</div>
+</div> */}
+
+
+
+{isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center zoom-in-100">
+          <div className="relative w-11/12 md:w-1/2 bg-green-700 text-white p-4 rounded-lg">
+            <div className="text-center animate-scroll whitespace-nowrap">
+              Free delivery on orders above ₹500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!
+            </div>
+            <button
+              className="absolute top-2 right-2 text-white hover:text-gray-300"
+              onClick={() => setIsOpen(false)}
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
 
 
 
 
-        <nav className="bg-green-800 text-white py-4 fixed w-full top-10 left-0 shadow-md z-50">
+        <nav className="bg-green-800 text-white py-4 fixed w-full top-0 left-0 shadow-md z-50">
             {/* <div className="container mx-auto px-1 flex justify-between items-center"> */}
             <div className={`container mx-auto px-1 flex justify-between  md:flex items-center  space-x-4 ${isOpen ? 'hidden' : 'block'}`}>
                 <div className="text-2xl font-bold">Plant E-commerce</div>

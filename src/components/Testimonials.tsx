@@ -19,7 +19,7 @@ const Testimonials = () => {
     return (
 
 
-        <section className="py-12 md:py-16  bg-[#bee7bb]">
+        <section className="py-12 md:py-16  bg-gray-100">
             <div className="container mx-auto px-4 md:px-6 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold ">What Our Customers Say</h2>
                 <p className="text-center text-base md:text-lg lg:text-xl mt-4 mb-8 md:mb-12">
@@ -34,7 +34,7 @@ const Testimonials = () => {
                     >
                         <CarouselContent >
                             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                                <div className="bg-gray-100 p-4 md:p-6 rounded-lg shadow-lg">
+                                <div className="bg-white border-t-4 border-green-600 p-4 md:p-6 rounded-lg shadow-lg">
                                     <p className="text-base md:text-lg italic">
                                         "GreenLife has transformed my home into a green paradise. The quality of their plants is truly unmatched."
                                     </p>
@@ -44,7 +44,7 @@ const Testimonials = () => {
 
                             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
 
-                                <div className="bg-gray-100 p-4 md:p-6 rounded-lg shadow-lg">
+                                <div className="bg-white border-t-4 border-green-600 p-4 md:p-6 rounded-lg shadow-lg">
                                     <p className="text-base md:text-lg italic">
                                         "Their selection of rare and unique plants is unmatched. I’m thrilled with my new additions to my garden."
                                     </p>
@@ -52,7 +52,7 @@ const Testimonials = () => {
                                 </div>
                             </CarouselItem>
                             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                                <div className="bg-gray-100 p-4 md:p-6 rounded-lg shadow-lg">
+                                <div className="bg-white border-t-4 border-green-600 p-4 md:p-6 rounded-lg shadow-lg">
                                     <p className="text-base md:text-lg italic">
                                         "I've ordered several times, and each time the plants have exceeded my expectations. Highly recommended!"
                                     </p>
@@ -60,7 +60,7 @@ const Testimonials = () => {
                                 </div>
                             </CarouselItem>
                             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                                <div className="bg-gray-100 p-4 md:p-6 rounded-lg shadow-lg">
+                                <div className="bg-white border-t-4 border-green-600 p-4 md:p-6 rounded-lg shadow-lg">
                                     <p className="text-base md:text-lg italic">
                                         "The online shopping experience was seamless, and the plant care tips provided were incredibly helpful."
                                     </p>
@@ -68,7 +68,7 @@ const Testimonials = () => {
                                 </div>
                             </CarouselItem>
                             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-                                <div className="bg-gray-100 p-4 md:p-6 rounded-lg shadow-lg">
+                                <div className="bg-white border-t-4 border-green-600 p-4 md:p-6 rounded-lg shadow-lg">
                                     <p className="text-base md:text-lg italic">
                                         "They offers a fantastic selection of plants and gardening tools. Their customer service is top-notch!"
                                     </p>
@@ -76,8 +76,8 @@ const Testimonials = () => {
                                 </div>
                             </CarouselItem>
                         </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
+                        {/* <CarouselPrevious /> */}
+                        {/* <CarouselNext /> */}
                     </Carousel>
                 </div>
             </div>
