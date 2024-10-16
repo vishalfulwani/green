@@ -146,7 +146,7 @@ const Page = () => {
                         </p>
                     </div>
                 </div>
-                <div className="w-[40%]">
+                <div className="hidden md:flex w-[40%]">
                     <img src="signup-planting-tree.png" alt="Planting tree" />
                 </div>
             </div>

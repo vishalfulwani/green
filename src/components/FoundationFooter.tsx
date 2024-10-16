@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-green-900 text-gray-100 py-10" style={{backgroundImage:"url(http://pluspng.com/img-png/grass-png-grass-png-transparent-image-1800.png)"}}>
+    <footer className="bg-green-900 text-gray-100 px-8 pt-10 md:bg-[url('http://pluspng.com/img-png/grass-png-grass-png-transparent-image-1800.png')] bg-no-repeat bg-cover">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div>
@@ -55,7 +55,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="border-t border-gray-700 mt-10 pt-6 text-center">
+        <div className="border-t border-gray-100 mt-10 py-4 text-center">
           <p className="text-gray-400">&copy; {new Date().getFullYear()} Green Foundation. All rights reserved.</p>
         </div>
       </div>

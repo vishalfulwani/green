@@ -95,11 +95,11 @@
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.button-green {
+/* .button-green {
   background-color:#0a9a41;
   color: white;
   border: 2px solid #0a9a41;
-}
+} */
 
 .button-green:hover {
   background-color: transparent;
@@ -108,11 +108,11 @@
   transform: scale(1.05);
 }
 
-.button-outline {
+/* .button-outline {
   background-color: transparent;
   border: 2px solid #0a9a41;
   color: #0a9a41;
-}
+} */
 
 .button-outline:hover {
   border: 2px solid #0a9a41;
@@ -121,7 +121,53 @@
   transform: scale(1.05);
 }
 
+/* Responsive Button Green for smaller screens */
+@media (max-width: 640px) {
+  .button-green {
+    background-color:#0a9a41;
+    color: white;
+    border: 2px solid #0a9a41;
+  }
+  .button-outline {
+    background-color: transparent;
+    border: 2px solid #0a9a41;
+    color: #0a9a41;
+  }
+  .button {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    /* color: green; */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+}
 
+@media (min-width: 640px) {
+  .button-green {
+    background-color:#0a9a41;
+    color: white;
+    border: 2px solid #0a9a41;
+  }
+  .button-outline {
+    background-color: transparent;
+    border: 2px solid #0a9a41;
+    color: #0a9a41;
+  }
+  .button {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    /* color: green; */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+
+}
 /* px-5 py-2 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300 */
 
 /* leave */
@@ -172,3 +218,5 @@
 .animate-scroll {
   animation: scroll 20s linear infinite;
 }
+
+

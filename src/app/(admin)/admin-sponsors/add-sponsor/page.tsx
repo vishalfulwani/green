@@ -58,8 +58,8 @@ function Page() {
             const axiosError = error as AxiosError<ApiResponse>
             let errorMessage = axiosError.response?.data.message
             toast({
-                title: "Product add failed",
-                description: errorMessage || "Product add failed",
+                title: "Sponser add failed",
+                description: errorMessage || "Sponsor add failed",
                 className: 'toast-error'
             })
             setIsCreated(false)
@@ -97,7 +97,7 @@ function Page() {
                                     <FormItem>
                                         <FormLabel>Link</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Sponsor Description" {...field} />
+                                            <Input placeholder="Sponsor Link" {...field} />
                                         </FormControl>
                                     </FormItem>
                                 )}
@@ -121,10 +121,10 @@ function Page() {
                                     </FormItem>
                                 )}
                             />
-                            <Button type="submit" disabled={isCreated} className="button button-green hover:bg-transparent">
+                            <Button type="submit" disabled={isCreated} className="button button-green items-center hover:bg-transparent">
                                 {isCreated ? (
                                     <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
+                                        <Loader2 className="mr-2 h-4  animate-spin" /> Please Wait
                                     </>
                                 ) : ('Add Sponser')}
                             </Button>

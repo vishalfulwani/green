@@ -96,30 +96,19 @@ const FoundationNavbar = () => {
       </div>
 
       <div className="md:hidden flex items-center">
-        <button onClick={toggleMobileMenu} className="text-white text-3xl focus:outline-none">
+        <button onClick={toggleMobileMenu} className="text-white text-2xl focus:outline-none">
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
+     {/* mobile */}
       <div className={`md:hidden flex flex-col  bg-green-900 w-full absolute top-full left-0 py-4 transition-transform duration-300 ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-        <Link href="/" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
-          Home
-        </Link>
-        <Link href="/about" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
-          About
-        </Link>
-        <Link href="/project" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
-          Project
-        </Link>
-        <Link href="/get-involved" className="text-lg font-medium text-white hover:text-green-500 transition duration-300">
-          Get Involved
-        </Link>
-        {/* <div className={`items-center ${isMobileMenuOpen ? 'block' : 'hidden'} hidden md:flex`}> */}
-        {userSession && (
-          <ul className="hidden md:flex items-center space-x-4">
+        <div className="px-8">
+      {userSession && (
+          <ul className="flex md:hidden justify-end items-center space-x-4">
             <li className="relative">
               <div className="flex items-center cursor-pointer" onClick={toggleRightSidebar}>
-                <FaUserAlt className="hover:text-green-600 text-white mr-3 text-2xl" />
+                <FaUserAlt className="hover:text-green-600 text-white  text-2xl" />
               </div>
               <ul className={`absolute right-0 mt-2 w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
                 <li className="px-4 py-2 border-b">
@@ -163,6 +152,22 @@ const FoundationNavbar = () => {
             Sign In
           </Link>
         )}
+        </div>
+
+        <Link href="/" className="text-lg hover:bg-[#4b614a] px-8 mt-1 font-medium text-white hover:text-green-600 transition duration-300">
+          Home
+        </Link>
+        <Link href="/about" className="text-lg hover:bg-[#4b614a] px-8 font-medium text-white hover:text-green-600 transition duration-300">
+          About
+        </Link>
+        <Link href="/project" className="text-lg hover:bg-[#4b614a] px-8 font-medium text-white hover:text-green-600 transition duration-300">
+          Project
+        </Link>
+        <Link href="/get-involved" className="text-lg hover:bg-[#4b614a] px-8 font-medium text-white hover:text-green-600 transition duration-300">
+          Get Involved
+        </Link>
+        {/* <div className={`items-center ${isMobileMenuOpen ? 'block' : 'hidden'} hidden md:flex`}> */}
+    
       {/* </div> */}
       </div>
 
