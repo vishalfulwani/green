@@ -80,18 +80,12 @@ const Page = () => {
       >
         <div className="absolute inset-0 bg-green-900/50 backdrop-blur-sm"></div>
         <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
             Plant a Tree, Grow a Future
           </h1>
-          <p className="text-lg md:text-xl mb-8">
+          <p className="text-lg md:text-xl xl:text-3xl mb-8">
             Join us in our mission to make the world greener, one tree at a time.
           </p>
-          {/* <a
-            href="/get-involved"
-            className="inline-block button button-green bg-white text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
-          >
-            Get Involved
-          </a> */}
           <a
             href="/get-involved"
             className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
@@ -112,55 +106,46 @@ const Page = () => {
 
       {/* tree plantation section */}
 
-
-      <section className="py-16 sm:px-4 bg-gray-200 text-center">
+      <section className="py-28 sm:px-4 bg-gray-200 text-center">
         <div className="container mx-auto">
           <h2 className="text-xl sm:text-3xl  md:text-4xl font-bold text-green-900 mb-2 sm:mb-4 md:mb-6">Plant a Tree from the Comfort of Your Home</h2>
           <p className="text-sm md:text-lg mb-8">Make a difference without leaving your house and receive a personalized certificate.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 text-black justify-center">
             {/* Card 1 */}
-            <div className="w-full h-[280px] sm:h-[300px] bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png')` }}>
-              <img src="https://treesunlimitednj.com/wp-content/uploads/Selecting-Trees-by-Shape.jpg" alt="Choose Tree" className="w-20 h-20 rounded-full mx-auto mt-6" />
+            <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105 "
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              {/* <div className="w-full h-[280px] sm:h-[300px] bg-white bg-cover bg-right bg-[url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png')] bg-right-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"> */}
+
+              <img src="https://treesunlimitednj.com/wp-content/uploads/Selecting-Trees-by-Shape.jpg" alt="Choose Tree" className="w-20 h-20 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Choose Your Tree</h3>
               <p className="text-center px-4 text-sm md:text-base">Select the type of tree you wish to plant. Each tree offers unique benefits and characteristics.</p>
             </div>
 
             {/* Card 2 */}
-            <div className="w-full h-[280px] sm:h-[300px] bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png')` }}>
-              <img src="https://tse1.mm.bing.net/th?id=OIP.5nJzQeehuqQyzcbU15FviQHaEh&pid=Api&P=0&h=180" alt="Make a Donation" className="w-20 h-20 rounded-full mx-auto mt-6" />
+            <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              <img src="https://tse1.mm.bing.net/th?id=OIP.5nJzQeehuqQyzcbU15FviQHaEh&pid=Api&P=0&h=180" alt="Make a Donation" className="w-20 h-20 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Make a Donation</h3>
               <p className="text-center px-4 text-sm md:text-base">Your donation covers the planting and ongoing care of the tree, helping it grow and thrive.</p>
             </div>
 
             {/* Card 3 */}
-            <div className="w-full h-[280px] sm:h-[300px] bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png')` }}>
-              <img src="https://cdn.slidemodel.com/wp-content/uploads/21672-01-award-certificate-template-for-powerpoint-16x9-3.jpg" alt="Receive Certificate" className="w-20 h-20 rounded-full mx-auto mt-6" />
+            <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              <img src="https://cdn.slidemodel.com/wp-content/uploads/21672-01-award-certificate-template-for-powerpoint-16x9-3.jpg" alt="Receive Certificate" className="w-20 h-20 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Get Your Certificate</h3>
               <p className="text-center px-4 text-sm md:text-base">After your tree is planted, you'll receive a personalized certificate with details about your tree's journey.</p>
             </div>
 
             {/* Card 4 */}
-            <div className="w-full h-[280px] sm:h-[300px] bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png')` }}>
-              <img src="https://tse3.mm.bing.net/th?id=OIP.QbNt9-K1ZoegDjd5xrZP-wHaEk&pid=Api&P=0&h=180" alt="Track Your Tree" className="w-20 h-20 rounded-full mx-auto mt-6" />
+            <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              <img src="https://tse3.mm.bing.net/th?id=OIP.QbNt9-K1ZoegDjd5xrZP-wHaEk&pid=Api&P=0&h=180" alt="Track Your Tree" className="w-20 h-20  object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Track Your Tree</h3>
               <p className="text-center px-4 text-sm md:text-base">Get regular updates on your tree's growth, photos, and information about its environmental impact.</p>
             </div>
           </div>
-
-          {/* Buttons */}
-          {/* <div className="mt-12 flex flex-col md:flex-row justify-center items-center gap-5">
-      <a href="/plant-tree" className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
-        Plant a Tree Now
-      </a>
-      <a href="/learn-more" className="inline-block bg-white text-green-500 border border-green-500 hover:bg-green-500 hover:text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
-        Learn More
-      </a>
-    </div> */}
           <div className="mt-16 flex justify-center  items-center gap-5">
             <a href="/plant-tree" className="button button-green">Plant a Tree Now</a>
             <a href="/learn-more" className="button button-outline">Learn More</a>
@@ -176,8 +161,7 @@ const Page = () => {
 
 
       {/* Donation utilization section */}
-
-      <section className="relative py-16  bg-gray-300 text-[#333] bg-cover bg-bottom overflow-hidden">
+      <section className="relative py-28  bg-gray-300 text-[#333] bg-cover bg-bottom overflow-hidden">
         <div className="absolute inset-0 bg-no-repeat bg-cover bg-bottom filter blur-md" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}></div>
 
         <div className="relative container mx-auto z-10">
@@ -223,10 +207,7 @@ const Page = () => {
 
 
       {/* our mission */}
-
-
-
-      <section className="py-20 bg-gray-200">
+      <section className="py-28 bg-gray-200">
         <div className="container mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">
             Our Mission
@@ -273,7 +254,7 @@ const Page = () => {
 
 
       {/* sponsor section */}
-      <section className="py-16 bg-gray-300 text-[#333] bg-cover bg-bottom">
+      <section className="py-28 bg-gray-300 text-[#333] bg-cover bg-bottom">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6 text-center">
             Sponsors
@@ -293,7 +274,7 @@ const Page = () => {
 
                     <div
                       key={sponsor._id}
-                      className="relative group bg-white border-t-2 border-green-600 w-[200px] sm:h-[120px] sm:w-[180px] md:w-[220px] flex items-center justify-center rounded-lg shadow-lg overflow-hidden p-2 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                      className="relative group bg-white border-t-2 border-green-600 w-[200px] sm:h-[150px] sm:w-[180px] md:w-[220px] flex items-center justify-center rounded-lg shadow-lg overflow-hidden p-2 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl"
                     >
                       <img
                         src={sponsor.image}
@@ -323,19 +304,20 @@ const Page = () => {
 
 
       {/* our impact */}
-      <section className="py-16 bg-gray-200">
+      <section className="py-28 bg-gray-200">
         <div className="container mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">Our Impact</h2>
           <p className="text-sm sm:text-xl text-gray-700 mb-10 max-w-2xl mx-auto">
             Together, we have made significant strides in fostering a greener planet. Here’s a look at the positive impact we’ve created.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-12">
+          <div className="flex justify-evenly items-center flex-wrap gap-2">
             {[
               { value: '10K+', label: 'Trees Planted' },
               { value: '500+', label: 'Volunteers' },
               { value: '50+', label: 'Communities Reached' },
+              { value: '10+', label: 'Sponsors' },
             ].map(({ value, label }) => (
-              <div key={label} className="bg-white p-3 sm:p-8 border-t-4 border-green-600 rounded-xl shadow-2xl transform transition duration-500 hover:scale-105">
+              <div key={label} className="bg-white p-3 w-[280px] sm:p-8 border-t-4 border-green-600 rounded-xl shadow-2xl transform transition duration-500 hover:scale-105">
                 <h3 className="text-3xl sm:text-5xl font-extrabold text-green-800 sm:mb-4">{value}</h3>
                 <p className="text-lg text-gray-700">{label}</p>
               </div>
@@ -349,13 +331,8 @@ const Page = () => {
 
 
 
-
-
-
-
-
-
-      <section className="py-16 bg-gray-300">
+{/* Testimonial  */}
+      <section className="py-28 bg-gray-300">
         <div className="container mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">What People Are Saying</h2>
           <p className="text-sm sm:text-lg text-gray-700 max-w-3xl mx-auto mb-10 text-center">

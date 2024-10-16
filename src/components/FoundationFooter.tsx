@@ -2,11 +2,11 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-green-900 text-gray-100 px-8 pt-10 md:bg-[url('http://pluspng.com/img-png/grass-png-grass-png-transparent-image-1800.png')] bg-no-repeat bg-cover">
+    <footer className="bg-green-900 text-gray-100 px-8 pt-10 ">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 py-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">About Us</h3>
+            <h3 className="text-xl font-bold mb-4">Green Foundation</h3>
             <p className="text-gray-300">
               We are committed to planting trees and promoting sustainable practices to protect the environment. Join us in making the world a greener place.
             </p>
@@ -55,8 +55,8 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="border-t border-gray-100 mt-10 py-4 text-center">
-          <p className="text-gray-400">&copy; {new Date().getFullYear()} Green Foundation. All rights reserved.</p>
+        <div className="border-t border-gray-100 mt-10 py-6 text-center">
+          <p className="text-white">&copy; {new Date().getFullYear()} Green Foundation. All rights reserved.</p>
         </div>
       </div>
     </footer>
