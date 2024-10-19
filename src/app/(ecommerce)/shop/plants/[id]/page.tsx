@@ -135,14 +135,14 @@ const Page = () => {
                                         // src={product[0].images[0]}
                                         src={imgUrl}
                                         alt={product[0].productName}
-                                        className={`w-full h-full object-cover rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                                        className={`w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-0' : 'opacity-100'}`}
                                     />
                                     {product[0].images.slice(1).map((image, index) => (
                                         <img
                                             key={index}
                                             src={image}
                                             alt={product[0].productName}
-                                            className={`absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                                            className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                                         />
                                     ))}
                                 </div>
@@ -221,7 +221,7 @@ const Page = () => {
 
 
             {/* plant care */}
-            <section className="bg-gray-300 py-16 px-4 md:px-8">
+            <section className="bg-gray-300 py-28">
                 <div className="container mx-auto">
                     <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Plant Care Guidelines</h2>
                     <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
@@ -277,7 +277,7 @@ const Page = () => {
 
 
             {/* recommended */}
-            <section className="py-16 px-4 md:px-8 bg-gray-200">
+            <section className="py-28 bg-gray-200">
                 <div className="container mx-auto">
                     <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Recommended</h2>
                     <p className="text-lg text-gray-700 text-center mb-8 md:max-w-2xl mx-auto">
@@ -297,13 +297,13 @@ const Page = () => {
                                         <img
                                             src={product.images[0]}
                                             alt={product.productName}
-                                            className={`w-full h-full object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'
+                                            className={`w-full h-full object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'
                                                 }`}
                                         />
                                         <img
                                             src={product.images[1]}
                                             alt={product.productName}
-                                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'
+                                            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'
                                                 }`}
                                         />
                                     </div>

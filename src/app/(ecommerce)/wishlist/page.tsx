@@ -52,7 +52,7 @@ const Page = () => {
 };
 
   return (
-    <div className="min-h-screen mt-16 bg-gray-200   py-12 md:py-14">
+    <div className="min-h-screen mt-16 bg-gray-200   py-16 ">
     <div className='md:container'>
 
     <h1 className=" text-2xl sm:text-3xl font-bold text-center px-4 mb-2">Your Wishlist</h1>
@@ -62,7 +62,7 @@ const Page = () => {
       <p className="text-center text-lg">Loading wishlist...</p>
     ) : wishlistProducts.length === 0 ? (
       <>
-      <p className="text-center pb-8 px-4 text-base md:text-lg">Your wishlist is looking a bit bare! ✨ Check out the fantastic items below and start curating your dream list!</p>
+      <p className="text-center pb-16 px-4 text-base md:text-lg">Your wishlist is looking a bit bare! ✨ Check out the fantastic items below and start curating your dream list!</p>
       <AdditionalProducts/>
       </>
     ) : (

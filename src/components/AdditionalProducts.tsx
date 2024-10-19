@@ -82,7 +82,7 @@ export default function AdditionalProducts() {
                 <meta name="description" content="This is the E-commerce home page." />
             </Head>
 
-            <section className="py-12 md:py-16 bg-gray-100 sm:border-t-4 md:border-green-600 w-full rounded-xl">
+            <section className="py-28 bg-gray-100 sm:border-t-4 md:border-green-600 w-full rounded-xl">
                 <div className="container sm:px-4 md:px-6 text-center">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900">Best Sellers</h2>
                     <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12 text-gray-700">
@@ -105,13 +105,13 @@ export default function AdditionalProducts() {
                                         <img
                                             src={product.images[0]}
                                             alt={product.productName}
-                                            className={`w-full h-48 object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                                            className={`w-full h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
                                         />
                                         {/* Secondary Image */}
                                         <img
                                             src={product.images[1]}
                                             alt={product.productName}
-                                            className={`w-full h-48 object-cover transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                                            className={`w-full h-48 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                                         />
                                         <div className="p-4 text-left">
                                             <h3 className="text-lg font-bold text-green-900 mb-2">{product.productName}</h3>

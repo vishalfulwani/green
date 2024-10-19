@@ -73,10 +73,10 @@ const Page = () => {
           },
         });
         const allOrders = response.data.data; // Set orders after fetching
-        if  (allOrders.length > 10) {
+        if (allOrders.length > 10) {
           setOrders(allOrders.slice(-10)); // Limit to 10 orders
         }
-        else{
+        else {
           setOrders(allOrders);
         }
 
@@ -136,7 +136,7 @@ const Page = () => {
     const user = ecommerceUserData.find((data) => data._id === id);
     return user ? user.userName : 'User not found'; // Handle case if user is not found
   };
-  
+
 
 
 
@@ -182,17 +182,13 @@ const Page = () => {
 
                     <div className="card-body w-auto">
                       <h5 className="card-title text-xl font-semibold">Welcome To the Dashboard</h5>
-                      <div className="profile-card flex items-center mt-4">
-                        <Image
-                          src="/img/profile-img.jpg"
-                          alt="Profile"
-                          className="rounded-full"
-                          width={50}
-                          height={50}
-                        />
+                      <div className="profile-card flex items-center gap-5 mt-4">
+
+                        <img src="https://i.pinimg.com/originals/d1/67/07/d1670799e2d5644afd4bbd60df823cc1.jpg" alt="admin" className="w-16 h-16 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full " />
+
                         <div className="ml-4">
-                          <h4 className="font-bold text-green-900">{userName}</h4>
-                          <h5 className="text-sm text-gray-500">Admin</h5>
+                          <h4 className="text-xl font-bold text-green-900">{userName}</h4>
+                          <h5 className="text-md text-gray-500">Admin</h5>
                         </div>
                       </div>
                     </div>
@@ -206,21 +202,21 @@ const Page = () => {
             {/* Dashboard Cards */}
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className=" bg-white border-t-4 border-green-700  p-6 rounded-lg shadow-lg flex items-center">
-                <FaLeaf className="text-green-700 text-4xl mr-4" />
+                <FaLeaf className="text-green-700 text-4xl md:text-6xl mr-4" />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Total Products</h2>
                   <p className="text-2xl font-bold text-gray-800">{products.length}</p>
                 </div>
               </div>
               <div className=" bg-white border-t-4 border-green-700  p-6 rounded-lg shadow-lg flex items-center">
-                <FaShoppingCart className="text-green-700 text-4xl mr-4" />
+                <FaShoppingCart className="text-green-700 text-4xl md:text-6xl mr-4" />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Total Sales</h2>
                   <p className="text-2xl font-bold text-gray-800">$45,000</p>
                 </div>
               </div>
               <div className=" bg-white border-t-4 border-green-700  p-6 rounded-lg shadow-lg flex items-center">
-                <FaUsers className="text-green-700 text-4xl mr-4" />
+                <FaUsers className="text-green-700 text-4xl md:text-6xl mr-4" />
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Foundation Users</h2>
                   <p className="text-2xl font-bold text-gray-800">{foundationUser}</p>
@@ -230,7 +226,7 @@ const Page = () => {
               </div>
               <div className=" bg-white border-t-4 border-green-700 p-6 rounded-lg shadow-lg flex items-center">
                 {/* <FaDollarSign className="text-green-700 text-4xl mr-4" /> */}
-                <FaUsers className="text-green-700 text-4xl mr-4" />
+                <FaUsers className="text-green-700 text-4xl md:text-6xl mr-4" />
 
                 <div>
                   <h2 className="text-lg font-semibold text-gray-700">Ecommerce Users</h2>
@@ -261,9 +257,9 @@ const Page = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order,index) => (
+                    {orders.map((order, index) => (
 
-                      <tr 
+                      <tr
                         key={order._id?.toString()}
                         className={`${index % 2 === 0 ? 'bg-green-50' : 'bg-white'} hover:bg-green-100 transition duration-200`}
                       >
@@ -279,15 +275,15 @@ const Page = () => {
                         </td>
                         {/* <td className="px-6 py-4 text-green-500">{order.paymentStatus}</td> */}
                         <td className="px-6 py-4 ">
-                                                <span
-                                                    className={`px-3 py-1 rounded-full text-xs font-semibold ${order.paymentStatus === 'completed'
-                                                            ? 'bg-green-200 text-green-800'
-                                                            : 'bg-red-200 text-red-800'
-                                                        }`}
-                                                >
-                                                {order.paymentStatus}
-                                                </span>
-                                                </td>
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-semibold ${order.paymentStatus === 'completed'
+                              ? 'bg-green-200 text-green-800'
+                              : 'bg-red-200 text-red-800'
+                              }`}
+                          >
+                            {order.paymentStatus}
+                          </span>
+                        </td>
                         <td className="px-6 py-4">{order.totalAmount}</td>
                       </tr>
                     ))}
@@ -302,14 +298,14 @@ const Page = () => {
               <h2 className="text-xl font-semibold text-gray-700 mb-4">User Activity</h2>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <FaRegChartBar className="text-green-700 text-3xl mr-4" />
+                  <FaRegChartBar className="text-green-700 text-3xl md:text-6xl mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-700">Active Users</h3>
                     <p className="text-2xl font-bold text-gray-800">320</p>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <FaUsers className="text-green-700 text-3xl mr-4" />
+                  <FaUsers className="text-green-700 text-3xl md:text-6xl mr-4" />
                   <div>
                     <h3 className="text-lg font-semibold text-gray-700">Total Users</h3>
                     <p className="text-2xl font-bold text-gray-800">1,500</p>

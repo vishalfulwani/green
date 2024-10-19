@@ -105,8 +105,7 @@ const Page = () => {
 
 
       {/* tree plantation section */}
-
-      <section className="py-28 sm:px-4 bg-gray-200 text-center">
+      <section className="py-28  bg-gray-200 text-center">
         <div className="container mx-auto">
           <h2 className="text-xl sm:text-3xl  md:text-4xl font-bold text-green-900 mb-2 sm:mb-4 md:mb-6">Plant a Tree from the Comfort of Your Home</h2>
           <p className="text-sm md:text-lg mb-8">Make a difference without leaving your house and receive a personalized certificate.</p>
@@ -154,12 +153,6 @@ const Page = () => {
       </section>
 
 
-
-
-
-
-
-
       {/* Donation utilization section */}
       <section className="relative py-28  bg-gray-300 text-[#333] bg-cover bg-bottom overflow-hidden">
         <div className="absolute inset-0 bg-no-repeat bg-cover bg-bottom filter blur-md" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}></div>
@@ -199,11 +192,6 @@ const Page = () => {
           </div>
         </div>
       </section>
-
-
-
-
-
 
 
       {/* our mission */}
@@ -300,9 +288,6 @@ const Page = () => {
       </section>
 
 
-
-
-
       {/* our impact */}
       <section className="py-28 bg-gray-200">
         <div className="container mx-auto text-center">
@@ -327,11 +312,7 @@ const Page = () => {
       </section>
 
 
-
-
-
-
-{/* Testimonial  */}
+      {/* Testimonial  */}
       <section className="py-28 bg-gray-300">
         <div className="container mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">What People Are Saying</h2>

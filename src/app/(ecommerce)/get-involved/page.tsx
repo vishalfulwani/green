@@ -118,7 +118,7 @@ export default function Home() {
 
   useEffect(() => {
     toast({
-      title: " Free delivery on order above 500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!",
+      title: " Free delivery on order above 500  |  New arrivals just in—shop now for the latest trends!",
       description: "Friday, February 10, 2023 at 5:57 PM",
     })
   }, [])
@@ -300,13 +300,13 @@ export default function Home() {
                           <img
                             src={product.images[0]}
                             alt={product.productName}
-                            className={`w-full h-32 sm:h-48 object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                            className={`w-full h-32 sm:h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
                           />
                           {/* Secondary Image */}
                           <img
                             src={product.images[1]}
                             alt={product.productName}
-                            className={`w-full h-32 sm:h-48 p-2 object-cover transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                            className={`w-full h-32 sm:h-48 p-2 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                           />
                           <div className="p-4 text-left">
                             <h3 className="text-base sm:text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
@@ -321,7 +321,7 @@ export default function Home() {
 
                             {/* Add to Cart Button */}
                             <button
-                              className="mt-4 flex items-center justify-center w-full px-3 py-1  sm:py-2 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
+                              className="mt-4 flex items-center justify-center w-full px-3 py-1  bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
                               onClick={() => handleAddToCart(product)}
                             >
                               Add to Cart
@@ -329,7 +329,7 @@ export default function Home() {
 
                             {/* View Product Button, visible on hover */}
                             <button
-                              className="mt-2  items-center justify-center w-full px-3 py-1 sm:py-2 bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
+                              className="mt-2  items-center justify-center w-full px-3 py-1  bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
                               onClick={() => goToProductPage(product.category, product._id.toString())}
                             >
                               View Product
@@ -384,13 +384,13 @@ export default function Home() {
                           <img
                             src={product.images[0]}
                             alt={product.productName}
-                            className={`w-full h-32 sm:h-48 object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                            className={`w-full h-32 sm:h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
                           />
                           {/* Secondary Image */}
                           <img
                             src={product.images[1]}
                             alt={product.productName}
-                            className={`w-full h-32 sm:h-48 p-2 object-cover transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                            className={`w-full h-32 sm:h-48 p-2 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                           />
                           <div className="p-4 text-left">
                             <h3 className="text-base sm:text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
@@ -405,7 +405,7 @@ export default function Home() {
 
                             {/* Add to Cart Button */}
                             <button
-                              className="mt-4 flex items-center justify-center w-full px-3 py-1 sm:py-2 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
+                              className="mt-4 flex items-center justify-center w-full px-3 py-1  bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
                               onClick={() => handleAddToCart(product)}
                             >
                               Add to Cart
@@ -413,7 +413,7 @@ export default function Home() {
 
                             {/* View Product Button, visible on hover */}
                             <button
-                              className="mt-2  items-center justify-center w-full px-3 py-1 sm:py-2 bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
+                              className="mt-2  items-center justify-center w-full px-3 py-1  bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
                               onClick={() => goToProductPage(product.category, product._id.toString())}
                             >
                               View Product

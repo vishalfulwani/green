@@ -129,7 +129,7 @@ const Page = () => {
 
 
             {/* sub categories */}
-            <section className="py-12 md:py-16  bg-gray-200">
+            <section className="py-28   bg-gray-200">
                 <div className="container mx-auto px-4 md:px-6 text-center">
                     <div className="flex justify-center flex-row items-center gap-4 flex-wrap">
 
@@ -172,7 +172,7 @@ const Page = () => {
 
 
 
-            <section className="py-12 md:py-16   bg-gray-300">
+            <section className="py-28   bg-gray-300">
                 <div className="container mx-auto px-4 md:px-6 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold  ">Seed Products</h2>
                     <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
@@ -199,13 +199,13 @@ const Page = () => {
                                     <img
                                         src={product.images[0]}
                                         alt={product.productName}
-                                        className={`w-full h-48 object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                                        className={`w-full h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
                                     />
                                     {/* Secondary Image */}
                                     <img
                                         src={product.images[1]}
                                         alt={product.productName}
-                                        className={`w-full h-48 object-cover transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                                        className={`w-full h-48 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                                     />
                                     <div className="p-4 text-left">
                                         <h3 className="text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
@@ -247,7 +247,7 @@ const Page = () => {
 
 
      {/* seed care */}
-     <section className="bg-gray-200 py-16 px-4 md:px-8">
+     <section className="bg-gray-200 py-28 ">
                 <div className="container mx-auto">
                     <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Seed Care Guidelines from Green E-commerce</h2>
                     <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
