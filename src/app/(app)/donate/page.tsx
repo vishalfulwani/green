@@ -156,13 +156,13 @@ const DonationForm = () => {
 
 
 
-            <div className="flex flex-col md:flex-row justify-evenly min-h-screen items-center gap-6 p-4 bg-[#4cb495]">
+            <div className="flex flex-col md:flex-row justify-evenly min-h-screen items-center gap-6 sm:p-4 bg-[#4cb495]">
                 <div className="w-full md:w-1/2 lg:w-1/3 p-8 space-y-8 glass-container  rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20">
                     <div className="text-center">
-                        <h1 className="text-3xl font-bold tracking-tight lg:text-3xl mb-6">
+                        <h1 className="text-3xl sm:text-3xl font-semibold sm:font-bold tracking-tight lg:text-3xl mb-4 sm:mb-6">
                             Donate
                         </h1>
-                        <p className="mb-4 text-lg">
+                        <p className="mb-4 text-md sm:text-lg">
                             Your generosity today plants the seeds for a greener tomorrow. Thank you for making a difference!
                         </p>
                     </div>
@@ -185,7 +185,7 @@ const DonationForm = () => {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
+                                className="w-full px-4 py-1 sm:py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
                                 placeholder="Enter your name"
                             />
                         </div>
@@ -199,7 +199,7 @@ const DonationForm = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
+                                className="w-full px-4 py-1 sm:py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
 
                                 placeholder="Enter your email"
                             />
@@ -214,7 +214,7 @@ const DonationForm = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
+                                className="w-full px-4 py-1 sm:py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
 
                                 placeholder="Enter your password"
                             />
@@ -229,7 +229,7 @@ const DonationForm = () => {
                                 value={contact}
                                 onChange={(e) => setContact(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
+                                className="w-full px-4 py-1 sm:py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
 
                                 placeholder="Enter your contact number"
                             />
@@ -244,7 +244,7 @@ const DonationForm = () => {
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                                 required
-                                className="w-full px-4 py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
+                                className="w-full px-4 py-1 sm:py-2 border-2 border-black rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors duration-300"
 
                                 placeholder="Enter the amount"
                             />
@@ -269,7 +269,7 @@ const DonationForm = () => {
 
 
                 </div>
-                <div className="w-full md:w-1/2 lg:w-1/3 p-4">
+                <div className="hidden md:flex w-full md:w-1/2 lg:w-1/3 p-4">
                     <img
                         src="donate.png"
                         alt="Donate"

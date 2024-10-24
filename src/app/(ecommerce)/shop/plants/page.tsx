@@ -144,7 +144,7 @@ const Page = () => {
                             // <CarouselItem className="md:basis-1/3 lg:basis-1/4 xl::basis-1/5">
                             <div
                                 key={index}
-                                className="flex flex-col items-center justify-center rounded-full w-[150px] h-[150px] bg-white p-4 border-[6px] border-gray-200 hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out"
+                                className="flex flex-col items-center justify-center rounded-full xl:w-[150px] xl:h-[150px] bg-white p-4 border-[6px] border-gray-200 hover:scale-105 hover:shadow-xl transition duration-300 ease-in-out"
                                 style={{
                                     backgroundImage: "url(https://static.vecteezy.com/system/resources/previews/000/390/945/original/vector-green-plant-border.jpg)",
                                     backgroundAttachment: "cover",
@@ -185,7 +185,7 @@ const Page = () => {
                     <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
                         {!defaultProduct && subPlantProducts.length > 0 ? subPlantProducts[0].subCategory : ''}
                     </p>
-                    <div className="w-full flex justify-center items-center ">
+                    <div className="w-full flex flex-wrap justify-center items-center ">
 
                         {isSubmitting ? (
                             <p>Loading...</p>

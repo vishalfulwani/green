@@ -101,7 +101,7 @@ const Page = () => {
                 <title>Tool product</title>
                 <meta name="description" content="This is the tool product page." />
             </Head>
-            <section className='min-h-screen mt-16 pt-10 bg-gray-200'>
+            <section className='relative  mt-16 py-12 sm:py-20  bg-gray-200'>
                 {product.length > 0 ? (
                     <div className="relative container mx-auto p-4 md:p-6 bg-gray-100 rounded-lg shadow-lg border-y-2 border-green-800"
                     style={{
@@ -109,22 +109,20 @@ const Page = () => {
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
                         backgroundPosition: "center",
-                        // filter: "blur(8px)", // Blur effect for background image
-                        // zIndex: -1, // Keep the background behind the content
-                        // opacity: 0.6, // Optional: adjust opacity to make it subtler
                     }}
                     >
                         {/* Pseudo-element for the blurred background */}
-                      
-        <div className="absolute inset-0 bg-white/30 backdrop-blur-sm"></div>
+                        {/* <div className="absolute inset-0 bg-white/30 backdrop-blur-sm"></div> */}
 
-                        {/* Responsive Flex Layout */}
-                        <div className="relative flex flex-col lg:flex-row lg:space-x-8 z-10">
+                       
+                        <div className="relative flex flex-col items-center sm:flex-row  md:space-x-8 gap-5 xl:gap-10 z-10">
                             {/* Left: Product Image and Carousel */}
-                            <div className="relative w-full mb-6 lg:w-1/2">
+                            <div className="relative w-full justify-between flex-col flex gap-5 sm:gap-5 xl:gap-10 xl:flex-row sm:flex-col  sm:w-1/2">
+
                                 {/* Main Image */}
                                 <div
-                                    className="relative hover:shadow-xl w-full h-64 lg:h-[400px] rounded-lg border-y-2 border-green-800 overflow-hidden"
+                                    className="relative hover:shadow-xl shadow-lg w-full h-[200px] sm:[h-210px] md:h-[250px] lg:h-[300] xl:h-[420px] rounded-lg border-y-2 border-green-800 overflow-hidden"
+
                                     onMouseEnter={() => setHoveredProductId(product[0]._id.toString())}
                                     onMouseLeave={() => setHoveredProductId(null)}
                                 >
@@ -132,45 +130,53 @@ const Page = () => {
                                         // src={product[0].images[0]}
                                         src={imgUrl}
                                         alt={product[0].productName}
-                                        className={`w-full h-full object-cover rounded-lg hover:scale-105 transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-100'}`}
+                                        className={`w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-100'}`}
+
                                     />
                                     {/* {product[0].images.slice(1).map((image, index) => (
                                         <img
                                             key={index}
                                             src={image}
                                             alt={product[0].productName}
-                                            className={`absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                                            className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                                         />
                                     ))} */}
                                 </div>
 
                                 {/* Image Carousel */}
-                                <div className="flex gap-2 justify-center mt-4">
-                                    <Carousel plugins={[autoplay.current]} className="w-full lg:w-[80%]">
-                                        <CarouselContent>
+                                <div className="flex  sm:flex-row  justify-between  xl:mt-0 xl:flex-col">                          
+
+                                        <>
+                                    {/* <Carousel plugins={[autoplay.current]} className="w-full lg:w-[80%]"> */}
+                                        {/* <CarouselContent> */}
                                             {product[0].images.map((image, index) => (
-                                                <CarouselItem key={index} className="flex-1">
+                                                // <CarouselItem key={index} className="flex-1">
+                                                <div key={index} className="flex-1">
+
                                                     <img
                                                         src={image}
                                                         alt={`${product[0].productName} image ${index + 1}`}
-                                                        className="h-[80px] md:h-[100px] object-cover rounded-lg border-2 border-green-800 shadow-md transition-transform duration-500 "
+                                                        className="h-[80px] md:h-[100px] object-contain rounded-lg border-2 border-green-800 shadow-md transition-transform duration-500 "
+
                                                         onClick={() => setImgUrl(image)}
-                                                    />
-                                                </CarouselItem>
+                                                        />
+                                                        </div>
+                                                // {/* </CarouselItem> */}
                                             ))}
-                                        </CarouselContent>
-                                        <CarouselPrevious className="hidden lg:block" />
-                                        <CarouselNext className="hidden lg:block" />
-                                    </Carousel>
+                                        {/* </CarouselContent> */}
+                                        {/* <CarouselPrevious className="hidden lg:block" /> */}
+                                        {/* <CarouselNext className="hidden lg:block" /> */}
+                                    {/* </Carousel> */}
+                                                        </>
                                 </div>
                             </div>
 
                             {/* Right: Product Details */}
-                            <div className="w-full lg:w-1/2 mt-6 lg:mt-0">
-                                <h1 className="text-2xl lg:text-4xl font-extrabold text-gray-900 mb-4">{product[0].productName}</h1>
-                                <p className="text-sm lg:text-lg text-gray-700 mb-4">{product[0].productDesc}</p>
-                                <p className="text-sm lg:text-lg text-gray-700 mb-2"><strong>Category:</strong> {product[0].category}</p>
-                                <p className="text-sm lg:text-lg text-gray-700 mb-6"><strong>Subcategory:</strong> {product[0].subCategory}</p>
+                            <div className="w-full sm:w-1/2  lg:mt-0">
+                                <h1 className="text-xl lg:text-4xl font-bold lg:font-extrabold text-gray-900 mb-4">{product[0].productName}</h1>
+                                <p className=" text-md lg:text-xl text-gray-700 mb-2 sm:mb-4">{product[0].productDesc}</p>
+                                <p className=" text:md lg:text-xl text-gray-700 mb-2 sm:mb-2"><strong>Category : </strong> {product[0].category}</p>
+                                <p className=" text-md lg:text-xl text-gray-700 mb-4 sm:mb-6"><strong>Subcategory : </strong> {product[0].subCategory}</p>
 
                                 {/* Rating */}
                                 <div className="my-4">
@@ -178,13 +184,13 @@ const Page = () => {
                                 </div>
 
                                 {/* Price */}
-                                <div className="flex flex-col md:flex-row items-start md:items-center mb-6 space-y-2 md:space-x-4">
+                                <div className="flex  sm:flex-row items-center mb-6  space-x-4">
                                     <span className="text-xl lg:text-3xl font-bold text-green-600">${product[0].sellingPrice}</span>
                                     <span className="text-sm lg:text-lg text-gray-500 line-through">${product[0].price}</span>
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="space-y-4 flex-col w-full">
+                                <div className="flex gap-6 ">
                                     <button
                                         className="mt-2 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-sm lg:text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300"
                                         onClick={() => handleAddToCart(product[0])}
@@ -211,8 +217,8 @@ const Page = () => {
             {/* tool care */}
             <section className="bg-gray-300 py-28">
                 <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Tool Care Guidelines from Green E-commerce</h2>
-                    <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
+                    <h2 className="text-2xl sm:text-4xl font-semibold sm:font-bold text-gray-800 text-center mb-2">Tool Care Guidelines from Green E-commerce</h2>
+                    <p className="text-md text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
                         Keep your gardening tools in top condition with these essential care tips, ensuring they last and perform their best.
                     </p>
 
@@ -313,8 +319,8 @@ const Page = () => {
             {/* recommended */}
             <section className="py-28 bg-gray-200">
                 <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Recommended</h2>
-                    <p className="text-lg text-gray-700 text-center mb-8 md:max-w-2xl mx-auto">
+                    <h2 className="text-2xl sm:text-4xl font-semibold sm:font-bold text-gray-800 text-center mb-2">Recommended</h2>
+                    <p className="text-md sm:text-lg text-gray-700 text-center mb-8 md:max-w-2xl mx-auto">
                         Explore these recommended products that you'll love just as much!
                     </p>
 
@@ -322,7 +328,7 @@ const Page = () => {
                         {alsoLikeProducts.map((product) => (
                             <div
                                 key={product._id.toString()}
-                                className="w-full sm:w-1/2 lg:w-1/4 p-4"
+                                className="w-full sm:w-1/2 lg:w-1/4 p-1 pt-3 sm:p-4"
                                 onMouseEnter={() => setHoveredProductId(product._id.toString())}
                                 onMouseLeave={() => setHoveredProductId(null)}
                             >
@@ -331,13 +337,13 @@ const Page = () => {
                                         <img
                                             src={product.images[0]}
                                             alt={product.productName}
-                                            className={`w-full h-full object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'
+                                            className={`w-full h-full object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'
                                                 }`}
                                         />
                                         <img
                                             src={product.images[1]}
                                             alt={product.productName}
-                                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'
+                                            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'
                                                 }`}
                                         />
                                     </div>

@@ -103,87 +103,10 @@ const Page = () => {
                 <meta name="description" content="This is the seed product page." />
             </Head>
 
-            <section className='relative min-h-screen mt-16 pt-10 bg-gray-200'>
+            <section className='relative  mt-16 py-12 sm:py-20 bg-gray-200'>
                 {product.length > 0 ? (
                     <>
-                    {/* <div className="container mx-auto p-4 border-green-800 border-y-2 md:p-6 bg-cover bg-[#d8e6d8] rounded-lg shadow-lg " style={{ backgroundImage: "url(http://clipart-library.com/images/8izrdA9LT.png)", backgroundRepeat: "no-repeat", objectFit: 'cover', }}>
-
-                        <div className="flex flex-col md:flex-row md:space-x-8">
-                            <div className="relative w-full mb-4 md:w-1/2">
-                                <div
-                                    className="relative w-full mb-4 h-64 md:h-[400px] rounded-lg  border-green-800 border-y-2"
-                                    onMouseEnter={() => setHoveredProductId(product[0]._id.toString())}
-                                    onMouseLeave={() => setHoveredProductId(null)}
-                                >
-                                    <img
-                                        src={product[0].images[0]}
-                                        alt={product[0].productName}
-                                        className={`w-full h-full object-cover rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-0' : 'opacity-100'}`}
-                                    />
-                                    {product[0].images.slice(1).map((image, index) => (
-                                        <img
-                                            key={index}
-                                            src={image}
-                                            alt={product[0].productName}
-                                            className={`absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-0'}`}
-                                        />
-                                    ))}
-                                </div>
-                                <div className="flex gap-2 justify-center mb-6 ">
-                                    <Carousel
-                                        plugins={[autoplay.current]}
-                                        className="w-[80%] "
-                                    >
-                                        <CarouselContent >
-                                            {product[0].images.map((image, index) => (
-                                                <CarouselItem className="md:basis-1/3 lg:basis-1/4 xl::basis-1/5">
-
-                                                    <img
-                                                        key={index}
-                                                        src={image}
-                                                        alt={`${product[0].productName} image ${index + 1}`}
-                                                        className="h-[100px] object-cover  shadow-md transition-transform duration-500 hover:scale-105 rounded-lg  border-green-800 border-y-2"
-                                                    />
-                                                </CarouselItem>
-
-                                            ))}
-                                        </CarouselContent>
-                                        <CarouselPrevious />
-                                        <CarouselNext />
-                                    </Carousel>
-                                </div>
-                            </div>
-
-                            <div className="w-full md:w-1/2 mt-6 md:mt-0">
-                                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6 md:mb-8">{product[0].productName}</h1>
-                                <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].productDesc}</p>
-                                <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].category}</p>
-                                <p className="text-base md:text-lg text-gray-700 mb-4 md:mb-6">{product[0].subCategory}</p>
-
-                                <div className="flex justify-around my-2 items-center">
-                                <Rating rating={parseFloat(product[0].rating)} />
-                                            <WishlistButton productId={product[0]._id.toString()} />
-                                            
-                                          </div>
-
-                                <div className="flex flex-col md:flex-row items-start md:items-center mb-6 space-y-2 md:space-x-4 md:space-y-0">
-                                    <span className="text-2xl md:text-3xl font-bold text-green-600">${product[0].sellingPrice}</span>
-                                    <span className="text-base md:text-lg text-gray-500 line-through">${product[0].price}</span>
-                                </div>
-
-                                <div className="space-y-4 flex-col md:w-1/2">
-                                    <button className="mt-4 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300" onClick={() => handleAddToCart(product[0])}>
-                                        Add to Cart
-                                    </button>
-                                    <button className="mt-4 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300" onClick={() => handleAddToCart(product[0])}>
-                                        Buy
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-                       <div className="relative container mx-auto p-4 md:p-6 bg-gray-100 rounded-lg shadow-lg border-y-2 border-green-800">
-                        {/* Pseudo-element for the blurred background */}
+                       <div className="relative container mx-auto p-4 md:p-6 bg-gray-100 rounded-lg shadow-lg border-y-4 border-green-800">
                         <div
                             className="absolute inset-0 z-0"
                             style={{
@@ -197,13 +120,13 @@ const Page = () => {
                             }}
                         />
 
-                        {/* Responsive Flex Layout */}
-                        <div className="relative flex flex-col lg:flex-row lg:space-x-8 z-10">
+                        <div className="relative flex flex-col items-center sm:flex-row  md:space-x-8 gap-5 xl:gap-10 z-10">
                             {/* Left: Product Image and Carousel */}
-                            <div className="relative w-full mb-6 lg:w-1/2">
+                            <div className="relative w-full justify-between flex-col flex gap-5 sm:gap-5 xl:gap-10 xl:flex-row sm:flex-col  sm:w-1/2">
+
                                 {/* Main Image */}
                                 <div
-                                    className="relative hover:shadow-xl w-full h-64 lg:h-[400px] rounded-lg border-y-2 border-green-800 overflow-hidden"
+                                    className="relative hover:shadow-xl shadow-lg w-full h-[200px] sm:[h-210px] md:h-[250px] lg:h-[300] xl:h-[420px] rounded-lg border-y-2 border-green-800 overflow-hidden"
                                     onMouseEnter={() => setHoveredProductId(product[0]._id.toString())}
                                     onMouseLeave={() => setHoveredProductId(null)}
                                 >
@@ -211,45 +134,46 @@ const Page = () => {
                                         // src={product[0].images[0]}
                                         src={imgUrl}
                                         alt={product[0].productName}
-                                        className={`w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                                        className={`w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-100'}`}
                                     />
-                                    {product[0].images.slice(1).map((image, index) => (
+                                    {/* {product[0].images.slice(1).map((image, index) => (
                                         <img
                                             key={index}
                                             src={image}
                                             alt={product[0].productName}
                                             className={`absolute inset-0 w-full h-full object-contain rounded-lg transition-opacity duration-500 ${hoveredProductId === product[0]._id.toString() ? 'opacity-100' : 'opacity-0'}`}
                                         />
-                                    ))}
+                                    ))} */}
                                 </div>
 
                                 {/* Image Carousel */}
-                                <div className="flex gap-2 justify-center mt-4">
-                                    <Carousel plugins={[autoplay.current]} className="w-full lg:w-[80%]">
-                                        <CarouselContent>
+                                <div className="flex  sm:flex-row  justify-between  xl:mt-0 xl:flex-col">                          
+                                    {/* <Carousel plugins={[autoplay.current]} className="w-full lg:w-[80%]"> */}
+                                        {/* <CarouselContent> */}
                                             {product[0].images.map((image, index) => (
-                                                <CarouselItem key={index} className="flex-1">
+                                                <div key={index} className="">
                                                     <img
                                                         src={image}
                                                         alt={`${product[0].productName} image ${index + 1}`}
-                                                        className="h-[80px] md:h-[100px] object-cover rounded-lg border-2 border-green-800 shadow-md transition-transform duration-500 "
+                                                        className="h-[80px] md:h-[100px] object-contain rounded-lg border-2 border-green-800 shadow-md transition-transform duration-500 "
                                                         onClick={() => setImgUrl(image)}
                                                     />
-                                                </CarouselItem>
+                                                </div>
                                             ))}
-                                        </CarouselContent>
-                                        <CarouselPrevious className="hidden lg:block" />
-                                        <CarouselNext className="hidden lg:block" />
-                                    </Carousel>
+                                        {/* </CarouselContent> */}
+                                        {/* <CarouselPrevious className="hidden lg:block" /> */}
+                                        {/* <CarouselNext className="hidden lg:block" /> */}
+                                    {/* </Carousel> */}
                                 </div>
                             </div>
 
                             {/* Right: Product Details */}
-                            <div className="w-full lg:w-1/2 mt-6 lg:mt-0">
-                                <h1 className="text-2xl lg:text-4xl font-extrabold text-gray-900 mb-4">{product[0].productName}</h1>
-                                <p className="text-sm lg:text-lg text-gray-700 mb-4">{product[0].productDesc}</p>
-                                <p className="text-sm lg:text-lg text-gray-700 mb-2"><strong>Category:</strong> {product[0].category}</p>
-                                <p className="text-sm lg:text-lg text-gray-700 mb-6"><strong>Subcategory:</strong> {product[0].subCategory}</p>
+                        
+                            <div className="w-full sm:w-1/2  lg:mt-0">
+                                <h1 className="text-xl lg:text-4xl font-bold lg:font-extrabold text-gray-900 mb-4">{product[0].productName}</h1>
+                                <p className=" text-md lg:text-xl text-gray-700 mb-2 sm:mb-4">{product[0].productDesc}</p>
+                                <p className=" text:md lg:text-xl text-gray-700 mb-2 sm:mb-2"><strong>Category : </strong> {product[0].category}</p>
+                                <p className=" text-md lg:text-xl text-gray-700 mb-4 sm:mb-6"><strong>Subcategory : </strong> {product[0].subCategory}</p>
 
                                 {/* Rating */}
                                 <div className="my-4">
@@ -257,13 +181,13 @@ const Page = () => {
                                 </div>
 
                                 {/* Price */}
-                                <div className="flex flex-col md:flex-row items-start md:items-center mb-6 space-y-2 md:space-x-4">
+                                <div className="flex  sm:flex-row items-center mb-6  space-x-4">
                                     <span className="text-xl lg:text-3xl font-bold text-green-600">${product[0].sellingPrice}</span>
                                     <span className="text-sm lg:text-lg text-gray-500 line-through">${product[0].price}</span>
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="space-y-4 flex-col w-full">
+                                <div className="flex gap-6">
                                     <button
                                         className="mt-2 flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white font-bold text-sm lg:text-lg rounded-lg shadow-md hover:bg-green-700 transition duration-300"
                                         onClick={() => handleAddToCart(product[0])}
@@ -292,8 +216,8 @@ const Page = () => {
             {/* seed care */}
             <section className="bg-gray-300 py-28">
                 <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Seed Care Guidelines from Green E-commerce</h2>
-                    <p className="text-lg text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
+                    <h2 className="text-2xl sm:text-4xl font-semibold sm:font-bold text-gray-800 text-center mb-2">Seed Care Guidelines from Green E-commerce</h2>
+                    <p className="text-md text-gray-700 text-center mb-12 md:max-w-2xl mx-auto">
                         Ensure the seeds you purchase from Green E-commerce grow into healthy plants by following these expert tips.
                     </p>
 
@@ -386,13 +310,11 @@ const Page = () => {
             </section>
 
 
-
-
             {/* recommended */}
             <section className="py-28 bg-gray-200">
                 <div className="container mx-auto">
-                    <h2 className="text-4xl font-bold text-gray-800 text-center mb-2">Recommended</h2>
-                    <p className="text-lg text-gray-700 text-center mb-8 md:max-w-2xl mx-auto">
+                    <h2 className="text-2xl sm:text-4xl font-semibold sm:font-bold text-gray-800 text-center mb-2">Recommended</h2>
+                    <p className="text-md sm:text-lg text-gray-700 text-center mb-8 md:max-w-2xl mx-auto">
                         Explore these recommended products that you'll love just as much!
                     </p>
 
@@ -400,7 +322,7 @@ const Page = () => {
                         {alsoLikeProducts.map((product) => (
                             <div
                                 key={product._id.toString()}
-                                className="w-full sm:w-1/2 lg:w-1/4 p-4"
+                                className="w-full sm:w-1/2 lg:w-1/4 p-1 pt-3 sm:p-4"
                                 onMouseEnter={() => setHoveredProductId(product._id.toString())}
                                 onMouseLeave={() => setHoveredProductId(null)}
                             >

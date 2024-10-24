@@ -273,8 +273,9 @@ export default function Home() {
         </Carousel>
       </div>
 
+
       {/* Featured Products Section */}
-      <section className="py-12 md:py-16  bg-gray-200">
+      <section className="py-28  bg-gray-200">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold  ">Featured Products</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
@@ -352,8 +353,9 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Best seller Section */}
-      <section className="py-12 md:py-16 bg-gray-300 ">
+      <section className="py-28 bg-gray-300 ">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold  ">Best Sellers</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
@@ -434,8 +436,9 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-gradient-to-r bg-gray-200 ">
+      <section className="py-28  bg-gray-200 ">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold ">Why Choose Us</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-4 mb-8 md:mb-12">
@@ -466,54 +469,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+ 
 
-      {/* Categories Section */}
-      {/* <section className="py-12 md:py-16 bg-gray-300">
-                <div className="container mx-auto px-4 md:px-6 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold ">Shop by Category</h2>
-                    <p className="text-center text-base md:text-lg lg:text-xl mt-4 mb-8 md:mb-12">
-                        Browse our categories to find exactly what your garden needs!
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition" onClick={() => handleClick(`/shop/plants`)} >
-                            <div className="h-64 overflow-hidden">
-                                <img
-                                    src="https://cdn-cms.f-static.net/uploads/2039516/2000_5d03e5ca7d540.png"
-                                    alt="Plants"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <h3 className="text-xl md:text-2xl font-semibold mt-4">Plants</h3>
-                        </div>
-
-                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition" onClick={() => handleClick(`/shop/tools`)}>
-                            <div className="h-64 overflow-hidden">
-                                <img
-                                    src="https://simplelivingcountrygal.com/wp-content/uploads/2020/03/garden-tools.jpg"
-                                    alt="Tools"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <h3 className="text-xl md:text-2xl font-semibold mt-4">Tools</h3>
-                        </div>
-
-                        <div className="bg-white p-4 md:p-6 border-green-700 border-y-4 rounded-lg shadow-lg hover:shadow-xl transition" onClick={() => handleClick(`/shop/seeds`)}>
-                            <div className="h-64 overflow-hidden">
-                                <img
-                                    src="https://en.bcdn.biz/images/emails_source/60754e30-7240-425b-b7a0-3df325607e1c.jpg"
-                                    alt="Seeds"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <h3 className="text-xl md:text-2xl font-semibold mt-4">Seeds</h3>
-                        </div>
-                    </div>
-
-                </div>
-            </section> */}
-
-
-      <section className="py-12 md:py-16 bg-gray-300 ">
+      {/* Category */}
+      <section className="py-28 bg-gray-300 ">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-green-900">Shop by Category</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-4 mb-8 md:mb-12 text-gray-700">
@@ -567,8 +526,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
 
 
       {/* Testimonials Section */}

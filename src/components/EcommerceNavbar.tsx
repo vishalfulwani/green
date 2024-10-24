@@ -45,6 +45,7 @@ import { Input } from "./ui/input"
 import { Loader2 } from "lucide-react"
 import { IProduct } from '@/models/product.models';
 import { AnyARecord } from 'dns';
+import { FaShoppingCart } from "react-icons/fa";
 
 
 const categories = [
@@ -375,6 +376,14 @@ const EcommerceNavbar = () => {
                         </Link>
                     </div>
 
+                    {/* cart */}
+                    <div className="relative hidden md:flex  items-center pr-3">
+                        <Link href="/cart" >
+                            <FaShoppingCart
+                                className="text-2xl cursor-pointer text-white hover:text-green-600 transition-all"
+                            />
+                        </Link>
+                    </div>
 
 
                     {/* profile  */}
@@ -744,6 +753,15 @@ const EcommerceNavbar = () => {
                         <div className="relative flex  items-center pr-3">
                             <Link href="/wishlist" >
                                 <FaHeart
+                                    className="text-xl cursor-pointer text-white hover:text-green-600 transition-all"
+                                />
+                            </Link>
+                        </div>
+
+                        {/* cart */}
+                        <div className="relative flex  items-center pr-3">
+                            <Link href="/cart" >
+                                <FaShoppingCart
                                     className="text-xl cursor-pointer text-white hover:text-green-600 transition-all"
                                 />
                             </Link>

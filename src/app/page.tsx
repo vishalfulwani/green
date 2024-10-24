@@ -113,7 +113,7 @@ const Page = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 text-black justify-center">
             {/* Card 1 */}
             <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105 "
-              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`, backgroundPosition: "right center" }}>
               {/* <div className="w-full h-[280px] sm:h-[300px] bg-white bg-cover bg-right bg-[url('https://i.pinimg.com/originals/90/c7/7e/90c77eeada614b89fc96515573ccd84f.png')] bg-right-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"> */}
 
               <img src="https://treesunlimitednj.com/wp-content/uploads/Selecting-Trees-by-Shape.jpg" alt="Choose Tree" className="w-20 h-20 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
@@ -123,7 +123,7 @@ const Page = () => {
 
             {/* Card 2 */}
             <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`, backgroundPosition: "right center" }}>
               <img src="https://tse1.mm.bing.net/th?id=OIP.5nJzQeehuqQyzcbU15FviQHaEh&pid=Api&P=0&h=180" alt="Make a Donation" className="w-20 h-20 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Make a Donation</h3>
               <p className="text-center px-4 text-sm md:text-base">Your donation covers the planting and ongoing care of the tree, helping it grow and thrive.</p>
@@ -131,7 +131,7 @@ const Page = () => {
 
             {/* Card 3 */}
             <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`, backgroundPosition: "right center" }}>
               <img src="https://cdn.slidemodel.com/wp-content/uploads/21672-01-award-certificate-template-for-powerpoint-16x9-3.jpg" alt="Receive Certificate" className="w-20 h-20 object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Get Your Certificate</h3>
               <p className="text-center px-4 text-sm md:text-base">After your tree is planted, you'll receive a personalized certificate with details about your tree's journey.</p>
@@ -139,7 +139,7 @@ const Page = () => {
 
             {/* Card 4 */}
             <div className="w-full h-[320px] sm:h-[350px] pt-10 bg-white bg-cover bg-center rounded-lg shadow-lg border-t-4 border-green-700 transition-transform duration-300 ease-in-out sm:hover:scale-105"
-              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`,backgroundPosition:"right center" }}>
+              style={{ backgroundImage: `url('https://img1.picmix.com/output/stamp/normal/9/4/8/4/2274849_44b6a.png')`, backgroundPosition: "right center" }}>
               <img src="https://tse3.mm.bing.net/th?id=OIP.QbNt9-K1ZoegDjd5xrZP-wHaEk&pid=Api&P=0&h=180" alt="Track Your Tree" className="w-20 h-20  object-cover shadow-md border-4 border-white ring-4 ring-green-800 rounded-full mx-auto mt-6" />
               <h3 className="text-lg md:text-xl font-semibold mt-4 mb-2 text-center">Track Your Tree</h3>
               <p className="text-center px-4 text-sm md:text-base">Get regular updates on your tree's growth, photos, and information about its environmental impact.</p>
@@ -154,41 +154,58 @@ const Page = () => {
 
 
       {/* Donation utilization section */}
-      <section className="relative py-28  bg-gray-300 text-[#333] bg-cover bg-bottom overflow-hidden">
-        <div className="absolute inset-0 bg-no-repeat bg-cover bg-bottom filter blur-md" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}></div>
+      <section className="relative py-28 bg-gray-300 text-[#333] bg-cover bg-bottom overflow-hidden">
+        {/* <div className="absolute inset-0 bg-no-repeat bg-cover bg-bottom filter blur-md" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}></div> */}
 
         <div className="relative container mx-auto z-10">
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6 text-center">How Your Donation Nurtures Growth</h2>
-          <p className="text-sm sm:text-lg mb-8 text-center">Your generous donation plays a crucial role in ensuring the success of every plant. Here's how we use your contribution to nurture and grow your chosen tree or plant:</p>
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6 text-center">
+            How Your Donation Nurtures Growth
+          </h2>
+          <p className="text-sm sm:text-lg mb-8 text-center">
+            Your generous donation plays a crucial role in ensuring the success of every plant. Here's how we use your contribution to nurture and grow your chosen tree or plant:
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">Preparation</h3>
-              <p>We use your donation to prepare the soil and select the ideal location for planting. This includes testing soil quality and adding necessary nutrients to create a thriving environment.</p>
-            </div>
-            <div className="bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">Planting</h3>
-              <p>Our team carefully plants your tree, ensuring proper spacing and depth. We use high-quality saplings and planting techniques to give your tree the best start.</p>
-            </div>
-            <div className="bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">Ongoing Care</h3>
-              <p>Your donation supports regular maintenance, including watering, fertilization, and pest control. We monitor the plant’s health and make adjustments as needed to promote robust growth.</p>
-            </div>
-            <div className="bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">Growth Monitoring</h3>
-              <p>We track the growth and development of each plant, ensuring it receives the care it needs to mature. Your contribution helps fund this ongoing monitoring and adjustment.</p>
-            </div>
-            <div className="bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
-              <h3 className="text-lg sm:text-xl font-semibold mb-2">Impact Reporting</h3>
-              <p>You’ll receive updates on your plant’s progress, including photos and details about its development. This transparency shows how your donation is making a difference.</p>
+          {/* <!-- Tree trunk and steps container --> */}
+          <div className="relative flex justify-center">
+            {/* <!-- Tree trunk --> */}
+            <div className="w-2 bg-green-700 h-full absolute"></div>
+
+            <div className="grid grid-cols-1 gap-12 relative z-10 mt-12 w-full max-w-5xl">
+              {/* <!-- Leaves (steps) --> */}
+              {/* <!-- Zigzag effect with alternating translate-x classes --> */}
+              <div className="relative transform xl:-translate-x-16 bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Preparation</h3>
+                <p>We use your donation to prepare the soil and select the ideal location for planting. This includes testing soil quality and adding necessary nutrients to create a thriving environment.</p>
+              </div>
+
+              <div className="relative transform xl:translate-x-16 bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Planting</h3>
+                <p>Our team carefully plants your tree, ensuring proper spacing and depth. We use high-quality saplings and planting techniques to give your tree the best start.</p>
+              </div>
+
+              <div className="relative transform xl:-translate-x-16 bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Ongoing Care</h3>
+                <p>Your donation supports regular maintenance, including watering, fertilization, and pest control. We monitor the plant’s health and make adjustments as needed to promote robust growth.</p>
+              </div>
+
+              <div className="relative transform xl:translate-x-16 bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Growth Monitoring</h3>
+                <p>We track the growth and development of each plant, ensuring it receives the care it needs to mature. Your contribution helps fund this ongoing monitoring and adjustment.</p>
+              </div>
+
+              <div className="relative transform xl:-translate-x-16 bg-white bg-opacity-25 backdrop-blur-lg border border-white border-opacity-20 p-6 rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2">Impact Reporting</h3>
+                <p>You’ll receive updates on your plant’s progress, including photos and details about its development. This transparency shows how your donation is making a difference.</p>
+              </div>
             </div>
           </div>
 
+          {/* <!-- Call to Action --> */}
           <div className="mt-16 text-center">
-            <p className="text-md sm:text-xl mb-6">Want to see your impact firsthand? Contribute today and be part of our journey in nurturing the environment.</p>
-            {/* <a href="/donate" className="inline-block px-8 py-3 bg-green-700 text-white font-semibold rounded-full transition-colors duration-300 hover:bg-green-800">Donate Now</a> */}
-            <a href="/donate" className="button button-green">Donate Now</a>
-
+            <p className="text-md sm:text-xl mb-6">
+              Want to see your impact firsthand? Contribute today and be part of our journey in nurturing the environment.
+            </p>
+            <a href="/donate" className="inline-block px-8 py-3 bg-green-700 text-white font-semibold rounded-full transition-colors duration-300 hover:bg-green-800">Donate Now</a>
           </div>
         </div>
       </section>
