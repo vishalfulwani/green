@@ -67,20 +67,20 @@ const Page = () => {
       </>
     ) : (
       <>
-      <p className=" text-base sm:text-lg text-gray-700 max-w-3xl mx-auto mb-10 text-center">
+      <p className=" text-base sm:text-lg sm:px-10 px-2 text-gray-700 max-w-3xl mx-auto mb-10 text-center">
             Keep track of all your must-have items, so you're always just a step away from your next favorite purchase.
             </p>
-      <div className=" grid grid-cols-1 mt-8 pt-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="px-2 items-center justify-center flex flex-wrap gap-4">
       {wishlistProducts.map((product) => (
         <div
           key={product.id}
-          className="wishlist-item bg-white rounded-lg shadow-md hover:shadow-2xl   relative border-t-4 border-green-600 overflow-hidden transform hover:-translate-y-1 hover:scale-105 transition-transform duration-300"
+          className="wishlist-item xs:w-72 sm:w-80 px-4 my-5 bg-white rounded-lg shadow-md hover:shadow-2xl   relative border-t-4 border-green-600 overflow-hidden transform hover:-translate-y-1 sm:hover:scale-105 transition-transform duration-300"
         >
           <div className="relative overflow-hidden">
             <img
               src={product.images[0]}
               alt={product.productName}
-              className="wishlist-item-image w-full h-48 object-cover rounded-t-lg hover:opacity-90 transition-opacity duration-300"
+              className="wishlist-item-image w-full h-48 object-contain rounded-t-lg hover:opacity-90 transition-opacity duration-300"
             />
             <div className="absolute top-2 right-2 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
               Best Seller

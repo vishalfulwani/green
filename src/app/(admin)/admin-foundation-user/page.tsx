@@ -95,7 +95,7 @@ function Page() {
                 <meta name="description" content="This is the donations data page of Green Foundation." />
             </Head>
             <div >
-                <div className="container mx-auto px-6 mt-16  py-10 ">
+                <div className="sm:container p-1 sm:mx-auto sm:px-6 my-16 sm:py-16">
                     <h1 className="text-3xl font-bold leading-tight mb-4">Foundation Users</h1>
                     {isSubmitting ? (
                         <>

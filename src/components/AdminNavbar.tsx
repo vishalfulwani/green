@@ -183,7 +183,9 @@ const AdminNavbar = ({
             <li className="relative">
               {/* <Link href="#"> */}
               <div className="flex items-center" onClick={toggleRightSidebar}>
-                <Image src="/img/profile-img.jpg" alt="Profile" className="rounded-full" width={30} height={30} />
+                {/* <Image src="/img/profile-img.jpg" alt="Profile" className="rounded-full border-2 border-white" width={30} height={30} /> */}
+                <img src="https://i.pinimg.com/originals/d1/67/07/d1670799e2d5644afd4bbd60df823cc1.jpg" alt="admin" className="w-9 h-9 object-cover shadow-md border-2 border-white  rounded-full " />
+
                 <span className="ml-2 hidden md:inline-block">Admin</span>
               </div>
               {/* </Link> */}
@@ -308,7 +310,7 @@ const AdminNavbar = ({
 
 
       {/* side bar */}
-      <div className={`fixed top-0 pt-20  left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
+      <div className={`fixed top-0 pt-20 z-40 left-0 w-64 bg-green-800 text-white h-full shadow-md transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-200 ease-in-out `}>
         <ul className=" py-4 ">
           <li>
             <Link href="/admin">
@@ -387,7 +389,7 @@ const AdminNavbar = ({
       </div>
 
       {/* <main className={`min-h-screen p-4 bg-[#accbb7] m-0 lg:${sideMargin}`}> */}
-      <main className={`min-h-screen p-4  bg-gray-200 m-0 sm:ml-60`}>
+      <main className={`min-h-screen sm:p-4 px-2 pt-12 pb-20 bg-gray-200 m-0 sm:ml-60`}>
 
         {children}
       </main>

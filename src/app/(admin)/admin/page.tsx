@@ -160,7 +160,7 @@ const Page = () => {
         <meta name="description" content="This is the admin page." />
       </Head>
 
-      <div className="p-4 min-h-screen mt-16">
+      <div className="p-1 sm:p-4 min-h-screen mt-16">
 
 
         <section className="">
@@ -169,14 +169,14 @@ const Page = () => {
 
 
 
-          <div className="flex-1 p-6 space-y-6">
+          <div className="sm:flex-1 sm:p-6 space-y-6">
             <header className="mb-8">
               <h1 className="text-3xl font-semibold text-gray-600">Dashboard Overview</h1>
             </header>
             <div className="lg:col-span-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                {/* Sales Card */}
+              
                 <div className="col-span-2 md:col-span-1">
                   <div className="card info-card sales-card p-4  shadow-lg rounded-lg bg-white border-t-4 border-green-700">
 

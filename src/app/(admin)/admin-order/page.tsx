@@ -177,7 +177,7 @@ const Page = () => {
                 <meta name="description" content="This is the admin page." />
             </Head>
 
-            <div className="container mx-auto px-6 my-16 py-16">
+            <div className="sm:container p-1 sm:mx-auto sm:px-6 my-16 sm:py-16">
                 <h1 className="text-3xl font-bold leading-tight mb-4">Buy Orders</h1>
 
                 {isLoading ? (

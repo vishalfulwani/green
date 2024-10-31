@@ -83,7 +83,7 @@ export default function AdditionalProducts() {
             </Head>
 
             <section className="py-28 bg-gray-100 sm:border-t-4 md:border-green-600 w-full rounded-xl">
-                <div className="container sm:px-4 md:px-6 text-center">
+                <div className="sm:container sm:px-4 md:px-6 text-center">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900">Best Sellers</h2>
                     <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12 text-gray-700">
                         Browse our best-selling products and start shopping now!
@@ -100,7 +100,7 @@ export default function AdditionalProducts() {
                                     onMouseEnter={() => setHoveredProductId(product._id.toString())}
                                     onMouseLeave={() => setHoveredProductId(null)}
                                 >
-                                    <div className="bg-white rounded-lg overflow-hidden w-[310px] shadow-xl relative border-y-4 border-green-700 transform hover:scale-105 transition-transform duration-300 group">
+                                    <div className="bg-white rounded-lg overflow-hidden w-[310px] shadow-xl relative border-y-4 border-green-700 transform sm:hover:scale-105 transition-transform duration-300 group">
                                         {/* Primary Image */}
                                         <img
                                             src={product.images[0]}

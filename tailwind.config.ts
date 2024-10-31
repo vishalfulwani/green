@@ -17,6 +17,10 @@ const config = {
         "2xl": "1400px",
       },
     },
+    screens: {
+      'xs': '400px', // Custom breakpoint for screens smaller than 400px
+      ...require('tailwindcss/defaultTheme').screens, // Includes default Tailwind breakpoints
+    },
     extend: {
       colors: {
         glass: 'rgba(255, 255, 255, 0.1)',
