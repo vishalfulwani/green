@@ -202,17 +202,17 @@ export default function RootLayout({
       </main> */} 
 
 
-<html lang="en">
+<div lang="en">
       <AuthProvider>
-      <body className={inter.className}>
+      <div className={inter.className}>
       <AdminNavbar>
           {children}
       </AdminNavbar>
         
         <Toaster/>
-      </body>
+      </div>
       </AuthProvider>
-    </html>
+    </div>
 
 
 

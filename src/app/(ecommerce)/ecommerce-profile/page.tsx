@@ -114,7 +114,7 @@ const UserProfile = () => {
 
 
   return (
-    <div className=" py-24 min-h-screen sm:p-6 bg-gray-200 mt-10">
+    <div className=" py-24 min-h-screen sm:p-6 bg-gray-200 mt-10 sm:pt-20">
 
       <div className="sm:container px-2 ">
 

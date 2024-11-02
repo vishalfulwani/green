@@ -83,6 +83,8 @@ const Page = () => {
       </Head>
 
 
+      <div className="absolute z-50">
+
 
       <div className="flex flex-col md:flex-row justify-evenly min-h-screen items-center gap-6 p-4 bg-[#4cb495]">
         <div className="w-full md:w-1/2 lg:w-1/3 p-8 space-y-8 glass-container  rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20">
@@ -186,6 +188,7 @@ const Page = () => {
         </div>
       </div>
 
+      </div>
 
 
     </>

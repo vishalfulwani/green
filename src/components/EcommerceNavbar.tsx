@@ -64,6 +64,7 @@ const EcommerceNavbar = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+    
 
     const [userSession, setUserSession] = useState(false)
     const { data: session, status } = useSession();

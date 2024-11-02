@@ -31,7 +31,13 @@ import WishlistButton from '@/components/wishlistButton';
 
 
 import Image from 'next/image';
-import Testimonials from '@/components/Testimonials';
+// import Testimonials from '@/components/Testimonials';
+import dynamic from 'next/dynamic';
+
+const Testimonials = dynamic(() => import("../../../components/Testimonials"), {
+  ssr: false
+})
+
 
 export default function Home() {
 
@@ -41,11 +47,23 @@ export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<IProduct[]>([])
   const [bestSellerProducts, setBestSellerProducts] = useState<IProduct[]>([])
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null)
+  // const [isLoaded, setIsLoaded] = useState(false)
+
+  // useEffect(()=>{
+  //   setIsLoaded(true)
+  // })
+
+  // if (!isLoaded){
+  //   return <div className="flex justify-center items-center">Loading...</div>
+  // }
+
 
   const { toast } = useToast()
   const router = useRouter()
 
   const dispatch = useDispatch();
+
+
 
   const handleAddToCart = (product: any) => {
     const cartItem: ICartItem = {
@@ -119,11 +137,12 @@ export default function Home() {
   useEffect(() => {
     toast({
       title: " Free delivery on order above 500  |  New arrivals just in—shop now for the latest trends!",
-      description: "Friday, February 10, 2023 at 5:57 PM",
+      className: "correct"
     })
   }, [])
 
   return (
+
 
     <>
       <Head>
@@ -469,7 +488,7 @@ export default function Home() {
           </div>
         </div>
       </section>
- 
+
 
       {/* Category */}
       <section className="py-28 bg-gray-300 ">
@@ -538,8 +557,6 @@ export default function Home() {
 
 
     </>
-
-
   );
 }
 

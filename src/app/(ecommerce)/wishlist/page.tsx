@@ -73,7 +73,7 @@ const Page = () => {
       <div className="px-2 items-center justify-center flex flex-wrap gap-4">
       {wishlistProducts.map((product) => (
         <div
-          key={product.id}
+          key={product._id.toString()}
           className="wishlist-item xs:w-72 sm:w-80 px-4 my-5 bg-white rounded-lg shadow-md hover:shadow-2xl   relative border-t-4 border-green-600 overflow-hidden transform hover:-translate-y-1 sm:hover:scale-105 transition-transform duration-300"
         >
           <div className="relative overflow-hidden">
