@@ -147,8 +147,8 @@ const UserProfile = () => {
               {/* <p className="text-gray-600"><span className="font-semibold">Role:</span> {session?.user?.role}</p> */}
             </div>
 
-            <div className="bg-white border-t-4 border-green-700 rounded-lg shadow-lg p-8 mt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b pb-3">Your Orders</h2>
+            <div className="bg-white border-t-4 border-green-700 rounded-lg shadow-lg py-5 sm:px-8 sm:py-8 mt-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b px-6 sm:px-0 pb-3">Your Orders</h2>
 
               {isLoading ? (
                 <div className="text-center text-lg font-semibold text-black animate-pulse">Loading orders...</div>

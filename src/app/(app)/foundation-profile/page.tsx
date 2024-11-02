@@ -64,9 +64,9 @@ const ProfilePage = () => {
   return (
 <>
 
-    <div className=" pt-32 min-h-screen p-6 bg-gray-200">
+    <div className=" pt-32 min-h-screen sm:px-6  px-2 py-6 pb-20 sm:pb-24 bg-gray-200">
 
-      <div className="container ">
+      <div className="md:container ">
 
         {status === "loading" && <div className="text-center text-lg font-semibold">Loading...</div>}
         {status === "unauthenticated" && <div className="text-center text-red-600 text-lg font-semibold">Not signed in</div>}

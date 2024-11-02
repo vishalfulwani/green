@@ -110,22 +110,22 @@ const FoundationNavbar = () => {
               <div className="flex items-center cursor-pointer" onClick={toggleRightSidebar}>
                 <FaUserAlt className="hover:text-green-600 text-white  text-2xl" />
               </div>
-              <ul className={`absolute right-0 mt-2 w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
-                <li className="px-4 py-2 border-b">
-                  <h6 className="text-lg text-center font-medium">User</h6>
+              <ul className={`absolute right-0 mt-2 md:w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
+                <li className="px-4 py-1 border-b">
+                  <h6 className="text-lg text-center font-medium">User , {session?.user?.userName}</h6>
                 </li>
                 <li>
-                  <Link href="/foundation-profile" className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100">
+                  <Link href="/foundation-profile" className="flex items-center gap-3 px-4 py-1 hover:bg-gray-100">
                     <CgProfile />
-                    <Button variant="outline">My Profile</Button>
+                    <Button variant="outline" className="h-8">My Profile</Button>
                   </Link>
                 </li>
-                <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
+                <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
                   <GoSignOut />
                   <span>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button variant="outline">Log out</Button>
+                        <Button variant="outline" className="h-8">Log out</Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
@@ -148,9 +148,12 @@ const FoundationNavbar = () => {
           </ul>
         )}
         {!userSession && (
-          <Link href="/foundation-signin" className="px-5 py- bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
+          <div className="flex justify-end">
+
+          <Link href="/foundation-signin" className="px-5 py-1  bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
             Sign In
           </Link>
+          </div>
         )}
         </div>
 

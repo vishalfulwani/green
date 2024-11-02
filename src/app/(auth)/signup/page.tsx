@@ -83,7 +83,7 @@ const Page = () => {
       </Head>
 
 
-      <div className="absolute z-50">
+      <div className="absolute z-50  w-full">
 
 
       <div className="flex flex-col md:flex-row justify-evenly min-h-screen items-center gap-6 p-4 bg-[#4cb495]">

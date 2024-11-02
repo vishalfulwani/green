@@ -46,6 +46,7 @@ import { Loader2 } from "lucide-react"
 import { IProduct } from '@/models/product.models';
 import { AnyARecord } from 'dns';
 import { FaShoppingCart } from "react-icons/fa";
+import { FaAddressBook } from "react-icons/fa";
 
 
 const categories = [
@@ -477,7 +478,7 @@ const EcommerceNavbar = () => {
                                         </span>
                                     </li>
                                     <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
-                                        <TbPasswordUser />
+                                        <FaAddressBook/>
                                         <span>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
@@ -769,29 +770,29 @@ const EcommerceNavbar = () => {
                         </div>
              
                         {userSession && (
-                        <ul className="hidden md:flex items-center mr-3 space-x-4">
+                        <ul className="flex md:hidden items-center mr-3 space-x-4">
                             <li className="relative">
                                 <div className="flex items-center cursor-pointer" onClick={toggleRightSidebar}>
-                                    <FaUserAlt className="hover:text-green-600 text-2xl" />
+                                    <FaUserAlt className="hover:text-green-600 text-xl" />
                                 </div>
-                                <ul className={`absolute right-0 mt-2 w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
-                                    <li className="px-4 py-2 border-b">
+                                <ul className={`absolute right-[-97px] md:right-0 mt-2 sm:w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
+                                    <li className="px-4 py-1  border-b">
                                         <h6 className="text-lg text-center font-medium">User ( {session?.user.userName} )</h6>
                                     </li>
                                     <li>
-                                        <Link href="/ecommerce-profile" className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100">
+                                        <Link href="/ecommerce-profile" className="flex items-center gap-3 px-4 py-1  hover:bg-gray-100">
                                             <CgProfile />
                                             {/* <span>My Profile</span> */}
-                                            <Button variant="outline">My Profile</Button>
+                                            <Button variant="outline" className='h-8'>My Profile</Button>
 
                                         </Link>
                                     </li>
-                                    <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
+                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
                                         <TbPasswordUser />
                                         <span>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">Change Password</Button>
+                                                    <Button variant="outline" className='h-8'>Change Password</Button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogTitle className="text-center">
@@ -856,12 +857,12 @@ const EcommerceNavbar = () => {
                                             </AlertDialog>
                                         </span>
                                     </li>
-                                    <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
-                                        <TbPasswordUser />
+                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
+                                        <FaAddressBook />
                                         <span>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">Add Address</Button>
+                                                    <Button variant="outline" className='h-8'>Add Address</Button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogTitle className="text-center">
@@ -992,12 +993,12 @@ const EcommerceNavbar = () => {
                                         </span>
                                     </li>
 
-                                    <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
+                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
                                         <GoSignOut />
                                         <span>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">Log out</Button>
+                                                    <Button variant="outline" className='h-8'>Log out</Button>
                                                 </AlertDialogTrigger>
                                                 <AlertDialogContent>
                                                     <AlertDialogHeader>
@@ -1018,7 +1019,7 @@ const EcommerceNavbar = () => {
                                 </ul>
                             </li>
                         </ul>
-                    )}
+                        )} 
                         <div className="py-2 px-1 ">
                             <Link href="/signup" className="block text-center px-4 py-1 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
                                 Sign Up
