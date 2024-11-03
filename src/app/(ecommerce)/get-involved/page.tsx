@@ -172,10 +172,10 @@ export default function Home() {
               >
                 <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
                 <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
                     Welcome to Green E-commerce
                   </h1>
-                  <p className="text-lg md:text-xl mb-8">
+                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
                     Discover beautiful plants, seeds, and tools for your home garden
                   </p>
 
@@ -200,11 +200,11 @@ export default function Home() {
               >
                 <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
                 <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
                     High-Quality Seeds for Your Garden
 
                   </h1>
-                  <p className="text-lg md:text-xl mb-8">
+                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
                     Get the best seeds for a thriving garden
 
                   </p>
@@ -233,11 +233,11 @@ export default function Home() {
               >
                 <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
                 <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
                     Premium Gardening Tools
 
                   </h1>
-                  <p className="text-lg md:text-xl mb-8">
+                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
                     Equip your garden with the right tools
 
                   </p>
@@ -266,12 +266,12 @@ export default function Home() {
               >
                 <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
                 <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
                     Beautiful Indoor Plants
 
 
                   </h1>
-                  <p className="text-lg md:text-xl mb-8">
+                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
                     Bring nature inside with our collection of indoor plants
 
 
