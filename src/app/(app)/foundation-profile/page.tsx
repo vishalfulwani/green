@@ -72,15 +72,18 @@ const ProfilePage = () => {
         {status === "unauthenticated" && <div className="text-center text-red-600 text-lg font-semibold">Not signed in</div>}
         {status === "authenticated" && (
           <>
-            <div className="bg-white rounded-lg shadow-md border-t-4 border-green-700 p-6 mb-6">
+            <div className="bg-white rounded-lg shadow-md border-t-2 border-green-700 p-6 mb-6 bg-no-repeat bg-right"
+            style={{"backgroundImage":"url(https://images.unsplash.com/photo-1524055988636-436cfa46e59e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYWZ8ZW58MHx8MHx8fDA%3D)"}}
+            
+            >
               <h1 className="text-2xl font-bold mb-4 text-gray-800">Welcome, {session?.user?.userName}</h1>
               <p className="text-gray-600 mb-2"><span className="font-semibold">Platform: {session?.platform?"Foundation":""}</span></p>
               <p className="text-gray-600 mb-2"><span className="font-semibold">Email: {session?.user.email}</span></p>
               <p className="text-gray-600"><span className="font-semibold">Role: Donor</span> {session?.user?.role}</p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8 border-t-4 border-green-700 mt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b pb-3">Your Donations</h2>
+            {/* <div className="bg-white rounded-lg shadow-lg p-8 border-t-2 border-green-700 mt-8"> */}
+              <h2 className="text-2xl font-bold text-gray-900 mb-2 border-b pb-3">Your Donations</h2>
 
               {isLoading ? (
                 <div className="text-center text-lg font-semibold text-green-600 animate-pulse">Loading donations...</div>
@@ -89,7 +92,7 @@ const ProfilePage = () => {
                   {donations.map((donation, index) => (
                     <li
                       key={index}
-                      className="bg-gray-100 p-6 rounded-lg  border-t-4  border-green-700  shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out border "
+                      className="bg-white p-6 rounded-lg  border-t-2  border-green-700  shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out border "
                     >
                       <h3 className="text-2xl font-semibold text-green-700 mb-4 text-center sm:text-left">
                         Donation #{index + 1}
@@ -186,7 +189,7 @@ const ProfilePage = () => {
               ) : (
                 <p className="text-center text-gray-500 text-lg">No donation found.</p>
               )}
-            </div>
+            {/* </div> */}
 
           </>
         )}

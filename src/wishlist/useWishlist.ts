@@ -1,35 +1,31 @@
-'use client'
+'use client';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/cartRedux/store'; // Ensure this is correctly pointing to your store
+import { addToWishlist, removeFromWishlist } from '@/cartRedux/wishlistSlice';
 
 
-
-import { useEffect, useState } from 'react';
 
 export const useWishlist = () => {
-  const [wishlist, setWishlist] = useState<string[]>(() => {
-    // Initialize state from local storage or an empty array
-    const savedWishlist = localStorage.getItem('wishlist');
-    return savedWishlist ? JSON.parse(savedWishlist) : [];
-  });
+  const dispatch = useDispatch();
+  const wishlist = useSelector((state: RootState) => state.wishlist.items);
 
-  // Save wishlist to local storage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  }, [wishlist]);
-
-  const addToWishlist = (productId: string) => {
-    setWishlist((prevWishlist) => {
-      if (!prevWishlist.includes(productId)) {
-        return [...prevWishlist, productId];
-      }
-      return prevWishlist; // No changes needed if already in wishlist
-    });
+  const addProductToWishlist = (productId: string) => {
+    dispatch(addToWishlist(productId)); // Dispatch to add to wishlist
   };
 
-  const removeFromWishlist = (productId: string) => {
-    setWishlist((prevWishlist) => prevWishlist.filter((id) => id !== productId));
+  const removeProductFromWishlist = (productId: string) => {
+    dispatch(removeFromWishlist(productId)); // Dispatch to remove from wishlist
   };
 
-  const isInWishlist = (productId: string) => wishlist.includes(productId);
+  const isProductInWishlist = (productId: string): boolean => {
+    return wishlist.includes(productId); // Check if product ID exists in the wishlist
+  };
 
-  return { wishlist, addToWishlist, removeFromWishlist, isInWishlist };
+  return {
+    wishlist,
+    addProductToWishlist,
+    removeProductFromWishlist,
+    isProductInWishlist,
+  };
 };

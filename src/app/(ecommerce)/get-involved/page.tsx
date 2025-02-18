@@ -28,11 +28,17 @@ import {
 import getRandomElements from '@/helpers/getRandomElements';
 import Head from 'next/head';
 import WishlistButton from '@/components/wishlistButton';
-
+import Slider from 'react-slick';
 
 import Image from 'next/image';
 // import Testimonials from '@/components/Testimonials';
 import dynamic from 'next/dynamic';
+import CustomSlider from '@/components/CustomSlider';
+import ProductCard from '@/components/ProductCard';
+import BenefitsSection from '@/components/BenefitsSection';
+import ShopCategory from '@/components/ShopCategory';
+import BackToTopButton from '@/components/BackToTopButton';
+import RecentlyViewed from '@/components/RecentlyViewed';
 
 const Testimonials = dynamic(() => import("../../../components/Testimonials"), {
   ssr: false
@@ -47,23 +53,10 @@ export default function Home() {
   const [featuredProducts, setFeaturedProducts] = useState<IProduct[]>([])
   const [bestSellerProducts, setBestSellerProducts] = useState<IProduct[]>([])
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null)
-  // const [isLoaded, setIsLoaded] = useState(false)
-
-  // useEffect(()=>{
-  //   setIsLoaded(true)
-  // })
-
-  // if (!isLoaded){
-  //   return <div className="flex justify-center items-center">Loading...</div>
-  // }
-
 
   const { toast } = useToast()
   const router = useRouter()
-
   const dispatch = useDispatch();
-
-
 
   const handleAddToCart = (product: any) => {
     const cartItem: ICartItem = {
@@ -95,10 +88,8 @@ export default function Home() {
         setIsSubmitting(false)
       }
     }
-
     fetchProducts()
   }, [])
-
 
   // Update featured products whenever products are fetched
   useEffect(() => {
@@ -122,24 +113,33 @@ export default function Home() {
     Autoplay({ delay: 4000, stopOnInteraction: true })
   )
 
-
-
   const handleClick = (href: any) => {
     router.push(href);
   };
-
 
   // to dyanamic  routing page
   const goToProductPage = (category: string, id: string) => {
     router.push(`/shop/${category}/${id}`);
   };
 
-  useEffect(() => {
-    toast({
-      title: " Free delivery on order above 500  |  New arrivals just in—shop now for the latest trends!",
-      className: "correct"
-    })
-  }, [])
+  // useEffect(() => {
+  //   toast({
+  //     title: " Free delivery on order above 500  |  New arrivals just in—shop now for the latest trends!",
+  //     className: "correct"
+  //   })
+  // }, [])
+
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+  };
 
   return (
 
@@ -151,150 +151,19 @@ export default function Home() {
       </Head>
 
 
-
-
-
-      {/* hero section */}
-      <div className="relative pt-16 mt-2 bg-gray-300" >
-        <Carousel plugins={[bannerAutoplay.current]} className="w-full">
-          <CarouselContent >
-            <CarouselItem className="">
-              <div className="relative w-full   text-white  flex items-center justify-center"
-                style={{
-                  backgroundImage:
-                    "url('https://t3.ftcdn.net/jpg/06/30/64/08/240_F_630640851_7U4Pi3LtcFTiNejvmjWnNsWu6QTkbAJG.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  height: 'calc(100vh - 70px)'
-
-                }}
-
-              >
-                <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
-                <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
-                    Welcome to Green E-commerce
-                  </h1>
-                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
-                    Discover beautiful plants, seeds, and tools for your home garden
-                  </p>
-
-                  <a
-                    href="/shop/plants"
-                    className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
-                  >
-                    Shop Now
-                  </a>
-                </div>
-              </div>
-            </CarouselItem>
-            <CarouselItem className="">
-              <div className="relative w-full   text-white  flex items-center justify-center"
-                style={{
-                  backgroundImage:
-                    "url('https://t3.ftcdn.net/jpg/05/13/73/60/240_F_513736070_UsY44AxaS5gCQBsnYu6gyidPmCuavTcY.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  height: 'calc(100vh - 70px)'
-                }}
-              >
-                <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
-                <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
-                    High-Quality Seeds for Your Garden
-
-                  </h1>
-                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
-                    Get the best seeds for a thriving garden
-
-                  </p>
-
-                  <a
-                    href="/shop/seeds"
-                    className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
-                  >
-                    Explore Seeds
-
-                  </a>
-                </div>
-              </div>
-            </CarouselItem>
-            <CarouselItem className="">
-              <div className="relative w-full   text-white  flex items-center justify-center"
-
-                style={{
-                  backgroundImage:
-                    "url('https://t3.ftcdn.net/jpg/07/55/02/92/240_F_755029250_DqIzF1nFgH9IWc4H13FCjoxqnSzeEK4R.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  height: 'calc(100vh - 70px)'
-
-                }}
-              >
-                <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
-                <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
-                    Premium Gardening Tools
-
-                  </h1>
-                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
-                    Equip your garden with the right tools
-
-                  </p>
-
-                  <a
-                    href="/shop/tools"
-                    className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
-                  >
-                    Shop Tools
-
-                  </a>
-                </div>
-              </div>
-            </CarouselItem>
-            <CarouselItem className="">
-              <div className="relative w-full   text-white  flex items-center justify-center"
-
-                style={{
-                  backgroundImage:
-                    "url('https://t3.ftcdn.net/jpg/04/90/64/62/240_F_490646267_SVW4BXbbGW8WjxUwYc5m6TRcNV6wABuV.jpg')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  height: 'calc(100vh - 70px)'
-
-                }}
-              >
-                <div className="absolute inset-0  bg-green-900/50 backdrop-blur-sm bg-gradient-to-t from-black opacity-60" />
-                <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
-                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
-                    Beautiful Indoor Plants
-
-
-                  </h1>
-                  <p className="text-lg md:text-xl xl:text-2xl mb-8">
-                    Bring nature inside with our collection of indoor plants
-
-
-                  </p>
-
-                  <a
-                    href="/shop/plants"
-                    className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300"
-                  >
-                    Shop Indoor Plants
-
-
-                  </a>
-                </div>
-              </div>
-            </CarouselItem>
-          </CarouselContent>
-        </Carousel>
+      {/* header slider */}
+      <div className="pt-16 mt-2 " >
+        <CustomSlider />
       </div>
 
+      {/* benifits section  */}
+      <section className="lg:pt-20 py-10 pb-0 lg:pb-10  bg-gray-50">
+        <BenefitsSection />
+        <ShopCategory />
+      </section>
 
       {/* Featured Products Section */}
-      <section className="py-28  bg-gray-200">
+      <section className="py-28  bg-gray-100">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold  ">Featured Products</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
@@ -308,64 +177,19 @@ export default function Home() {
               <Carousel plugins={[featureAutoplay.current]} className="w-[300px]  sm:w-[380px] lg:w-full  ">
                 <CarouselContent>
                   {featuredProducts.map((product, index) => (
-                    <CarouselItem key={product._id.toString()} className="sm-basis-1/2 xl:basis-1/3 lg:basis-1/3">
-                      <div
-                        className="p-4  "
-                        onMouseEnter={() => setHoveredProductId(product._id.toString())}
-                        onMouseLeave={() => setHoveredProductId(null)}
-                      >
-                        {/* Product Card */}
-                        <div className="bg-white rounded-lg sm:w-[350px] lg:[340px]  overflow-hidden shadow-xl p-2 relative border-y-4 border-green-700 transform hover:scale-105 transition-transform duration-300 group">
-                          {/* Primary Image */}
-                          <img
-                            src={product.images[0]}
-                            alt={product.productName}
-                            className={`w-full h-32 sm:h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
-                          />
-                          {/* Secondary Image */}
-                          <img
-                            src={product.images[1]}
-                            alt={product.productName}
-                            className={`w-full h-32 sm:h-48 p-2 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
-                          />
-                          <div className="p-4 text-left">
-                            <h3 className="text-base sm:text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
-                            <div className="flex justify-around my-2 items-center">
-                              <Rating rating={parseFloat(product.rating)} />
-                              <WishlistButton productId={product._id.toString()} />
-                            </div>
-                            <div className="flex justify-between items-center mb-4">
-                              <span className="text-xl sm:text-3xl font-bold text-green-700">${product.sellingPrice}</span>
-                              <span className="text-xs sm:text-sm line-through text-gray-500">${product.price}</span>
-                            </div>
-
-                            {/* Add to Cart Button */}
-                            <button
-                              className="mt-4 flex items-center justify-center w-full px-3 py-1  bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
-                              onClick={() => handleAddToCart(product)}
-                            >
-                              Add to Cart
-                            </button>
-
-                            {/* View Product Button, visible on hover */}
-                            <button
-                              className="mt-2  items-center justify-center w-full px-3 py-1  bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
-                              onClick={() => goToProductPage(product.category, product._id.toString())}
-                            >
-                              View Product
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                    <CarouselItem key={product._id.toString()} className="sm-basis-1/2 xl:basis-1/4 lg:basis-1/3">
+                      <ProductCard
+                        key={product._id.toString()}
+                        product={product}
+                        hoveredProductId={hoveredProductId}
+                        setHoveredProductId={setHoveredProductId}
+                        handleAddToCart={handleAddToCart}
+                        goToProductPage={goToProductPage}
+                      />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
               </Carousel>
-
-
-
-
-
             )}
 
           </div>
@@ -374,7 +198,7 @@ export default function Home() {
 
 
       {/* Best seller Section */}
-      <section className="py-28 bg-gray-300 ">
+      <section className="py-28 bg-gray-200 ">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold  ">Best Sellers</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
@@ -391,57 +215,15 @@ export default function Home() {
               >
                 <CarouselContent >
                   {bestSellerProducts.map((product, index) => (
-                    <CarouselItem key={product._id.toString()} className="sm-basis-1/2 xl:basis-1/3 lg:basis-1/3">
-                      <div
-                        className="p-4  "
-                        onMouseEnter={() => setHoveredProductId(product._id.toString())}
-                        onMouseLeave={() => setHoveredProductId(null)}
-                      >
-                        {/* Product Card */}
-                        {/* <div className="bg-white rounded-lg overflow-hidden shadow-xl relative border-y-4 border-green-700 transform hover:scale-105 transition-transform duration-300 group"> */}
-                        <div className="bg-white rounded-lg sm:w-[350px] lg:w-[340px]  overflow-hidden shadow-xl p-2 relative border-y-4 border-green-700 transform hover:scale-105 transition-transform duration-300 group">
-
-                          {/* Primary Image */}
-                          <img
-                            src={product.images[0]}
-                            alt={product.productName}
-                            className={`w-full h-32 sm:h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
-                          />
-                          {/* Secondary Image */}
-                          <img
-                            src={product.images[1]}
-                            alt={product.productName}
-                            className={`w-full h-32 sm:h-48 p-2 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
-                          />
-                          <div className="p-4 text-left">
-                            <h3 className="text-base sm:text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
-                            <div className="flex justify-around my-2 items-center">
-                              <Rating rating={parseFloat(product.rating)} />
-                              <WishlistButton productId={product._id.toString()} />
-                            </div>
-                            <div className="flex justify-between items-center mb-4">
-                              <span className="text-xl sm:text-3xl font-bold text-green-700">${product.sellingPrice}</span>
-                              <span className="text-xs sm:text-sm line-through text-gray-500">${product.price}</span>
-                            </div>
-
-                            {/* Add to Cart Button */}
-                            <button
-                              className="mt-4 flex items-center justify-center w-full px-3 py-1  bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
-                              onClick={() => handleAddToCart(product)}
-                            >
-                              Add to Cart
-                            </button>
-
-                            {/* View Product Button, visible on hover */}
-                            <button
-                              className="mt-2  items-center justify-center w-full px-3 py-1  bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
-                              onClick={() => goToProductPage(product.category, product._id.toString())}
-                            >
-                              View Product
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+                    <CarouselItem key={product._id.toString()} className="sm-basis-1/2 xl:basis-1/4 lg:basis-1/3">
+                      <ProductCard
+                        key={product._id.toString()}
+                        product={product}
+                        hoveredProductId={hoveredProductId}
+                        setHoveredProductId={setHoveredProductId}
+                        handleAddToCart={handleAddToCart}
+                        goToProductPage={goToProductPage}
+                      />
                     </CarouselItem>
                   ))}
 
@@ -455,9 +237,11 @@ export default function Home() {
         </div>
       </section>
 
+      <RecentlyViewed/>
+
 
       {/* Why Choose Us Section */}
-      <section className="py-28  bg-gray-200 ">
+      <section className="py-28  bg-gray-100 ">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold ">Why Choose Us</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-4 mb-8 md:mb-12">
@@ -491,7 +275,7 @@ export default function Home() {
 
 
       {/* Category */}
-      <section className="py-28 bg-gray-300 ">
+      <section className="py-28 bg-gray-200 ">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-green-900">Shop by Category</h2>
           <p className="text-center text-base md:text-lg lg:text-xl mt-4 mb-8 md:mb-12 text-gray-700">
@@ -549,13 +333,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <Testimonials />
-
-
-
-
-
-
-
+      <BackToTopButton/>
     </>
   );
 }

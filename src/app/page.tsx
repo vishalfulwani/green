@@ -1,5 +1,10 @@
 'use client'
 
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+
 import React, { useEffect, useState } from 'react';
 import { ApiResponse } from '@/helpers/ApiResponse';
 import axios from 'axios';
@@ -66,8 +71,8 @@ const Page = () => {
 
 
       {/* hero section */}
-      <section
-        className="relative bg-green-700 mt-16 text-white  flex items-center justify-center"
+      {/* <section
+        className=" bg-green-700 mt-16 text-white  flex items-center justify-center w-full xl:max-h-[600px] lg:max-h-[500px] max-h-[500px]"
         style={{
           backgroundImage:
             "url('https://media.istockphoto.com/id/1498170916/photo/a-couple-is-taking-a-bag-of-food-at-the-food-and-clothes-bank.webp?a=1&b=1&s=612x612&w=0&k=20&c=WIKBpmpSbwZBW5EEk6ZbXPaji47EUrfhmS5uBxBu9jA=')",
@@ -78,8 +83,8 @@ const Page = () => {
         }}
 
       >
-        <div className="absolute inset-0 bg-green-900/50 backdrop-blur-sm"></div>
-        <div className="relative z-10 container mx-auto text-center px-4 md:px-0">
+        <div className=" inset-0 bg-green-900/50 "></div>
+        <div className=" z-10 sm:container px-4 sm:px-auto mx-auto text-center px-4 md:px-0">
           <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
             Plant a Tree, Grow a Future
           </h1>
@@ -93,7 +98,35 @@ const Page = () => {
             Get Involved
           </a>
         </div>
-      </section>
+      </section> */}
+
+
+      <div
+    // className="w-full relative xl:max-h-[600px] mt-16 pt-4 lg:max-h-[500px] max-h-[500px] bg-cover bg-center bg-no-repeat h-screen flex items-center justify-start px-8 py-12"
+    className="relative h-screen  w-full xl:max-h-[600px] mt-16 lg:max-h-[500px] max-h-[500px] bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0 bg-no-repeat bg-cover"
+
+    style={{ backgroundImage: `url(https://media.istockphoto.com/id/1498170916/photo/a-couple-is-taking-a-bag-of-food-at-the-food-and-clothes-bank.webp?a=1&b=1&s=612x612&w=0&k=20&c=WIKBpmpSbwZBW5EEk6ZbXPaji47EUrfhmS5uBxBu9jA=)` }}
+  >
+        <div className="absolute inset-0 bg-green-900/30 "></div>
+   
+    <div className=" z-10 sm:container px-4 sm:px-auto mx-auto text-center text-white px-4 md:px-0">
+          <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold mb-4">
+            Plant a Tree, Grow a Future
+          </h1>
+          <p className="text-lg md:text-xl xl:text-3xl mb-8">
+            Join us in our mission to make the world greener, one tree at a time.
+          </p>
+          <div className="mt-4 flex justify-center  items-center gap-5">
+          <a
+            href="/get-involved"
+            className=" bg-green-700 max-w-52 w-full text-white rounded-lg font-semibold hover:text-white hover:bg-green-800 px-4 py-2 sm:px-6 sm:py-3 transition duration-300"
+          >
+            Get Involved
+          </a>
+          </div>
+        </div>
+    {/* </div> */}
+  </div>
 
 
 
@@ -106,9 +139,9 @@ const Page = () => {
 
       {/* tree plantation section */}
       <section className="py-28  bg-gray-200 text-center">
-        <div className="container mx-auto">
-          <h2 className="text-xl sm:text-3xl  md:text-4xl font-bold text-green-900 mb-2 sm:mb-4 md:mb-6">Plant a Tree from the Comfort of Your Home</h2>
-          <p className="text-sm md:text-lg mb-8">Make a difference without leaving your house and receive a personalized certificate.</p>
+        <div className="sm:container px-4 sm:px-auto mx-auto">
+          <h2 className="text-xl sm:text-3xl   font-semibold text-green-900 mb-2  md:mb-2">Plant a Tree from the Comfort of Your Home</h2>
+          <p className="text-sm md:text-lg mb-14">Make a difference without leaving your house and receive a personalized certificate.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 text-black justify-center">
             {/* Card 1 */}
@@ -146,26 +179,26 @@ const Page = () => {
             </div>
           </div>
           <div className="mt-16 flex justify-center  items-center gap-5">
-            <a href="/plant-tree" className="button button-green">Plant a Tree Now</a>
-            <a href="/learn-more" className="button button-outline">Learn More</a>
+            <a href="/plant-tree" className="border-2 border-green-700 bg-green-700 max-w-60 w-full text-white rounded-lg font-semibold hover:text-white hover:bg-green-800 px-4 py-2 sm:px-6 sm:py-3">Plant a Tree Now</a>
+            <a href="/learn-more" className="border-2 border-green-700 bg-transparent max-w-60 w-full text-green-700 rounded-lg font-semibold hover:text-white hover:bg-green-700 px-4 py-2 sm:px-6 sm:py-3">Learn More</a>
           </div>
         </div>
       </section>
 
 
       {/* Donation utilization section */}
-      <section className="relative py-28 bg-gray-300 text-[#333] bg-cover bg-bottom overflow-hidden">
+      <section className="relative py-28 bg-gray-100 text-[#333] bg-cover bg-bottom overflow-hidden">
         {/* <div className="absolute inset-0 bg-no-repeat bg-cover bg-bottom filter blur-md" style={{ backgroundImage: `url('https://clipart-library.com/8300/1931/tree-branch-clipart-xl.png')` }}></div> */}
 
-        <div className="relative container mx-auto z-10">
-          <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6 text-center">
+        <div className="relative sm:container px-4 sm:px-auto mx-auto z-10">
+          <h2 className="text-xl sm:text-3xl  font-semibold text-green-900 mb-2  text-center">
             How Your Donation Nurtures Growth
           </h2>
           <p className="text-sm sm:text-lg mb-8 text-center">
             Your generous donation plays a crucial role in ensuring the success of every plant. Here's how we use your contribution to nurture and grow your chosen tree or plant:
           </p>
 
-          {/* <!-- Tree trunk and steps container --> */}
+          {/* <!-- Tree trunk and steps sm:container px-4 sm:px-auto --> */}
           <div className="relative flex justify-center">
             {/* <!-- Tree trunk --> */}
             <div className="w-2 bg-green-700 h-full absolute"></div>
@@ -205,7 +238,9 @@ const Page = () => {
             <p className="text-md sm:text-xl mb-6">
               Want to see your impact firsthand? Contribute today and be part of our journey in nurturing the environment.
             </p>
-            <a href="/donate" className="inline-block px-8 py-3 bg-green-700 text-white font-semibold rounded-full transition-colors duration-300 hover:bg-green-800">Donate Now</a>
+          <div className="mt-16 flex justify-center  items-center gap-5">
+            <a href="/donate" className="border-2 border-green-700 bg-green-700 max-w-60 w-full text-white rounded-lg font-semibold hover:text-white hover:bg-green-800 px-4 py-2 sm:px-6 sm:py-3">Donate Now</a>
+            </div>
           </div>
         </div>
       </section>
@@ -213,8 +248,8 @@ const Page = () => {
 
       {/* our mission */}
       <section className="py-28 bg-gray-200">
-        <div className="container mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">
+        <div className="sm:container px-4 sm:px-auto mx-auto text-center  sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl  font-semibold text-green-900 mb-2 ">
             Our Mission
           </h2>
           <p className="text-sm sm:text-lg text-gray-700 max-w-3xl mx-auto mb-12">
@@ -222,7 +257,7 @@ const Page = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="p-4">
+            <div className="sm:p-4">
               <div className="overflow-hidden rounded-lg border-t-4 border-green-600 shadow-lg">
                 <img
                   src="https://eco-business.imgix.net/uploads/ebmedia/fileuploads/shutterstock_142348369_phil_mangroves_planting.jpg?fit=crop&h=960&ixlib=django-1.2.0&w=1440"
@@ -238,7 +273,7 @@ const Page = () => {
               </p>
             </div>
 
-            <div className="p-4">
+            <div className="sm:p-4">
               <div className="overflow-hidden rounded-lg border-t-4 border-green-600 shadow-lg">
                 <img
                   src="https://torontotreeremoval.ninja/wp-content/uploads/plant-a-tree-toronto.jpg"
@@ -259,9 +294,9 @@ const Page = () => {
 
 
       {/* sponsor section */}
-      <section className="py-28 bg-gray-300 text-[#333] bg-cover bg-bottom">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6 text-center">
+      <section className="py-28 bg-gray-100 text-[#333] bg-cover bg-bottom">
+        <div className="sm:container px-4 sm:px-auto mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl  font-semibold text-green-900 mb-2  text-center">
             Sponsors
           </h2>
           <p className="text-sm sm:text-lg text-gray-700 max-w-3xl mx-auto mb-10 text-center">
@@ -275,7 +310,7 @@ const Page = () => {
             >
               <CarouselContent >
                 {sponsors.map((sponsor: any) => (
-                  <CarouselItem className=" sm:basis-1/3 lg:basis-1/3  xl:basis-1/5">
+                  <CarouselItem className=" sm:basis-1/3 lg:basis-1/3  xl:basis-1/5"   key={sponsor._id}>
 
                     <div
                       key={sponsor._id}
@@ -307,8 +342,8 @@ const Page = () => {
 
       {/* our impact */}
       <section className="py-28 bg-gray-200">
-        <div className="container mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">Our Impact</h2>
+        <div className="sm:container px-4 sm:px-auto mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl  font-semibold text-green-900 mb-2 ">Our Impact</h2>
           <p className="text-sm sm:text-xl text-gray-700 mb-10 max-w-2xl mx-auto">
             Together, we have made significant strides in fostering a greener planet. Here’s a look at the positive impact we’ve created.
           </p>
@@ -330,9 +365,9 @@ const Page = () => {
 
 
       {/* Testimonial  */}
-      <section className="py-28 bg-gray-300">
-        <div className="container mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-green-900 mb-2 sm:mb-6">What People Are Saying</h2>
+      <section className="py-28 bg-gray-100">
+        <div className="sm:container px-4 sm:px-auto mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-green-900 mb-2">What People Are Saying</h2>
           <p className="text-sm sm:text-lg text-gray-700 max-w-3xl mx-auto mb-10 text-center">
             Voices from our green warriors
           </p>

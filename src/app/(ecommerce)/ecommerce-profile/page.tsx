@@ -14,8 +14,21 @@ const UserProfile = () => {
   const [orders, setOrders] = useState<IOrder[]>([]);
 
   const [orderedProductsWithQuantity, setOrderedProductsWithQuantity] = useState<{ product: any; quantity: number }[]>([]);
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const [products, setProducts] = useState<IProduct[]>([])
+
+
+  const { data: session, status, update } = useSession();
+
+  useEffect(() => {
+    // Example: Trigger session update whenever needed
+    const refreshSession = async () => {
+      await update();
+    };
+
+    refreshSession(); // Call this when you expect session data to change
+  }, []);
+
 
   useEffect(() => {
     // Fetch orders only if authenticated and user ID is available
@@ -114,7 +127,7 @@ const UserProfile = () => {
 
 
   return (
-    <div className=" py-24 min-h-screen sm:p-6 bg-gray-200 mt-10 sm:pt-20">
+    <div className=" py-24 pt-20 min-h-screen sm:p-6 bg-gray-200 mt-16 sm:pt-20">
 
       <div className="sm:container px-2 ">
 
@@ -122,7 +135,9 @@ const UserProfile = () => {
         {status === "unauthenticated" && <div className="text-center text-red-600 text-lg font-semibold">Not signed in</div>}
         {status === "authenticated" && (
           <>
-            <div className="bg-white border-t-4 border-green-700 rounded-lg shadow-md p-6 mb-6">
+            <div className="bg-white border-t-2 border-green-700 rounded-lg shadow-md p-6 mb-4 bg-no-repeat bg-right"
+              style={{ "backgroundImage": "url(https://images.unsplash.com/photo-1524055988636-436cfa46e59e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGxlYWZ8ZW58MHx8MHx8fDA%3D)" }}
+            >
               <h1 className="text-2xl font-bold mb-4 text-gray-800">Welcome, {session?.user?.userName}</h1>
               <p className=" mb-2"><span className="font-semibold">Email ID:</span> {session?.user?.email}</p>
               <p className=" mb-2"><span className="font-semibold">Platform:</span> {session?.platform}</p>
@@ -144,11 +159,12 @@ const UserProfile = () => {
               </div>
 
 
+
               {/* <p className="text-gray-600"><span className="font-semibold">Role:</span> {session?.user?.role}</p> */}
             </div>
 
-            <div className="bg-white border-t-4 border-green-700 rounded-lg shadow-lg py-5 sm:px-8 sm:py-8 mt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b px-6 sm:px-0 pb-3">Your Orders</h2>
+            <div className="bg-white border-t-2 border-green-700 rounded-lg shadow-lg py-5  mt-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b px-3 md:px-8 pt-3 pb-5">Your Orders</h2>
 
               {isLoading ? (
                 <div className="text-center text-lg font-semibold text-black animate-pulse">Loading orders...</div>
@@ -157,7 +173,7 @@ const UserProfile = () => {
                   {orderedProductsWithQuantity.map((item, index) => (
                     <li key={index} className="bg-[#accbb7] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
                       <h3 className="text-xl font-semibold text-gray-800 mb-4">Order Item</h3>
-                     
+
 
                       <div className="flex flex-col sm:flex-row sm:space-x-6">
                         {/* Image on the left */}
@@ -207,8 +223,19 @@ const UserProfile = () => {
                 </ul>
               ) : (
                 <>
-                <p className="text-center text-black p-4 text-lg">It looks like you haven't placed any orders yet. 🌟 Browse our fantastic products below and make your first purchase!</p>
-                <AdditionalProducts/>
+                  {/* <p className="text-left text-black p-4 px-4 md:px-8 pt-0 text-lg">It looks like you haven't placed any orders yet. 🌟 Browse our fantastic products below and make your first purchase!</p> */}
+                  <div className="flex flex-col items-center justify-center text-center py-4">
+                    <h2 className="text-xl font-semibold text-gray-800">You haven't made any purchases yet</h2>
+                    <p className="text-gray-500 mt-2">
+                      It looks like you haven’t bought anything from us yet. Browse our collection and treat yourself to something special today!
+                    </p>
+                    <button
+                      onClick={() => window.location.href = '/get-involved'}  // Redirect to shop page
+                      className="mt-6 px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-200"
+                    >
+                      Start Shopping
+                    </button>
+                  </div>
                 </>
               )}
             </div>

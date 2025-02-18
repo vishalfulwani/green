@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/dbconfig/dbConnect';
 import { ApiResponse } from '@/helpers/ApiResponse';
-import DonationModel from '@/models/donation.models';
 import OrderModel from '@/models/order.models';
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {

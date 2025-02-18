@@ -14,6 +14,9 @@ import Autoplay from "embla-carousel-autoplay"
 import * as React from "react"
 import Head from "next/head"
 import WishlistButton from "@/components/wishlistButton"
+import ProductCard from "@/components/ProductCard"
+import BackToTopButton from "@/components/BackToTopButton"
+import Breadcrumb from "@/components/BreadCrumb"
 
 
 
@@ -99,9 +102,14 @@ const Page = () => {
 
 
     // to dyanamic  routing page
-    const goToProductPage = (id: string) => {
-        router.push(`/shop/tools/${id}`);
+    const goToProductPage = (category:string,id: string) => {
+        router.push(`/shop/${category}/${id}`);
     };
+
+    const breadcrumbItems = [
+        { label: 'Home', href: '/get-involved' },
+        { label: 'Tools', href: '/tools' },
+    ];
 
     return (
         <>
@@ -112,18 +120,20 @@ const Page = () => {
 
             {/* hero section */}
             <section
-                className="relative h-screen bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0 bg-no-repeat bg-cover"
+                className="relative h-screen  w-full xl:max-h-[600px] lg:max-h-[500px] max-h-[500px] bg-gradient-to-r from-green-800 to-green-600 flex items-center justify-center text-center text-white px-4 md:px-0 bg-no-repeat bg-cover"
                 style={{
                     backgroundImage: 'url(https://img.freepik.com/free-photo/home-garden-arrangement-with-copy-space_23-2148851371.jpg?ga=GA1.2.716411687.1716966942)',
                 }}
             >
-        <div className="absolute inset-0 bg-green-900/50 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-green-900/30 "></div>
 
-                <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg">
+                <h1 className="text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tight drop-shadow-lg mt-14">
                     Tools
                 </h1>
             </section>
-
+            <div className="mx-5">
+            <Breadcrumb items={breadcrumbItems} />
+            </div>
 
             {/* sub categories */}
             <section className="py-28  bg-gray-200">
@@ -158,16 +168,9 @@ const Page = () => {
                             <CarouselPrevious />
                             <CarouselNext />
                         </Carousel> */}
-
-
-
                     </div>
                 </div>
-
-
             </section>
-
-
 
             <section className="py-28  bg-gray-300">
                 <div className="container mx-auto px-4 md:px-6 text-center">
@@ -178,61 +181,70 @@ const Page = () => {
                     <p className="text-center text-base md:text-lg lg:text-xl mt-2 mb-8 md:mb-12">
                         {!defaultProduct && subToolProducts.length > 0 ? subToolProducts[0].subCategory : ''}
                     </p>
-                    <div className="w-full flex flex-wrap justify-center items-center ">
+                    {/* <div className="w-full flex flex-wrap justify-center items-center "> */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4">
 
                         {isSubmitting ? (
                             <p>Loading...</p>
                         ) : (
 
                             subToolProducts.map((product) => (
-                                <div
-                                    key={product._id.toString()}
-                                    className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
-                                    onMouseEnter={() => setHoveredProductId(product._id.toString())}
-                                    onMouseLeave={() => setHoveredProductId(null)}
-                                >
-                                    <div className="bg-white rounded-lg overflow-hidden shadow-xl relative border-y-4 border-green-700 transform hover:scale-105 transition-transform duration-300 group">
-                                        {/* Primary Image */}
-                                        <img
-                                            src={product.images[0]}
-                                            alt={product.productName}
-                                            className={`w-full h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
-                                        />
-                                        {/* Secondary Image */}
-                                        <img
-                                            src={product.images[1]}
-                                            alt={product.productName}
-                                            className={`w-full h-48 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
-                                        />
-                                        <div className="p-4 text-left">
-                                            <h3 className="text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
-                                            <div className="flex justify-around my-2 items-center">
-                                                <Rating rating={parseFloat(product.rating)} />
-                                                <WishlistButton productId={product._id.toString()} />
-                                            </div>
-                                            <div className="flex justify-between items-center mb-4">
-                                                <span className="text-3xl font-bold text-green-700">${product.price}</span>
-                                                <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
-                                            </div>
+                                // <div
+                                //     key={product._id.toString()}
+                                //     className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+                                //     onMouseEnter={() => setHoveredProductId(product._id.toString())}
+                                //     onMouseLeave={() => setHoveredProductId(null)}
+                                // >
+                                //     <div className="bg-white rounded-lg overflow-hidden shadow-xl relative border-y-4 border-green-700 transform hover:scale-105 transition-transform duration-300 group">
+                                //         {/* Primary Image */}
+                                //         <img
+                                //             src={product.images[0]}
+                                //             alt={product.productName}
+                                //             className={`w-full h-48 object-contain transition-opacity duration-500 ${hoveredProductId === product._id.toString() ? 'opacity-0' : 'opacity-100'}`}
+                                //         />
+                                //         {/* Secondary Image */}
+                                //         <img
+                                //             src={product.images[1]}
+                                //             alt={product.productName}
+                                //             className={`w-full h-48 object-contain transition-opacity duration-500 absolute inset-0 ${hoveredProductId === product._id.toString() ? 'opacity-100' : 'opacity-0'}`}
+                                //         />
+                                //         <div className="p-4 text-left">
+                                //             <h3 className="text-lg font-bold text-green-900 mb-2">{product.productName}</h3>
+                                //             <div className="flex justify-around my-2 items-center">
+                                //                 <Rating rating={parseFloat(product.rating)} />
+                                //                 <WishlistButton productId={product._id.toString()} />
+                                //             </div>
+                                //             <div className="flex justify-between items-center mb-4">
+                                //                 <span className="text-3xl font-bold text-green-700">${product.price}</span>
+                                //                 <span className="text-sm line-through text-gray-500">${product.sellingPrice}</span>
+                                //             </div>
 
-                                            {/* Add to Cart Button */}
-                                            <button
-                                                className="mt-4 flex items-center justify-center w-full px-3 py-1 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
-                                                onClick={() => handleAddToCart(product)}
-                                            >
-                                                Add to Cart
-                                            </button>
+                                //             {/* Add to Cart Button */}
+                                //             <button
+                                //                 className="mt-4 flex items-center justify-center w-full px-3 py-1 bg-green-600 text-white font-semibold rounded-full shadow-md hover:bg-green-700 transition duration-300"
+                                //                 onClick={() => handleAddToCart(product)}
+                                //             >
+                                //                 Add to Cart
+                                //             </button>
 
-                                            {/* View Product Button, visible on hover */}
-                                            <button
-                                                className="mt-2  items-center justify-center w-full px-3 py-1 bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
-                                                onClick={() => goToProductPage(product._id.toString())}
-                                            >
-                                                View
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                //             {/* View Product Button, visible on hover */}
+                                //             <button
+                                //                 className="mt-2  items-center justify-center w-full px-3 py-1 bg-transparent border border-green-600 text-green-700 font-semibold rounded-full hover:bg-green-600 hover:text-white transition duration-300 hidden group-hover:block"
+                                //                 onClick={() => goToProductPage(product._id.toString())}
+                                //             >
+                                //                 View
+                                //             </button>
+                                //         </div>
+                                //     </div>
+                                // </div>
+                                <ProductCard
+                                key={product._id.toString()}
+                                product={product}
+                                hoveredProductId={hoveredProductId}
+                                setHoveredProductId={setHoveredProductId}
+                                handleAddToCart={handleAddToCart}
+                                goToProductPage={goToProductPage}
+                              />
 
                             ))
 
@@ -349,7 +361,7 @@ const Page = () => {
             </section>
 
 
-
+            <BackToTopButton/>
         </>
     )
 }

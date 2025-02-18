@@ -68,6 +68,7 @@ declare module 'next-auth' {
             state: string | null;
             postalCode: string | null;
         } | null; // Allow address to be null
+        phone?:string;
     }
 
     interface Session {
@@ -84,6 +85,7 @@ declare module 'next-auth' {
             userName?: string;
             role?: string;
         } & DefaultSession['user'];
+        phone?:string;
     }
 }
 

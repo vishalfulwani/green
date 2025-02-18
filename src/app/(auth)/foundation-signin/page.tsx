@@ -111,8 +111,9 @@ const Page = () => {
 
             <div className="absolute z-50    w-full">
 
-            <div className="flex flex-col md:flex-row justify-evenly min-h-screen items-center gap-6 p-4 bg-[#4cb495]">
-                <div className="w-full md:w-1/2 lg:w-1/3 p-8 space-y-8 glass-container  rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20">
+            <div className="flex flex-col md:flex-row justify-evenly min-h-screen items-center gap-6 p-4 bg-[#f4f6f5]">
+                {/* <div className="w-full md:w-1/2 lg:w-1/3 p-8 space-y-8 glass-container border-t-4 border-green-800  rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg  border-opacity-50"> */}
+                <div className="w-full md:w-1/2 lg:w-1/3 p-8 space-y-8 glass-container border-0 border-t-4 border-green-700  rounded-lg shadow-slate-600 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg  border-opacity-100">
                     <div className="text-center">
                         <h1 className="text-3xl font-bold tracking-tight lg:text-3xl mb-6">
                             SignIn to Green Foundation
@@ -151,7 +152,7 @@ const Page = () => {
                                     </FormItem>
                                 )}
                             />
-                            <Button type="submit" className=" w-auto py-3 text-white bg-green-700 hover:bg-green-300 hover:text-gray-800 rounded-lg transition-colors duration-300">
+                            <Button type="submit" className=" w-auto py-3 text-white bg-green-700 hover:bg-green-800 hover:text-white rounded-lg transition-colors duration-300">
                                 {
                                     isSubmitting ? (
                                         <>

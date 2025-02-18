@@ -1,3 +1,5 @@
+
+
 import FoundationNavbar from "@/components/FoundationNavbar"
 import { Toaster } from "@/components/ui/toaster"
 
@@ -15,14 +17,14 @@ export const metadata: Metadata = {
     children: React.ReactNode
   }) {
     return (
-      <html lang="en">
-        <body>
+      <div lang="en">
+        <div>
             {/* <AdminNavbar/> */}
             {/* <FoundationNavbar/> */}
             {children}
         <Toaster/>
-        </body>
-      </html>
+        </div>
+      </div>
     )
   }
   

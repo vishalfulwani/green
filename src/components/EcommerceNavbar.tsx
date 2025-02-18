@@ -16,6 +16,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useForm } from "react-hook-form"
 import { useToast } from "./ui/use-toast"
 import axios, { AxiosError } from "axios"
@@ -25,7 +26,7 @@ import { ApiResponse } from "@/helpers/ApiResponse"
 import { GoSignOut } from "react-icons/go";
 import { TbPasswordUser } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
-import { FaUserAlt } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserAlt } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FiSearch } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
@@ -47,6 +48,11 @@ import { IProduct } from '@/models/product.models';
 import { AnyARecord } from 'dns';
 import { FaShoppingCart } from "react-icons/fa";
 import { FaAddressBook } from "react-icons/fa";
+import HolidaySlider from './HolidaySaleSlider';
+import ScrollingText from './HolidaySaleSlider';
+import { useWishlist } from '@/wishlist/useWishlist';
+import { RootState } from '@/cartRedux/store';
+import { useSelector } from 'react-redux';
 
 
 const categories = [
@@ -65,7 +71,7 @@ const EcommerceNavbar = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    
+
 
     const [userSession, setUserSession] = useState(false)
     const { data: session, status } = useSession();
@@ -78,15 +84,11 @@ const EcommerceNavbar = () => {
     }, [session]);
 
     const { toast } = useToast()
-
     const router = useRouter();
-
-
 
     const handleClick = (href: any) => {
         router.push(href);
     };
-
 
     const toggleRightSidebar = () => {
         setRightbarOpen(!rightbarOpen)
@@ -131,8 +133,6 @@ const EcommerceNavbar = () => {
             setIsSubmitting(false)
         }
     }
-
-
 
     interface ChangeAddressFormValues {
         street: string;
@@ -205,14 +205,12 @@ const EcommerceNavbar = () => {
 
 
     // search bar 
-
     const [query, setQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [products, setProducts] = useState<IProduct[]>([])
     const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([]);
 
     // const router = useRouter();
-
     useEffect(() => {
         const fetchProducts = async () => {
             setIsSubmitting(true)
@@ -285,60 +283,30 @@ const EcommerceNavbar = () => {
     }
 
 
-   
+    const { wishlist } = useWishlist(); // Get wishlist IDs and remove function
+    const cartLength = useSelector((state: RootState) => state.cart.cart.length);
 
     return (
-
-
-
         <>
-
-            {/*  animate scroll in global.css */}
-            {/* <div className="fixed top-0 w-full h-10 bg-green-700 text-white overflow-hidden z-50">
-  <div className=" whitespace-nowrap animate-scroll py-2">
-    Free delivery on order above 500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!
-  </div>
-</div> */}
-
-
-{/* 
-            {isOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center zoom-in-100">
-                    <div className="relative w-11/12 md:w-1/2 bg-green-700 text-white p-4 rounded-lg">
-                        <div className="text-center animate-scroll whitespace-nowrap">
-                            Free delivery on orders above ₹500&nbsp;&nbsp;|&nbsp;&nbsp;New arrivals just in—shop now for the latest trends!
-                        </div>
-                        <button
-                            className="absolute top-2 right-2 text-white hover:text-gray-300"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            &times;
-                        </button>
-                    </div>
-                </div>
-            )} */}
-
-
-
-
-            <nav className="bg-green-800 text-white py-4 px-4 fixed w-full top-0 left-0 shadow-md z-50">
-                {/* <div className="container mx-auto px-1 flex justify-between items-center"> */}
-                <div className={`container mx-auto px-1 flex justify-between  md:flex items-center  space-x-4 ${isOpen ? 'hidden' : 'block'}`}>
-                    <div className="text-2xl font-bold">Plant E-commerce</div>
+            <nav className="bg-[#f2f2f2] text-green-800 py-4  pt-0 fixed w-full top-0 left-0 shadow-md z-50 ">
+                <ScrollingText />
+                <div className={`container mx-auto  flex pt-4 px-4 justify-between  md:flex items-center  space-x-4 ${isOpen ? 'hidden' : 'block'}`}>
+                    <div className="text-2xl font-bold cursor-pointer">Plant E-commerce</div>
 
                     {/* Hamburger Icon */}
-                    <div className="md:hidden flex my-2 items-center">
+                    <div className="lg:hidden flex my-2 items-center">
                         <button
-                            className="outline-none mobile-menu-button"
+                            className="outline-none mobile-menu-button w-6 h-6 text-xl text-green-800"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         >
-                            <GiHamburgerMenu className="w-6 h-6 text-white" />
+                            {/* <GiHamburgerMenu className="w-6 h-6 text-green-800" /> */}
+                            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
                         </button>
                     </div>
 
                     {/* Menu */}
-                    <div className="hidden md:flex md:items-center flex-1 justify-center">
-                        <ul className="flex space-x-8 items-center">
+                    <div className="hidden lg:flex md:items-center flex-1 justify-center">
+                        <ul className="flex space-x-8 items-center  font-semibold">
                             <li className="px-4 py-2 hover:text-green-500 transition-colors duration-200 cursor-pointer" onClick={() => handleClick(`/get-involved`)}>
                                 Home
                             </li>
@@ -358,42 +326,84 @@ const EcommerceNavbar = () => {
                         </ul>
                     </div>
 
+                    <div className="relative hidden lg:flex items-center pr-3">
+                        {!isOpen ? (
+                            // Search Icon
+                            <FaSearch
+                                className="xl:text-xl text-xl cursor-pointer text-green-700 hover:text-green-800 transition-all"
+                                onClick={handleSearchIconClick}
+                            />
+                        ) : (
+                            // Search Box
+                            <form
+                                onSubmit={handleSearch}
+                                className="relative flex items-center"
+                            >
+                                <input
+                                    type="text"
+                                    className="border-b border-gray-400 focus:border-gray-800 bg-transparent px-2 py-1 focus:outline-none text-gray-700 placeholder-gray-400 transition-all duration-300"
+                                    placeholder="Search"
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                />
+                                <button
+                                    type="submit"
+                                    className="mx-2  transition duration-300"
+                                >
+                                    <FaSearch
+                                        className="text-md cursor-pointer text-gray-600 hover:text-green-700 transition-all"
+                                    //   onClick={handleSearchIconClick}
+                                    />
+                                </button>
+                                {/* Close Button */}
+                                <button
+                                    type="button"
+                                    onClick={() => setIsOpen(false)}
+                                    className="ml-0 text-gray-600 hover:text-red-600 w-6 h-6 transition-all duration-300 text-lg"
+                                >
+                                    <FaTimes
+                                        className="text-md cursor-pointer text-gray-600 hover:text-green-700 transition-all"
+                                    />
 
-
-                    {/* Search*/}
-                    <div className="relative hidden md:flex items-center pr-3">
-                        <FaSearch
-                            className="text-2xl cursor-pointer text-white hover:text-green-600 transition-all"
-                            // onClick={() => setIsOpen(true)}
-                            onClick={() => handleSearchIconClick()}
-                        />
+                                </button>
+                            </form>
+                        )}
                     </div>
 
                     {/* wishlist */}
-                    <div className="relative hidden md:flex  items-center pr-3">
+                    <div className="relative hidden lg:flex  items-center pr-3">
                         <Link href="/wishlist" >
                             <FaHeart
-                                className="text-2xl cursor-pointer text-white hover:text-green-600 transition-all"
+                                className="xl:text-xl text-xl cursor-pointer text-green-700 hover:text-green-800 transition-all"
                             />
+                            {wishlist.length > 0 && (
+                                <span className="absolute top-[-5px] p-2 right-0 block w-3 h-3 text-xs text-white bg-green-600 rounded-full flex items-center justify-center">
+                                    {wishlist.length}
+                                </span>
+                            )}
                         </Link>
                     </div>
 
                     {/* cart */}
-                    <div className="relative hidden md:flex  items-center pr-3">
+                    <div className="relative hidden lg:flex  items-center pr-3">
                         <Link href="/cart" >
                             <FaShoppingCart
-                                className="text-2xl cursor-pointer text-white hover:text-green-600 transition-all"
+                                className="xl:text-xl text-xl cursor-pointer text-green-700 hover:text-green-800 transition-all"
                             />
+                            {cartLength > 0 && (
+                                <span className="absolute top-[-5px] p-2 right-0 block w-3 h-3 text-xs text-white bg-green-600 rounded-full flex items-center justify-center">
+                                    {cartLength}
+                                </span>
+                            )}
                         </Link>
                     </div>
 
-
                     {/* profile  */}
                     {userSession && (
-                        <ul className="hidden md:flex items-center mr-3 space-x-4">
+                        <ul className="hidden lg:flex items-center mr-3 space-x-4">
                             <li className="relative">
                                 <div className="flex items-center cursor-pointer" onClick={toggleRightSidebar}>
-                                    <FaUserAlt className="hover:text-green-600 text-2xl" />
+                                    <FaUserAlt className="text-green-700 hover:text-green-800 xl:text-xl text-xl" />
                                 </div>
                                 <ul className={`absolute right-0 mt-2 w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
                                     <li className="px-4 py-2 border-b">
@@ -403,214 +413,284 @@ const EcommerceNavbar = () => {
                                         <Link href="/ecommerce-profile" className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100">
                                             <CgProfile />
                                             {/* <span>My Profile</span> */}
-                                            <Button variant="outline">My Profile</Button>
+                                            <Button variant="outline" className="h-8">My Profile</Button>
 
                                         </Link>
                                     </li>
-                                    <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
+                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
                                         <TbPasswordUser />
                                         <span>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">Change Password</Button>
+                                                    <Button variant="outline" className="h-8">
+                                                        Change Password
+                                                    </Button>
                                                 </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogTitle className="text-center">
-                                                        <Form {...form}>
-                                                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="oldPassword"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Old Password</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    placeholder="old password"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
+                                                <AlertDialogContent className="border-t-4 border-green-700">
+                                                    <div className="relative z-50">
+                                                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                                            <div className="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-screen overflow-y-auto scrollbar-hide">
+                                                                <div className="flex justify-between  px-6 py-4 items-center  bg-green-700 text-white">
 
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="newPassword"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">New Password</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    placeholder="new password"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                <div className="flex gap-2 justify-end">
-                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                    <Button
-                                                                        type="submit"
-                                                                        disabled={isSubmitting}
-                                                                        className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
-                                                                    >
-                                                                        {isSubmitting ? (
-                                                                            <>
-                                                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
-                                                                            </>
-                                                                        ) : (
-                                                                            'Change Password'
-                                                                        )}
-                                                                    </Button>
+                                                                    <div></div>
+                                                                    {/* <h2 className="text-center text-lg font-bold mb-0">Password</h2> */}
+                                                                    <AlertDialogTitle>Change Password</AlertDialogTitle>
+                                                                    <div>
+                                                                        <AlertDialogCancel asChild>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="px-4 py-2 text-white text-5xl mt-0  border bg-green-700 transition"
+                                                                            >
+                                                                                X
+                                                                            </button>
+                                                                        </AlertDialogCancel>
+                                                                    </div>
                                                                 </div>
-                                                            </form>
-                                                        </Form>
-                                                    </AlertDialogTitle>
+
+
+                                                                <div className="p-6">
+                                                                    <Form {...form}>
+                                                                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                                                            {/* Old Password Field */}
+                                                                            <FormField
+                                                                                control={form.control}
+                                                                                name="oldPassword"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="text-sm">Old Password</FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="password"
+                                                                                                placeholder="Enter old password"
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            {/* New Password Field */}
+                                                                            <FormField
+                                                                                control={form.control}
+                                                                                name="newPassword"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="text-sm">New Password</FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="password"
+                                                                                                placeholder="Enter new password"
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            {/* Action Buttons */}
+                                                                            <div className="flex justify-end gap-2">
+                                                                                <AlertDialogCancel asChild>
+                                                                                    <Button variant="outline">Cancel</Button>
+                                                                                </AlertDialogCancel>
+                                                                                <Button
+                                                                                    type="submit"
+                                                                                    disabled={isSubmitting}
+                                                                                    className="bg-green-600 text-white font-bold px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition text-sm"
+                                                                                >
+                                                                                    {isSubmitting ? (
+                                                                                        <>
+                                                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                                                            Please Wait
+                                                                                        </>
+                                                                                    ) : (
+                                                                                        'Change Password'
+                                                                                    )}
+                                                                                </Button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </Form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </AlertDialogContent>
                                             </AlertDialog>
                                         </span>
                                     </li>
-                                    <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
-                                        <FaAddressBook/>
-                                        <span>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">Add Address</Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogTitle className="text-center">
-                                                        <Form {...addressForm}>
-                                                            <form onSubmit={addressForm.handleSubmit(onAddressSubmit)} className="space-y-6">
-                                                                {/* Street Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="street"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Street</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="Street"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
 
-                                                                {/* City Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="city"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">City</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="City"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
+                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
+                                        <FaAddressBook />
+                                        {/* <span> */}
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild >
+                                                <Button variant="outline" className="h-8">
+                                                    Add Address
+                                                </Button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent className="border-t-4 border-green-700">
+                                                <div className="relative z-50">
+                                                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                                        <div className="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-screen overflow-y-auto scrollbar-hide">
+                                                            <div className="">
+                                                                <div className="flex justify-between  px-6 py-4 items-center  bg-green-700 text-white">
 
-                                                                {/* State Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="state"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">State</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="State"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* Postal Code Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="postalCode"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Postal Code</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="Postal Code"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* phone */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="phone"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Phone No.</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="Phone no."
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* Submit Button */}
-                                                                <div className="flex gap-2 justify-end">
-                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                    <Button
-                                                                        type="submit"
-                                                                        disabled={isSubmitting}
-                                                                        className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
-                                                                    >
-                                                                        {isSubmitting ? (
-                                                                            <>
-                                                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
-                                                                            </>
-                                                                        ) : (
-                                                                            'Done'
-                                                                        )}
-                                                                    </Button>
+                                                                    <div></div>
+                                                                    {/* <h2 className="text-center text-lg font-bold mb-0">Add Address</h2> */}
+                                                                    <AlertDialogTitle>Add Address</AlertDialogTitle>
+                                                                    <div>
+                                                                        <AlertDialogCancel asChild>
+                                                                            <button
+                                                                                type="button"
+                                                                                className="px-4 py-2 text-white text-5xl mt-0  border bg-green-700 transition"
+                                                                            >
+                                                                                X
+                                                                            </button>
+                                                                        </AlertDialogCancel>
+                                                                    </div>
                                                                 </div>
-                                                            </form>
-                                                        </Form>
-                                                    </AlertDialogTitle>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </span>
+
+                                                                <div className="p-6">
+
+                                                                    <Form {...addressForm}>
+                                                                        <form
+                                                                            onSubmit={addressForm.handleSubmit(onAddressSubmit)}
+                                                                            className="space-y-6"
+                                                                        >
+                                                                            <FormField
+                                                                                control={addressForm.control}
+                                                                                name="street"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="flex justify-start text-1xl">
+                                                                                            Street
+                                                                                        </FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="text"
+                                                                                                required
+                                                                                                placeholder="Street"
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={addressForm.control}
+                                                                                name="city"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="flex justify-start text-1xl">
+                                                                                            City
+                                                                                        </FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="text"
+                                                                                                required
+                                                                                                placeholder="City"
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={addressForm.control}
+                                                                                name="state"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="flex justify-start text-1xl">
+                                                                                            State
+                                                                                        </FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="text"
+                                                                                                required
+                                                                                                placeholder="State"
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={addressForm.control}
+                                                                                name="postalCode"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="flex justify-start text-1xl">
+                                                                                            Postal Code
+                                                                                        </FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="text"
+                                                                                                required
+                                                                                                placeholder="Postal Code"
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <FormField
+                                                                                control={addressForm.control}
+                                                                                name="phone"
+                                                                                render={({ field }) => (
+                                                                                    <FormItem>
+                                                                                        <FormLabel className="flex justify-start text-1xl">
+                                                                                            Phone No.
+                                                                                        </FormLabel>
+                                                                                        <FormControl>
+                                                                                            <Input
+                                                                                                type="text"
+                                                                                                required
+                                                                                                placeholder="Phone no."
+                                                                                                {...field}
+                                                                                            />
+                                                                                        </FormControl>
+                                                                                        <FormMessage />
+                                                                                    </FormItem>
+                                                                                )}
+                                                                            />
+                                                                            <div className="flex gap-2 item-center justify-end">
+                                                                                <AlertDialogCancel asChild>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="px-4 py-2 text-gray-700 mt-0 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 transition"
+                                                                                    >
+                                                                                        Cancel
+                                                                                    </button>
+                                                                                </AlertDialogCancel>
+                                                                                <Button
+                                                                                    type="submit"
+                                                                                    disabled={isSubmitting}
+                                                                                    className="bg-green-600 text-white font-bold py-2 px-5 w-40 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
+                                                                                >
+                                                                                    {isSubmitting ? (
+                                                                                        <>
+                                                                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please
+                                                                                            Wait
+                                                                                        </>
+                                                                                    ) : (
+                                                                                        "Add Address"
+                                                                                    )}
+                                                                                </Button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </Form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
+
+                                        {/* </span> */}
                                     </li>
 
                                     <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
@@ -618,10 +698,10 @@ const EcommerceNavbar = () => {
                                         <span>
                                             <AlertDialog>
                                                 <AlertDialogTrigger asChild>
-                                                    <Button variant="outline">Log out</Button>
+                                                    <Button variant="outline" className="h-8">Log out</Button>
                                                 </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
+                                                <AlertDialogContent className='border-t-4 border-green-700'>
+                                                    <AlertDialogHeader >
                                                         <AlertDialogTitle className="text-center">
                                                             Are you sure you want to log out of E-commerce Platform?
                                                         </AlertDialogTitle>
@@ -629,7 +709,7 @@ const EcommerceNavbar = () => {
                                                     <AlertDialogFooter>
                                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                         <AlertDialogAction onClick={() => handleSignOut('ecommerce')} className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm">
-                                                            Sign Out
+                                                            Log Out
                                                         </AlertDialogAction>
                                                     </AlertDialogFooter>
                                                 </AlertDialogContent>
@@ -641,416 +721,562 @@ const EcommerceNavbar = () => {
                         </ul>
                     )}
 
-
                     {/* signup  */}
-                    <div className="hidden md:flex md:items-center ">
-                        <Link href="/signup" className="px-5 py-2 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
+                    <div className="hidden lg:flex md:items-center ">
+                        <Link href="/signup" className="px-5 py-2 text-white hover:text-white font-bold rounded-full shadow-md bg-green-700 hover:bg-green-800  transition duration-300">
                             Sign Up
                         </Link>
                     </div>
 
                     {/* signin  */}
-                    <div className="hidden md:flex md:items-center ">
-                        <Link href="/ecommerce-signin" className="  text-white font-bold  hover:text-green-600 transition duration-300">
+                    <div className="hidden lg:flex md:items-center ">
+                        <Link href="/ecommerce-signin" className="   font-bold  text-green-700 hover:text-green-800 transition duration-300">
                             Sign In
                         </Link>
                     </div>
-
-
-
                 </div>
 
 
+                {/* Mobile Menu */}
+                <div className={`lg:hidden ${mobileMenuOpen ? "block" : "hidden"}  transition-transform duration-300`}>
+                    <div className={`flex justify-end items-center py-1  ${isOpen ? "flex-col-reverse sm:flex-row" : "flex"}`}>
+                        <div>
+                            <div className="relative flex  items-center pr-3">
+                                {!isOpen ? (
+                                    // Search Icon
+                                    <FaSearch
+                                        className="text-xl cursor-pointer text-green-700 hover:text-green-800 transition-all"
+                                        onClick={handleSearchIconClick}
+                                    />
+                                ) : (
+                                    // Search Box
+                                    <form
+                                        onSubmit={handleSearch}
+                                        className="relative flex items-center"
+                                    >
+                                        <input
+                                            type="text"
+                                            className="border-b border-gray-400 focus:border-gray-800 bg-transparent px-2 py-1 focus:outline-none text-gray-700 placeholder-gray-400 transition-all duration-300"
+                                            placeholder="Search"
+                                            value={query}
+                                            onChange={(e) => setQuery(e.target.value)}
+                                        />
+                                        <button
+                                            type="submit"
+                                            className="mx-2  transition duration-300"
+                                        >
+                                            <FaSearch
+                                                className="text-md cursor-pointer text-gray-600 hover:text-green-700 transition-all"
+                                            //   onClick={handleSearchIconClick}
+                                            />
+                                        </button>
+                                        {/* Close Button */}
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsOpen(false)}
+                                            className="ml-0 text-gray-600 hover:text-red-600 w-6 h-6 transition-all duration-300 text-lg"
+                                        >
+                                            <FaTimes />
+
+                                        </button>
+                                    </form>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className='flex justify-end items-center pr-3'>
+                            {/* wishlist */}
+                            <div className="relative flex  items-center pr-3">
+                                <Link href="/wishlist" >
+                                    <>
+                                        <FaHeart
+                                            className="text-xl cursor-pointer text-green-700 hover:text-green-800  transition-all"
+                                        />
+                                        {wishlist.length > 0 && (
+                                            <span className="absolute top-0 right-0 block w-5 h-5 text-xs text-white bg-green-600 rounded-full flex items-center justify-center">
+                                                {wishlist.length}
+                                            </span>
+                                        )}
+                                    </>
+
+                                </Link>
+                            </div>
 
 
+                            {/* cart */}
+                            <div className="relative flex  items-center pr-3">
+                                <Link href="/cart" >
+                                    <>
+                                        <FaShoppingCart
+                                            className="text-xl cursor-pointer text-green-700 hover:text-green-800  transition-all"
+                                        />
+                                        {cartLength > 0 && (
+                                            <span className="absolute top-0 right-0 block w-5 h-5 text-xs text-white bg-green-600 rounded-full flex items-center justify-center">
+                                                {cartLength}
+                                            </span>
+                                        )}
+                                    </>
+
+                                </Link>
+                            </div>
+
+                            {/* profile  */}
+                            {userSession && (
+                                <ul className="flex lg:hidden items-center  mr-3 space-x-4">
+                                    <li className="relative">
+                                        <div className="flex items-center cursor-pointer" onClick={toggleRightSidebar}>
+                                            <FaUserAlt className="text-green-700 hover:text-green-700 xl:text-2xl text-xl" />
+                                        </div>
+                                        <ul className={`absolute right-0 mt-2 w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
+                                            <li className="px-4 py-2 border-b">
+                                                <h6 className="text-lg text-center font-medium">User ( {session?.user.userName} )</h6>
+                                            </li>
+                                            <li>
+                                                <Link href="/ecommerce-profile" className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100">
+                                                    <CgProfile />
+                                                    {/* <span>My Profile</span> */}
+                                                    <Button variant="outline" className="h-8">My Profile</Button>
+
+                                                </Link>
+                                            </li>
+                                            <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
+                                                <TbPasswordUser />
+                                                <span>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger asChild>
+                                                            <Button variant="outline" className="h-8">
+                                                                Change Password
+                                                            </Button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent className="border-t-4 border-green-700">
+                                                            <div className="relative z-50">
+                                                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                                                    <div className="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-screen overflow-y-auto scrollbar-hide">
+                                                                        <div className="flex justify-between  px-6 py-2 items-center  bg-green-700 text-white">
+
+                                                                            <div></div>
+                                                                            {/* <h2 className="text-center text-lg font-bold mb-0">Password</h2> */}
+                                                                            <AlertDialogTitle>Change Password</AlertDialogTitle>
+                                                                            <div>
+                                                                                <AlertDialogCancel asChild>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="px-4 py-2 text-white text-5xl mt-0  border bg-green-700 transition"
+                                                                                    >
+                                                                                        X
+                                                                                    </button>
+                                                                                </AlertDialogCancel>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="p-6">
+                                                                            <Form {...form}>
+                                                                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                                                                    {/* Old Password Field */}
+                                                                                    <FormField
+                                                                                        control={form.control}
+                                                                                        name="oldPassword"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="text-sm">Old Password</FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="password"
+                                                                                                        placeholder="Enter old password"
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    {/* New Password Field */}
+                                                                                    <FormField
+                                                                                        control={form.control}
+                                                                                        name="newPassword"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="text-sm">New Password</FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="password"
+                                                                                                        placeholder="Enter new password"
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    {/* Action Buttons */}
+                                                                                    <div className="flex justify-end gap-2">
+                                                                                        <AlertDialogCancel asChild className='mt-0'>
+                                                                                            <Button variant="outline">Cancel</Button>
+                                                                                        </AlertDialogCancel>
+                                                                                        <Button
+                                                                                            type="submit"
+                                                                                            disabled={isSubmitting}
+                                                                                            className="bg-green-600 text-white font-bold px-4 py-2 rounded-lg shadow-md hover:bg-green-700 transition text-sm"
+                                                                                        >
+                                                                                            {isSubmitting ? (
+                                                                                                <>
+                                                                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                                                                    Please Wait
+                                                                                                </>
+                                                                                            ) : (
+                                                                                                'Change Password'
+                                                                                            )}
+                                                                                        </Button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </Form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                </span>
+                                            </li>
+
+                                            <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
+                                                <FaAddressBook />
+                                                {/* <span> */}
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger asChild >
+                                                        <Button variant="outline" className="h-8">
+                                                            Add Address
+                                                        </Button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent className="border-t-4 border-green-700">
+                                                        <div className="relative z-50">
+                                                            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                                                <div className="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-screen overflow-y-auto scrollbar-hide">
+                                                                    <div className="">
+                                                                        <div className="flex justify-between  px-6 py-2 items-center  bg-green-700 text-white">
+
+                                                                            <div></div>
+                                                                            {/* <h2 className="text-center text-lg font-bold mb-0">Add Address</h2> */}
+                                                                            <AlertDialogTitle>Change Password</AlertDialogTitle>
+                                                                            <div>
+                                                                                <AlertDialogCancel asChild>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="px-4 py-2 text-white text-5xl mt-0  border bg-green-700 transition"
+                                                                                    >
+                                                                                        X
+                                                                                    </button>
+                                                                                </AlertDialogCancel>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className="p-6">
+
+                                                                            <Form {...addressForm}>
+                                                                                <form
+                                                                                    onSubmit={addressForm.handleSubmit(onAddressSubmit)}
+                                                                                    className="space-y-6"
+                                                                                >
+                                                                                    <FormField
+                                                                                        control={addressForm.control}
+                                                                                        name="street"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="flex justify-start text-1xl">
+                                                                                                    Street
+                                                                                                </FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="text"
+                                                                                                        required
+                                                                                                        placeholder="Street"
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    <FormField
+                                                                                        control={addressForm.control}
+                                                                                        name="city"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="flex justify-start text-1xl">
+                                                                                                    City
+                                                                                                </FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="text"
+                                                                                                        required
+                                                                                                        placeholder="City"
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    <FormField
+                                                                                        control={addressForm.control}
+                                                                                        name="state"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="flex justify-start text-1xl">
+                                                                                                    State
+                                                                                                </FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="text"
+                                                                                                        required
+                                                                                                        placeholder="State"
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    <FormField
+                                                                                        control={addressForm.control}
+                                                                                        name="postalCode"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="flex justify-start text-1xl">
+                                                                                                    Postal Code
+                                                                                                </FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="text"
+                                                                                                        required
+                                                                                                        placeholder="Postal Code"
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    <FormField
+                                                                                        control={addressForm.control}
+                                                                                        name="phone"
+                                                                                        render={({ field }) => (
+                                                                                            <FormItem>
+                                                                                                <FormLabel className="flex justify-start text-1xl">
+                                                                                                    Phone No.
+                                                                                                </FormLabel>
+                                                                                                <FormControl>
+                                                                                                    <Input
+                                                                                                        type="text"
+                                                                                                        required
+                                                                                                        placeholder="Phone no."
+                                                                                                        {...field}
+                                                                                                    />
+                                                                                                </FormControl>
+                                                                                                <FormMessage />
+                                                                                            </FormItem>
+                                                                                        )}
+                                                                                    />
+                                                                                    <div className="flex gap-2 item-center justify-end">
+                                                                                        <AlertDialogCancel asChild>
+                                                                                            <button
+                                                                                                type="button"
+                                                                                                className="px-4 py-2 text-gray-700 mt-0 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 transition"
+                                                                                            >
+                                                                                                Cancel
+                                                                                            </button>
+                                                                                        </AlertDialogCancel>
+                                                                                        <Button
+                                                                                            type="submit"
+                                                                                            disabled={isSubmitting}
+                                                                                            className="bg-green-600 text-white font-bold py-2 px-5 w-40 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
+                                                                                        >
+                                                                                            {isSubmitting ? (
+                                                                                                <>
+                                                                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please
+                                                                                                    Wait
+                                                                                                </>
+                                                                                            ) : (
+                                                                                                "Add Address"
+                                                                                            )}
+                                                                                        </Button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </Form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+
+                                                {/* </span> */}
+                                            </li>
+
+                                            <li className="flex items-center px-4 gap-3 py-2 hover:bg-gray-100">
+                                                <GoSignOut />
+                                                <span>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger asChild>
+                                                            <Button variant="outline" className="h-8">Log out</Button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent className='border-t-4 border-green-700'>
+                                                            <AlertDialogHeader >
+                                                                <AlertDialogTitle className="text-center">
+                                                                    Are you sure you want to log out of E-commerce Platform?
+                                                                </AlertDialogTitle>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                <AlertDialogAction onClick={() => handleSignOut('ecommerce')} className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm">
+                                                                    Log Out
+                                                                </AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            )}
 
 
-                {/* Conditional Search Bar */}
+                            <div className="py-2 px-1 ">
+                                <Link href="/signup" className="block text-center px-4 py-1  text-white bg-green-700 hover:bg-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
+                                    Sign Up
+                                </Link>
+                            </div>
+                            <div className="px-1 py-2">
+                                <Link href="/ecommerce-signin" className="  text-green-700 font-bold  hover:text-green-800 transition duration-300">
+                                    Sign In
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={` ${isOpen ? 'h-screen ' : 'h-[155px]'}`}>
+                        <div className={` ${isOpen ? 'h-full ' : 'h-[155px]'} overflow-y-auto`}>
+                            <div>
+
+                                <ul className="text-green-800 bg-[#f2f2f2] py-2 space-y-2">
+                                    <li className="px-4 mt-2 hover:bg-white" onClick={() => handleClick(`/get-involved`)}>
+                                        Home
+                                    </li>
+
+                                    {categories.map((category) => (
+                                        <li
+                                            key={category.value}
+                                            className="px-4  hover:bg-white"
+                                            onClick={() => handleClick(`/shop/${category.value}`)}
+                                        >
+                                            {category.label}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            {/* Search Form */}
+                            {isOpen && (
+                                <>
+                                    <div className=" lg:hidden  py-4   w-100">
+                                        <div className=' p-4  '>
+
+                                            <h1 className="text-xl font-semibold mb-4">
+                                                {query ? `Search Results for "${query}"` : 'All Products'}
+                                            </h1>
+
+                                            <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4  mb-[110px] ">
+                                                {filteredProducts.length > 0 ? (
+                                                    filteredProducts.map((product) => (
+                                                        <div
+                                                            key={product.id}
+                                                            className="border cursor-pointer rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                                                            onClick={() => handleProductClick(product.category, product._id)}
+
+                                                        >
+                                                            <div className='sm:p-4 p-3 bg-white'>
+
+                                                                <img
+                                                                    src={product.images[0]}
+                                                                    alt={product.productName}
+                                                                    className="w-full h-40 object-contain mb-2 rounded-lg"
+                                                                />
+                                                            </div>
+                                                            <div className='sm:p-4 p-3'>
+                                                                <h2 className="text-lg font-semibold">{product.productName}</h2>
+                                                                <p className="text-green-600 font-bold">₹{product.sellingPrice}</p>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <p className="col-span-full text-center">No results found for "{query}"</p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+                </div>
+
+                {/* Conditional Search Bar desktop*/}
                 {isOpen && (
                     <div>
                         {/* Search Form */}
                         {isOpen && (
                             <>
-                                <form
-                                    onSubmit={handleSearch}
-                                    className="absolute top-0  left-0 flex items-center justify-between w-[100%] bg-green-800 shadow-lg rounded-lg py-3 px-4 border border-gray-300 z-50 transition-all duration-300"
-                                >
-                                    <input
-                                        type="text"
-                                        className="w-full bg-gray-50 border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 shadow-inner text-gray-700"
-                                        placeholder="Search for plants, seeds, tools..."
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="ml-2 sm:ml-4 bg-white text-green-800 px-2 sm:px-6 py-2 rounded-lg shadow-md font-bold hover:bg-green-600 hover:text-white transition duration-300"
-                                    >
-                                        Search
-                                    </button>
-                                    {/* Close button */}
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsOpen(false)}
-                                        className="ml-2 text-gray-600 hover:text-red-600 transition-all duration-300"
-                                    >
-                                        ✖
-                                    </button>
-                                </form>
-                                <div className="p-4">
-                                    <h1 className="text-2xl font-bold mb-4">
-                                        {query ? `Search Results for "${query}"` : 'All Products'}
-                                    </h1>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 overflow-auto max-h-[80vh] p-2 scrollbar-hide">
-                                        {filteredProducts.length > 0 ? (
-                                            filteredProducts.map((product) => (
-                                                <div
-                                                    key={product.id}
-                                                    className="border cursor-pointer p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                                                    onClick={() => handleProductClick(product.category, product._id)}
+                                <div className='py-1'>
 
-                                                >
-                                                    <img
-                                                        src={product.images[0]}
-                                                        alt={product.productName}
-                                                        className="w-full h-40 object-cover mb-2 rounded-lg"
-                                                    />
-                                                    <h2 className="text-lg font-semibold">{product.productName}</h2>
-                                                    <p className="text-green-600 font-bold">${product.sellingPrice}</p>
+                                    <div className={` ${isOpen ? 'h-full ' : 'h-[155px]'}`}>
+                                        <div className={` ${isOpen ? 'h-full max-h-[400px] ' : 'h-[155px]'} overflow-y-auto`}>
+                                            <div className="hidden lg:flex container w-full py-4 px-4 mx-auto h-full max-h-[500px]">
+                                                <div className='overflow-y-auto w-full scrollbar-hide '>
+
+                                                    <h1 className="text-xl font-semibold pl-1 mb-4">
+                                                        {query ? `Search Results for "${query}"` : 'All Products'}
+                                                    </h1>
+
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 overflow-auto  p-2 scrollbar-hide">
+                                                        {filteredProducts.length > 0 ? (
+                                                            filteredProducts.map((product) => (
+                                                                <div
+                                                                    key={product.id}
+                                                                    className=" cursor-pointer border-green-700 border-t-2   rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                                                                    onClick={() => handleProductClick(product.category, product._id)}
+
+                                                                >
+                                                                    <div className='bg-white p-4'>
+
+                                                                        <img
+                                                                            src={product.images[0]}
+                                                                            alt={product.productName}
+                                                                            className="w-full h-40 object-contain mb-2 rounded-lg"
+                                                                        />
+                                                                    </div>
+                                                                    <div className='p-4'>
+                                                                        <h2 className="text-lg font-semibold">{product.productName}</h2>
+                                                                        <p className="text-green-600 font-bold">₹{product.sellingPrice}</p>
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <p className="col-span-full text-center">No results found for "{query}"</p>
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            ))
-                                        ) : (
-                                            <p className="col-span-full text-center">No results found for "{query}"</p>
-                                        )}
+
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </>
-
                         )}
-
-
                     </div>
-
-
-
                 )}
-
-
-
-
-                {/* Mobile Menu */}
-                <div className={`md:hidden ${mobileMenuOpen ? "block" : "hidden"} ${isOpen ? 'hidden' : 'block'} transition-transform duration-300`}>
-                    <div className="flex justify-end items-center py-1">
-                        {/* Search*/}
-                        <div className="relative flex items-center pr-3">
-                            <FaSearch
-                                className="text-xl cursor-pointer text-white hover:text-green-600 transition-all"
-                                // onClick={() => setIsOpen(true)}
-                                onClick={() => handleSearchIconClick()}
-                            />
-                        </div>
-
-                        {/* wishlist */}
-                        <div className="relative flex  items-center pr-3">
-                            <Link href="/wishlist" >
-                                <FaHeart
-                                    className="text-xl cursor-pointer text-white hover:text-green-600 transition-all"
-                                />
-                            </Link>
-                        </div>
-
-                        {/* cart */}
-                        <div className="relative flex  items-center pr-3">
-                            <Link href="/cart" >
-                                <FaShoppingCart
-                                    className="text-xl cursor-pointer text-white hover:text-green-600 transition-all"
-                                />
-                            </Link>
-                        </div>
-             
-                        {userSession && (
-                        <ul className="flex md:hidden items-center mr-3 space-x-4">
-                            <li className="relative">
-                                <div className="flex items-center cursor-pointer" onClick={toggleRightSidebar}>
-                                    <FaUserAlt className="hover:text-green-600 text-xl" />
-                                </div>
-                                <ul className={`absolute right-[-97px] md:right-0 mt-2 sm:w-60 bg-white text-black shadow-lg rounded-md ${rightbarOpen ? 'block' : 'hidden'} transition-transform duration-200 ease-in-out`}>
-                                    <li className="px-4 py-1  border-b">
-                                        <h6 className="text-lg text-center font-medium">User ( {session?.user.userName} )</h6>
-                                    </li>
-                                    <li>
-                                        <Link href="/ecommerce-profile" className="flex items-center gap-3 px-4 py-1  hover:bg-gray-100">
-                                            <CgProfile />
-                                            {/* <span>My Profile</span> */}
-                                            <Button variant="outline" className='h-8'>My Profile</Button>
-
-                                        </Link>
-                                    </li>
-                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
-                                        <TbPasswordUser />
-                                        <span>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="outline" className='h-8'>Change Password</Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogTitle className="text-center">
-                                                        <Form {...form}>
-                                                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="oldPassword"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Old Password</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    placeholder="old password"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                <FormField
-                                                                    control={form.control}
-                                                                    name="newPassword"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">New Password</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    placeholder="new password"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                <div className="flex gap-2 justify-end">
-                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                    <Button
-                                                                        type="submit"
-                                                                        disabled={isSubmitting}
-                                                                        className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
-                                                                    >
-                                                                        {isSubmitting ? (
-                                                                            <>
-                                                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
-                                                                            </>
-                                                                        ) : (
-                                                                            'Change Password'
-                                                                        )}
-                                                                    </Button>
-                                                                </div>
-                                                            </form>
-                                                        </Form>
-                                                    </AlertDialogTitle>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </span>
-                                    </li>
-                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
-                                        <FaAddressBook />
-                                        <span>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="outline" className='h-8'>Add Address</Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogTitle className="text-center">
-                                                        <Form {...addressForm}>
-                                                            <form onSubmit={addressForm.handleSubmit(onAddressSubmit)} className="space-y-6">
-                                                                {/* Street Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="street"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Street</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="Street"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* City Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="city"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">City</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="City"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* State Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="state"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">State</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="State"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* Postal Code Field */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="postalCode"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Postal Code</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="Postal Code"
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* phone */}
-                                                                <FormField
-                                                                    control={addressForm.control}
-                                                                    name="phone"
-                                                                    render={({ field }) => (
-                                                                        <FormItem>
-                                                                            <FormLabel className="flex justify-start text-1xl">Phone No.</FormLabel>
-                                                                            <FormControl>
-                                                                                <Input
-                                                                                    type="text"
-                                                                                    required
-                                                                                    placeholder="Phone no."
-                                                                                    {...field}
-                                                                                />
-                                                                            </FormControl>
-                                                                            <FormMessage />
-                                                                        </FormItem>
-                                                                    )}
-                                                                />
-
-                                                                {/* Submit Button */}
-                                                                <div className="flex gap-2 justify-end">
-                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                    <Button
-                                                                        type="submit"
-                                                                        disabled={isSubmitting}
-                                                                        className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm"
-                                                                    >
-                                                                        {isSubmitting ? (
-                                                                            <>
-                                                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
-                                                                            </>
-                                                                        ) : (
-                                                                            'Done'
-                                                                        )}
-                                                                    </Button>
-                                                                </div>
-                                                            </form>
-                                                        </Form>
-                                                    </AlertDialogTitle>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </span>
-                                    </li>
-
-                                    <li className="flex items-center px-4 gap-3 py-1 hover:bg-gray-100">
-                                        <GoSignOut />
-                                        <span>
-                                            <AlertDialog>
-                                                <AlertDialogTrigger asChild>
-                                                    <Button variant="outline" className='h-8'>Log out</Button>
-                                                </AlertDialogTrigger>
-                                                <AlertDialogContent>
-                                                    <AlertDialogHeader>
-                                                        <AlertDialogTitle className="text-center">
-                                                            Are you sure you want to log out of E-commerce Platform?
-                                                        </AlertDialogTitle>
-                                                    </AlertDialogHeader>
-                                                    <AlertDialogFooter>
-                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                        <AlertDialogAction onClick={() => handleSignOut('ecommerce')} className="bg-green-600 text-white font-bold py-2 px-3 rounded-lg shadow-md hover:bg-green-700 transition-colors text-sm">
-                                                            Sign Out
-                                                        </AlertDialogAction>
-                                                    </AlertDialogFooter>
-                                                </AlertDialogContent>
-                                            </AlertDialog>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        )} 
-                        <div className="py-2 px-1 ">
-                            <Link href="/signup" className="block text-center px-4 py-1 bg-white text-green-800 font-bold rounded-full shadow-md hover:bg-green-600 hover:text-white transition duration-300">
-                                Sign Up
-                            </Link>
-                        </div>
-                        <div className="px-1 py-2">
-                            <Link href="/ecommerce-signin" className="  text-white font-bold  hover:text-green-600 transition duration-300">
-                                Sign In
-                            </Link>
-                        </div>
-
-                    </div>
-                    <ul className="bg-green-800 text-white py-2 space-y-2">
-                        <li className="px-4 mt-2 hover:bg-green-700" onClick={() => handleClick(`/get-involved`)}>
-                            Home
-                        </li>
-                        {categories.map((category) => (
-                            <li
-                                key={category.value}
-                                className="px-4  hover:bg-green-700"
-                                onClick={() => handleClick(`/shop/${category.value}`)}
-                            >
-                                {category.label}
-                            </li>
-                        ))}
-                    
-                    </ul>
-                </div>
             </nav>
-
-
         </>
 
     );

@@ -220,3 +220,38 @@
 }
 
 
+@layer utilities {
+  .text-shadow-green {
+    text-shadow: 3px 2px #067406;
+  }
+}
+
+
+.scrolling-text {
+  display: inline-block;
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+.shop-category-page-wrapper .product-category-card{
+  /* backgroundRepeat:'no-repeat', */
+  /* 'backgroundSize':'cover' */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media (max-width: 778px) {
+  .shop-category-page-wrapper .product-category-card{
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  }
+}

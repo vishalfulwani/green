@@ -1,6 +1,7 @@
 // cartSlice.ts
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 export interface ICartItem {
   product: {
@@ -55,6 +56,9 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const selectWishlistCount = (state: RootState) => state.wishlist.items.length;
+export const selectWishlistItems = (state: RootState) => state.wishlist.items;
 
 export const { addToCart, removeFromCart, updateQuantity, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
