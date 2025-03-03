@@ -160,6 +160,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className="p-4"
       onMouseEnter={() => setHoveredProductId(product._id.toString())} // Convert _id to string for comparison
       onMouseLeave={() => setHoveredProductId(null)}
+      onClick={() => goToProductPage(product.category, product._id.toString())}
       style={{ width: '100%' }}
 
     >
